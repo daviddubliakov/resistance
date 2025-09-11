@@ -1,5 +1,7 @@
 .main {
   background-image: url('../../assets/images/dark_background.png');
+  display: flex;
+  flex-direction: column;
 }
 .introduction {
   padding: 200px 176px;
@@ -18,13 +20,19 @@
 .site,
 .name {
   font-family: 'e-Ukraine-Head-Bold';
-  font-size: 160px;
+  font-size: 100px;
   color: var(--light-heading-color);
 }
 .name {
   padding: 20px;
-  line-height: 160px;
+  line-height: 100px;
   background-color: var(--selected-color);
+}
+
+.ratingCards {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
 }
 
 .whiteLine {
@@ -114,11 +122,6 @@
   display: inline-block;
   font-size: 18px;
   transform: rotate(-45deg);
-}
-
-.rating-cards {
-  display: flex;
-  gap: 30px;
 }
 
 .rating-line {
