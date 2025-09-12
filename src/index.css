@@ -35,8 +35,7 @@
 
 @font-face {
   font-family: 'e-Ukraine-Head-Medium';
-  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Medium.otf')
-    format('opentype');
+  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
 }
@@ -55,11 +54,6 @@
   --dark-text-color: #1f1f1f;
   --selected-color: #de442c;
   letter-spacing: 0.15px;
-}
-
-html {
-  width: 1920px;
-  overflow-x: hidden;
 }
 
 @media screen and (max-width: 500px) {
