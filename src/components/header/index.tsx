@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom'
 const Header: FC = () => {
   const [activeLanguage, setActiveLanguage] = useState('УКР')
 
-  const handleLanguageChange = (language: string) => {
-    setActiveLanguage(language)
+  const handleLanguageChange = (lng: string) => {
+    setActiveLanguage(lng)
   }
 
   return (
