@@ -32,7 +32,6 @@
 .ratingCards {
   display: flex;
   gap: 30px;
-  overflow-x: auto;
 }
 
 .whiteLine {
@@ -124,19 +123,36 @@
   transform: rotate(-45deg);
 }
 
-.rating-line {
+.ratingLine {
   margin-top: -3px;
   height: 4px;
   width: 100%;
-  background: linear-gradient(
-    to right,
-    var(--background-color),
-    var(--background-color) 480px,
-    var(--selected-color) 480px,
-    var(--selected-color) 960px,
-    var(--background-color) 960px,
-    var(--background-color)
-  );
+  background: var(--background-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.ratingLine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--progress);
+  background: var(--selected-color);
+}
+
+.embla {
+  overflow: hidden;
+}
+
+.emblaContainer {
+  display: flex;
+  gap: 30px; /* your original gap */
+}
+
+.emblaSlide {
+  flex: 0 0 auto;
 }
 
 .slider {
