@@ -141,7 +141,7 @@ const HomePage: FC = () => {
               </p>
             </div>
             <div className={styles.ratingButtons}>
-              <Link to={'/rating'} className={styles.ratingButton}>
+              <Link to="/rating" className={styles.ratingButton}>
                 РЕЙТИНГ ЗАШКВАРІВ
                 <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
               </Link>
@@ -178,12 +178,12 @@ const HomePage: FC = () => {
             </p>
           </div>
           <div className={styles.rememberLinks}>
-            <Link to={'/shames'} className={styles.rememberLink}>
+            <Link to="/shames" className={styles.rememberLink}>
               <p className={styles.linkText}>ЗАШКВАРИ</p>
               <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
             </Link>
             <div className={styles.thinLine} />
-            <Link to={'/rating'} className={styles.rememberLink}>
+            <Link to="/rating" className={styles.rememberLink}>
               <p className={styles.linkText}>ОСОБИ</p>
               <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
             </Link>
@@ -199,7 +199,7 @@ const HomePage: FC = () => {
               </p>
             </div>
             <div className={styles.latestButtons}>
-              <Link to={'/shames'} className={styles.latestButton}>
+              <Link to="/shames" className={styles.latestButton}>
                 ВСІ ЗАШКВАРИ
                 <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
               </Link>
