@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import Header from '../../components/header';
 import arrowDown from '../../assets/images/arrow_down.png';
 import styles from './home.module.css';
@@ -11,6 +11,7 @@ import PersonCard from '../../components/personCard';
 import { PersonCardInfo, ShameCardInfo } from '../../types';
 import ShameCard from '../../components/shameCard';
 import { Link } from 'react-router-dom';
+import useEmblaCarousel from 'embla-carousel-react';
 
 const ratingCards: PersonCardInfo[] = [
   {
@@ -84,6 +85,38 @@ const latestCards: ShameCardInfo[] = [
 ];
 
 const HomePage: FC = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [progress, setProgress] = useState(0);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const ratingLineStyle = {
+    '--progress': `${progress * 100}%`,
+  } as React.CSSProperties;
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const onScroll = () => {
+      setProgress(emblaApi.scrollProgress());
+    };
+
+    emblaApi.on('scroll', onScroll);
+    emblaApi.on('resize', onScroll);
+    onScroll();
+
+    return () => {
+      emblaApi.off('scroll', onScroll);
+      emblaApi.off('resize', onScroll);
+    };
+  }, [emblaApi]);
+
   return (
     <>
       <Header />
@@ -99,9 +132,9 @@ const HomePage: FC = () => {
             контролювати дії влади та боротися з корупцією.
           </p>
           <div className={styles.arrows}>
-            <img src={arrowDown} alt="arrow" />
-            <img src={arrowDown} alt="arrow" />
-            <img src={arrowDown} alt="arrow" />
+            <img src={arrowDown} alt='arrow' />
+            <img src={arrowDown} alt='arrow' />
+            <img src={arrowDown} alt='arrow' />
           </div>
         </section>
         <section className={styles.rating}>
@@ -115,28 +148,32 @@ const HomePage: FC = () => {
               </p>
             </div>
             <div className={styles.ratingButtons}>
-              <Link to={'/rating'} className={styles.ratingButton}>
+              <Link to='/rating' className={styles.ratingButton}>
                 РЕЙТИНГ ЗАШКВАРІВ
                 <Icon
-                  icon="fontisto:arrow-right"
+                  icon='fontisto:arrow-right'
                   className={styles.arrowRight}
                 ></Icon>
               </Link>
             </div>
           </div>
-          <div className={styles.ratingCards}>
-            {ratingCards.map((ratingCard, index) => (
-              <PersonCard key={index} {...ratingCard} />
-            ))}
+          <div className={styles.embla} ref={emblaRef}>
+            <div className={styles.emblaContainer}>
+              {ratingCards.map((ratingCard, index) => (
+                <div className={styles.emblaSlide} key={index}>
+                  <PersonCard {...ratingCard} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className={styles.ratingLine}></div>
+          <div className={styles.ratingLine} style={ratingLineStyle} />{' '}
           <div className={styles.slider}>
-            <div className={styles.sliderButton}>
-              <Icon icon="bxs:chevron-left" className={styles.sliderIcon} />
-            </div>
-            <div className={styles.sliderButton}>
-              <Icon icon="bxs:chevron-right" className={styles.sliderIcon} />
-            </div>
+            <button className={styles.sliderButton} onClick={scrollPrev}>
+              <Icon icon='bxs:chevron-left' className={styles.sliderIcon} />
+            </button>
+            <button className={styles.sliderButton} onClick={scrollNext}>
+              <Icon icon='bxs:chevron-right' className={styles.sliderIcon} />
+            </button>
           </div>
         </section>
         <section className={styles.remember}>
@@ -151,18 +188,18 @@ const HomePage: FC = () => {
             </p>
           </div>
           <div className={styles.rememberLinks}>
-            <Link to={'/shames'} className={styles.rememberLink}>
+            <Link to='/shames' className={styles.rememberLink}>
               <p className={styles.linkText}>ЗАШКВАРИ</p>
               <Icon
-                icon="fontisto:arrow-right"
+                icon='fontisto:arrow-right'
                 className={styles.linkIcon}
               ></Icon>
             </Link>
             <div className={styles.thinLine} />
-            <Link to={'/rating'} className={styles.rememberLink}>
+            <Link to='/rating' className={styles.rememberLink}>
               <p className={styles.linkText}>ОСОБИ</p>
               <Icon
-                icon="fontisto:arrow-right"
+                icon='fontisto:arrow-right'
                 className={styles.linkIcon}
               ></Icon>
             </Link>
@@ -179,10 +216,10 @@ const HomePage: FC = () => {
               </p>
             </div>
             <div className={styles.latestButtons}>
-              <Link to={'/shames'} className={styles.latestButton}>
+              <Link to='/shames' className={styles.latestButton}>
                 ВСІ ЗАШКВАРИ
                 <Icon
-                  icon="fontisto:arrow-right"
+                  icon='fontisto:arrow-right'
                   className={styles.arrowRight}
                 ></Icon>
               </Link>
