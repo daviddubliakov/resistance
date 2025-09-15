@@ -1,31 +1,28 @@
-import { useState, FC } from 'react';
-import logo from '../../assets/images/logo.png';
-import styles from './header.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, FC } from 'react'
+import logo from '../../assets/images/logo.png'
+import styles from './header.module.css'
+import { Link } from 'react-router-dom'
 
 const Header: FC = () => {
-  const navigate = useNavigate();
-  const [activeLanguage, setActiveLanguage] = useState('УКР');
+  const [activeLanguage, setActiveLanguage] = useState('УКР')
 
-  const handleLanguageChange = (language: string) => {
-    setActiveLanguage(language);
-  };
+  const handleLanguageChange = (lng: string) => {
+    setActiveLanguage(lng)
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.links}>
-        <Link to={'/shames'} className={styles.link}>
+        <Link to="/shames" className={styles.link}>
           Зашквари
         </Link>
-        <Link to={'/rating'} className={styles.link}>
+        <Link to="/rating" className={styles.link}>
           Особи
         </Link>
       </div>
-      <img
-        src={logo}
-        alt="logo"
-        className={styles.logo}
-        onClick={() => navigate('/')}
-      />
+      <Link to="/">
+        <img src={logo} alt="logo" className={styles.logo} width={60} height={60} />
+      </Link>
       <div className={styles.languages}>
         <button
           className={`${styles.languageButton} ${activeLanguage === 'УКР' ? styles.active : ''}`}
@@ -41,7 +38,7 @@ const Header: FC = () => {
         </button>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
