@@ -81,15 +81,15 @@
 }
 
 .logos {
-  height: 85px;
+  height: 100%;
   display: flex;
   gap: 30px;
 }
 
 .party,
 .work {
-  height: 31px;
   display: flex;
+  height: max-content;
   align-items: center;
   justify-content: center;
   gap: 10px;
