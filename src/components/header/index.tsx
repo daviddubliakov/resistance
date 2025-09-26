@@ -1,14 +1,9 @@
-import { useState, FC } from 'react'
+import { FC } from 'react'
 import logo from '../../assets/images/logo.png'
 import styles from './header.module.css'
 import { Link } from 'react-router-dom'
 
 const Header: FC = () => {
-  const [activeLanguage, setActiveLanguage] = useState('УКР')
-
-  const handleLanguageChange = (lng: string) => {
-    setActiveLanguage(lng)
-  }
 
   return (
     <header className={styles.header}>
@@ -23,19 +18,10 @@ const Header: FC = () => {
       <Link to="/">
         <img src={logo} alt="logo" className={styles.logo} width={60} height={60} />
       </Link>
-      <div className={styles.languages}>
-        <button
-          className={`${styles.languageButton} ${activeLanguage === 'УКР' ? styles.active : ''}`}
-          onClick={() => handleLanguageChange('УКР')}
-        >
-          УКР
-        </button>
-        <button
-          className={`${styles.languageButton} ${activeLanguage === 'EN' ? styles.active : ''}`}
-          onClick={() => handleLanguageChange('EN')}
-        >
-          EN
-        </button>
+      <div className={styles.links}>
+          <Link to="/about-us" className={styles.link}>
+              Про нас
+          </Link>
       </div>
     </header>
   )
