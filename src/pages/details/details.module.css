@@ -137,37 +137,6 @@
   margin: 0;
 }
 
-.description-socials {
-  margin-top: 30px;
-  display: flex;
-  gap: 20px;
-}
-
-.social {
-  box-sizing: border-box;
-  width: 36px;
-  height: 36px;
-  border: 1px rgb(31, 31, 31, 0.5) solid;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.social:hover {
-  background-color: var(--selected-color);
-  border: none;
-}
-
-.facebook {
-  font-size: 23px;
-  line-height: 36px;
-}
-
-.social:hover .facebook {
-  color: white;
-}
-
 .sources {
   background-image: url('../../assets/images/dark_background.png');
   padding: 80px 483px;
