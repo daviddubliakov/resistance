@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom'
 import PaginatedCards from '../../components/paginatedCards'
 import smallCardImage from '../../assets/images/small_card_image_example.png'
 import { ShameCardInfo } from '../../types'
-import SmallPerson from '../../components/smallPerson'
 
 const shameCards: ShameCardInfo[] = [
   {
