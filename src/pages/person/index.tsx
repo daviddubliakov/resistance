@@ -97,16 +97,6 @@ const PersonPage: FC = () => {
               </div>
             </div>
           </div>
-          <div className={styles.connected}>
-            <p className={styles.connectedHead}>ПОВ’ЯЗАНІ ОСОБИ:</p>
-            <div className={styles.connectedPersons}>
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
-            </div>
-          </div>
         </section>
         <section className={styles.latest}>
           <div className={styles.latestHeader}>
