@@ -9,7 +9,6 @@ import ShameCard from '../../components/shameCard'
 import { ShameCardInfo } from '../../types'
 import smallCardImage from '../../assets/images/small_card_image_example.png'
 import tape from '../../assets/images/tape.png'
-import SmallPerson from '../../components/smallPerson'
 
 const latestCards: ShameCardInfo[] = [
   {
@@ -83,16 +82,6 @@ const DetailsPage: FC = () => {
               Важливо, щоб подібні злочини розслідувалися та каралися, щоб запобігти подібним
               випадкам у майбутньому.
             </p>
-          </div>
-          <div className={styles.connected}>
-            <p className={styles.connectedHead}>ПОВ’ЯЗАНІ ОСОБИ:</p>
-            <div className={styles.connectedPersons}>
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
-            </div>
           </div>
         </section>
         <section className={styles.description}>

@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom'
 import PaginatedCards from '../../components/paginatedCards'
 import smallCardImage from '../../assets/images/small_card_image_example.png'
 import { ShameCardInfo } from '../../types'
-import SmallPerson from '../../components/smallPerson'
 
 const shameCards: ShameCardInfo[] = [
   {
@@ -95,16 +94,6 @@ const PersonPage: FC = () => {
                   <p className={styles.workText}>Начальник відділу фінансового моніторингу</p>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className={styles.connected}>
-            <p className={styles.connectedHead}>ПОВ’ЯЗАНІ ОСОБИ:</p>
-            <div className={styles.connectedPersons}>
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
-              <SmallPerson />
             </div>
           </div>
         </section>
