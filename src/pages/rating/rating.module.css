@@ -1,10 +1,13 @@
 .main {
   background-image: url('../../assets/images/light_background.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .introduction {
   background-image: url('../../assets/images/head_background.png');
   background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .breadcrumb {
@@ -72,11 +75,8 @@
   gap: 20px;
 }
 
-.rating {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-  padding: 80px 240px;
+.ratingLayout {
+  padding: 0 64px;
 }
 
 .rating-cards {

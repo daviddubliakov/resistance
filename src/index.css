@@ -61,3 +61,16 @@
     overflow: auto;
   }
 }
+
+.container {
+  width: 1440px;
+  margin: 0 auto;
+
+  @media (max-width: 1460px) {
+    width: 1280px;
+  }
+
+  @media (max-width: 1300px) {
+    width: 96%;
+  }
+}

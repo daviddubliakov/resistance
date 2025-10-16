@@ -2,12 +2,14 @@
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
-.container {
+.layout {
   display: flex;
   flex-direction: column;
   gap: 60px;
+  padding: 60px 0;
 }
 
 /* Default pagination styles override */
