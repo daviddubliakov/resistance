@@ -56,8 +56,8 @@ const RatingPage: FC = () => {
             <p className={styles.name}>РЕЙТИНГ ЗАШКВАРІВ</p>
             <div className={styles.whiteLine}></div>
             <p className={styles.goal}>
-              Ця категорія сайту присвячена висвітленню депутатів та чиновників,
-              які зрадили довіру народу та вчинили злочини проти України.
+              Перевірте, хто з депутатів міської ради найбільше
+              засвітився в черкаських зашкварах і як саме.
             </p>
             <div className={styles.arrows}>
               <img src={arrowDown} alt="arrow" />
