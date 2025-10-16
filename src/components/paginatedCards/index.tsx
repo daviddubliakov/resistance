@@ -19,7 +19,7 @@ const PaginatedCards: FC<{ cards: PersonCardInfo[] | ShameCardInfo[] }> = ({ car
   const currentCards = cards.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
 
   return (
-    <div className={styles.container}>
+    <div className={styles.layout}>
       <div className={styles.cardContainer}>
         {currentCards.map((card, index) => {
           return 'description' in card ? (
