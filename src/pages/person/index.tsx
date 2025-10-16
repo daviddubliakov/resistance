@@ -102,8 +102,7 @@ const PersonPage: FC = () => {
             <div className={styles.latestInfo}>
               <p className={styles.latestTitle}>59 ЗАШКВАРІВ</p>
               <p className={styles.latestDescription}>
-                Оновлюваний перелік епізодів корупції, хабарництва, зловживання владою,
-                некомпетентності та інших неприйнятних вчинків цього представника влади.
+                Перевірте, в яких черкаських зашкварах засвітився депутат і як саме.
               </p>
             </div>
             <div className={styles.latestButtons}>
