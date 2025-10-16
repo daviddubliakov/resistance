@@ -1,9 +1,12 @@
 .footer {
+  background-color: var(--background-color);
+}
+
+.layout {
   display: flex;
   flex-direction: column;
-  padding: 40px 240px;
+  padding: 40px 0;
   gap: 40px;
-  background-color: var(--background-color);
 }
 
 .links {
