@@ -1,21 +1,66 @@
 .footer {
+  background-color: var(--background-color);
+}
+
+.layout {
   display: flex;
   flex-direction: column;
-  padding: 40px 240px;
+  padding: 40px 0;
   gap: 40px;
-  background-color: var(--background-color);
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 }
 
 .links {
   display: flex;
   justify-content: space-between;
-  height: 64px;
   align-items: center;
 }
 
 .nav-links {
   display: flex;
   gap: 20px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    justify-content: space-between;
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.navLinksItems {
+  width: 100%;
+  display: flex;
+  justify-content: justify-between;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: max-content;
+  }
+}
+
+.navRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
 }
 
 .name {
@@ -32,6 +77,13 @@
   line-height: 26px;
   color: var(--light-text-color);
   text-decoration: none;
+  flex-shrink: 0;
+
+  @media (max-width: 640px) {
+    text-align: center;
+    flex-shrink: 1;
+    width: 100%;
+  }
 }
 
 .link:hover {
@@ -49,8 +101,13 @@
 
 .info {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 }
 
 .info-row {

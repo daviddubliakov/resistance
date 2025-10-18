@@ -1,15 +1,22 @@
 .header {
+  background-color: var(--background-color);
+}
+
+.layout {
   display: flex;
   align-items: center;
   gap: 60px;
-  padding: 0 240px;
-  background-color: var(--background-color);
 }
 
 .links {
   display: flex;
   width: 100%;
   height: 100%;
+
+  @media (max-width: 768px) {
+    display: none;
+    visibility: hidden;
+  }
 }
 
 .links:last-child {
