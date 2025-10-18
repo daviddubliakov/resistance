@@ -6,24 +6,26 @@ import { Link } from 'react-router-dom'
 const Header: FC = () => {
   return (
     <header className={styles.header}>
-      <section className={styles.layout}>
-        <div className={styles.links}>
-          <Link to="/shames" className={styles.link}>
-            Зашквари
+      <div className="container">
+        <section className={styles.layout}>
+          <div className={styles.links}>
+            <Link to="/shames" className={styles.link}>
+              Зашквари
+            </Link>
+            <Link to="/rating" className={styles.link}>
+              Особи
+            </Link>
+          </div>
+          <Link to="/">
+            <img src={logo} alt="logo" className={styles.logo} width={60} height={60} />
           </Link>
-          <Link to="/rating" className={styles.link}>
-            Особи
-          </Link>
-        </div>
-        <Link to="/">
-          <img src={logo} alt="logo" className={styles.logo} width={60} height={60} />
-        </Link>
-        <div className={styles.links}>
-          <Link to="/about-us" className={styles.link}>
-            Про проєкт
-          </Link>
-        </div>
-      </section>
+          <div className={styles.links}>
+            <Link to="/about-us" className={styles.link}>
+              Про проєкт
+            </Link>
+          </div>
+        </section>
+      </div>
     </header>
   )
 }
