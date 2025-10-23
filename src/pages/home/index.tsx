@@ -1,17 +1,17 @@
-import { FC, useCallback, useEffect, useState } from 'react';
-import Header from '../../components/header';
-import arrowDown from '../../assets/images/arrow_down.png';
-import styles from './home.module.css';
-import cardImage from '../../assets/images/card_image_example.png';
-import partyLogo from '../../assets/images/party_logo_example.png';
-import smallCardImage from '../../assets/images/small_card_image_example.png';
-import Footer from '../../components/footer';
-import { Icon } from '@iconify/react';
-import PersonCard from '../../components/personCard';
-import { PersonCardInfo, ShameCardInfo } from '../../types';
-import ShameCard from '../../components/shameCard';
-import { Link } from 'react-router-dom';
-import useEmblaCarousel from 'embla-carousel-react';
+import { FC, useCallback, useEffect, useState } from 'react'
+import Header from '../../components/header'
+import arrowDown from '../../assets/images/arrow_down.png'
+import styles from './home.module.css'
+import cardImage from '../../assets/images/card_image_example.png'
+import partyLogo from '../../assets/images/party_logo_example.png'
+import smallCardImage from '../../assets/images/small_card_image_example.png'
+import Footer from '../../components/footer'
+import { Icon } from '@iconify/react'
+import PersonCard from '../../components/personCard'
+import { PersonCardInfo, ShameCardInfo } from '../../types'
+import ShameCard from '../../components/shameCard'
+import { Link } from 'react-router-dom'
+import useEmblaCarousel from 'embla-carousel-react'
 
 const ratingCards: PersonCardInfo[] = [
   {
@@ -35,7 +35,7 @@ const ratingCards: PersonCardInfo[] = [
     party: 'Голос України',
     logo: partyLogo,
   },
-];
+]
 
 const latestCards: ShameCardInfo[] = [
   {
@@ -57,16 +57,14 @@ const latestCards: ShameCardInfo[] = [
     name: 'ОЛЕГ СИДОРЕНКО',
     add: '+3',
     date: '15 БЕР 2024',
-    description:
-      'Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!',
+    description: 'Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!',
   },
   {
     image: smallCardImage,
     name: 'МАКСИМ ШЕВЧЕНКО',
     add: '+5',
     date: '09 БЕР 2024',
-    description:
-      'Незаконне збагачення політиків - це злочин проти народу: час покласти край!',
+    description: 'Незаконне збагачення політиків - це злочин проти народу: час покласти край!',
   },
   {
     image: smallCardImage,
@@ -82,77 +80,76 @@ const latestCards: ShameCardInfo[] = [
     date: '01 БЕР 2024',
     description: 'Міністр зловживав владою: не можна залишати безкарним!',
   },
-];
+]
 
 const HomePage: FC = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  const [progress, setProgress] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+  const [progress, setProgress] = useState(0)
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
 
   const ratingLineStyle = {
     '--progress': `${progress * 100}%`,
-  } as React.CSSProperties;
+  } as React.CSSProperties
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!emblaApi) return
 
     const onScroll = () => {
-      setProgress(emblaApi.scrollProgress());
-    };
+      setProgress(emblaApi.scrollProgress())
+    }
 
-    emblaApi.on('scroll', onScroll);
-    emblaApi.on('resize', onScroll);
-    onScroll();
+    emblaApi.on('scroll', onScroll)
+    emblaApi.on('resize', onScroll)
+    onScroll()
 
     return () => {
-      emblaApi.off('scroll', onScroll);
-      emblaApi.off('resize', onScroll);
-    };
-  }, [emblaApi]);
+      emblaApi.off('scroll', onScroll)
+      emblaApi.off('resize', onScroll)
+    }
+  }, [emblaApi])
 
   return (
     <>
       <Header />
       <main className={styles.main}>
-        <section className={styles.introduction}>
-          <div className={styles.sitename}>
-            <p className={styles.site}>САЙТ</p>
-            <p className={styles.name}>СПРОТИВУ</p>
-          </div>
-          <div className={styles.whiteLine}></div>
-          <p className={styles.goal}>
-            Проєкт створений для того, щоб дати можливість жителям
-            Черкас стежити за діяльністю депутатів Черкаської міської
-            ради і виявляти їхню причетність до черкаських зашкварів.
-          </p>
-          <div className={styles.arrows}>
-            <img src={arrowDown} alt='arrow' />
-            <img src={arrowDown} alt='arrow' />
-            <img src={arrowDown} alt='arrow' />
-          </div>
-        </section>
+        <div className="container">
+          <section className={styles.introduction}>
+            <div className={styles.sitename}>
+              <p className={styles.site}>ЧЕРКАСЬКЕ</p>
+              <p className={styles.name}>ДОСЬЄ</p>
+            </div>
+            <div className={styles.whiteLine}></div>
+            <p className={styles.goal}>
+              Проєкт створений для того, щоб дати можливість жителям Черкас стежити за діяльністю
+              депутатів Черкаської міської ради і виявляти їхню причетність до черкаських зашкварів.
+            </p>
+            <div className={styles.arrows}>
+              <img src={arrowDown} alt="arrow" />
+              <img src={arrowDown} alt="arrow" />
+              <img src={arrowDown} alt="arrow" />
+            </div>
+          </section>
+        </div>
         <section className={styles.rating}>
           <div className={styles.ratingHeader}>
             <div className={styles.ratingInfo}>
               <p className={styles.ratingTitle}>РЕЙТИНГ ЗАШКВАРІВ</p>
               <p className={styles.ratingDescription}>
-                Перевірте, хто з депутатів міської ради найбільше засвітився в черкаських зашкварах і як саме
+                Перевірте, хто з депутатів міської ради найбільше засвітився в черкаських зашкварах
+                і як саме
               </p>
             </div>
             <div className={styles.ratingButtons}>
-              <Link to='/rating' className={styles.ratingButton}>
+              <Link to="/rating" className={styles.ratingButton}>
                 РЕЙТИНГ ЗАШКВАРІВ
-                <Icon
-                  icon='fontisto:arrow-right'
-                  className={styles.arrowRight}
-                ></Icon>
+                <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
               </Link>
             </div>
           </div>
@@ -168,38 +165,30 @@ const HomePage: FC = () => {
           <div className={styles.ratingLine} style={ratingLineStyle} />{' '}
           <div className={styles.slider}>
             <button className={styles.sliderButton} onClick={scrollPrev}>
-              <Icon icon='bxs:chevron-left' className={styles.sliderIcon} />
+              <Icon icon="bxs:chevron-left" className={styles.sliderIcon} />
             </button>
             <button className={styles.sliderButton} onClick={scrollNext}>
-              <Icon icon='bxs:chevron-right' className={styles.sliderIcon} />
+              <Icon icon="bxs:chevron-right" className={styles.sliderIcon} />
             </button>
           </div>
         </section>
         <section className={styles.remember}>
           <div className={styles.rememberInfo}>
-            <p className={styles.rememberHead}>
-              ЧЕРКАСИ ПАМ'ЯТАЮТЬ УСЕ
-            </p>
+            <p className={styles.rememberHead}>ЧЕРКАСИ ПАМ'ЯТАЮТЬ УСЕ</p>
             <p className={styles.rememberText}>
-              Цей сайт - "зовнішній носій" пам'яті виборців про діяльність депутатів
-              Черкаської міської ради і причетність їх до ситуацій, які викликали великий суспільний резонанс.
+              Цей сайт - "зовнішній носій" пам'яті виборців про діяльність депутатів Черкаської
+              міської ради і причетність їх до ситуацій, які викликали великий суспільний резонанс.
             </p>
           </div>
           <div className={styles.rememberLinks}>
-            <Link to='/shames' className={styles.rememberLink}>
+            <Link to="/shames" className={styles.rememberLink}>
               <p className={styles.linkText}>ЗАШКВАРИ</p>
-              <Icon
-                icon='fontisto:arrow-right'
-                className={styles.linkIcon}
-              ></Icon>
+              <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
             </Link>
             <div className={styles.thinLine} />
-            <Link to='/rating' className={styles.rememberLink}>
+            <Link to="/rating" className={styles.rememberLink}>
               <p className={styles.linkText}>ОСОБИ</p>
-              <Icon
-                icon='fontisto:arrow-right'
-                className={styles.linkIcon}
-              ></Icon>
+              <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
             </Link>
           </div>
         </section>
@@ -208,18 +197,15 @@ const HomePage: FC = () => {
             <div className={styles.latestInfo}>
               <p className={styles.latestTitle}>ОСТАННІ ЗАШКВАРИ</p>
               <p className={styles.latestDescription}>
-                Згадайте, які ситуації з життя черкаської громади викликали значний інтерес з боку жителів,
-                здобули широкого публічного розголосу, а дії та рішення міської влади по ним викликали осуд
-                та гостру негативну реакцію суспільства.
+                Згадайте, які ситуації з життя черкаської громади викликали значний інтерес з боку
+                жителів, здобули широкого публічного розголосу, а дії та рішення міської влади по
+                ним викликали осуд та гостру негативну реакцію суспільства.
               </p>
             </div>
             <div className={styles.latestButtons}>
-              <Link to='/shames' className={styles.latestButton}>
+              <Link to="/shames" className={styles.latestButton}>
                 ВСІ ЗАШКВАРИ
-                <Icon
-                  icon='fontisto:arrow-right'
-                  className={styles.arrowRight}
-                ></Icon>
+                <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
               </Link>
             </div>
           </div>
@@ -232,7 +218,7 @@ const HomePage: FC = () => {
       </main>
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
