@@ -73,48 +73,43 @@
   line-height: 1.2em;
 }
 
-.info {
-  margin: 0;
-  font-family: 'e-Ukraine-Light';
-  font-size: 24px;
-  line-height: 1.7em;
-}
-
 .logos {
   height: 100%;
   display: flex;
   gap: 30px;
 }
 
-.party,
-.work {
+.characteristics {
   display: flex;
-  height: max-content;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option {
+  display: flex;
   gap: 10px;
   background-color: var(--light-heading-color);
+  padding: 8px 12px;
 }
 
-.party {
-  padding: 0 10px;
+.optionText {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.work {
-  padding: 0 20px;
-}
-
-.party-text,
-.work-text {
+.optionText p {
   margin: 0;
   font-family: 'e-Ukraine-Regular';
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.7em;
 }
 
-.party-logo,
-.work-logo {
-  height: 18px;
+.optionText h4 {
+  margin: 0;
+  font-family: 'e-Ukraine-Regular';
+  color: #555;
+  font-size: 12px;
 }
 
 .latest {
