@@ -5,55 +5,36 @@ import styles from './details.module.css'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { Link } from 'react-router-dom'
 import detailedImage from '../../assets/images/detailed_image.png'
-import ShameCard from '../../components/shameCard'
-import { ShameCardInfo } from '../../types'
-import smallCardImage from '../../assets/images/small_card_image_example.png'
+import cardImage from '../../assets/images/card_image_example.png'
+import partyLogo from '../../assets/images/party_logo_example.png'
 import tape from '../../assets/images/tape.png'
+import PersonCard from '../../components/personCard'
 
-const latestCards: ShameCardInfo[] = [
+const ratingCards = [
   {
-    image: smallCardImage,
+    image: cardImage,
+    count: 59,
     name: 'МАКСИМ ШЕВЧЕНКО',
-    add: '+2',
-    date: 'БЕР 2024',
-    description: 'Депутат викритий на хабарі: час для справедливості!',
+    party: 'Сила народу',
+    logo: partyLogo,
   },
   {
-    image: smallCardImage,
-    name: 'ОЛЕНА ПЕТРЕНКО',
-    add: '+4',
-    date: 'БЕР 2024',
-    description: "Політик фальсифікував вибори: громадськість має об'єднатися!",
-  },
-  {
-    image: smallCardImage,
+    image: cardImage,
+    count: 45,
     name: 'ОЛЕГ СИДОРЕНКО',
-    add: '+3',
-    date: 'БЕР 2024',
-    description: 'Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!',
+    party: 'Партія справедливості',
+    logo: partyLogo,
   },
   {
-    image: smallCardImage,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    add: '+5',
-    date: 'БЕР 2024',
-    description: 'Незаконне збагачення політиків - це злочин проти народу: час покласти край!',
-  },
-  {
-    image: smallCardImage,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    add: '+3',
-    date: 'БЕР 2024',
-    description: 'Корупція у владних коридорах: потрібні рішучі дії!',
-  },
-  {
-    image: smallCardImage,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    add: '',
-    date: 'БЕР 2024',
-    description: 'Міністр зловживав владою: не можна залишати безкарним!',
+    image: cardImage,
+    count: 26,
+    name: 'ОЛЕНА ПЕТРЕНКО',
+    party: 'Голос України',
+    logo: partyLogo,
   },
 ]
+
+const repeatedRatingCards = Array(20).fill(ratingCards).flat()
 
 const DetailsPage: FC = () => {
   return (
@@ -163,28 +144,30 @@ const DetailsPage: FC = () => {
             </div>
           </div>
         </section>
-        <section className={styles.latest}>
-          <div className={styles.latestHeader}>
-            <div className={styles.latestInfo}>
-              <p className={styles.latestTitle}>ОСТАННІ ЗАШКВАРИ</p>
-              <p className={styles.latestDescription}>
-                Оновлюваний перелік епізодів корупції, хабарництва, зловживання владою,
-                некомпетентності та інших неприйнятних вчинків представників влади.
-              </p>
+        <div className="container">
+          <section className={styles.latest}>
+            <div className={styles.latestHeader}>
+              <div className={styles.latestInfo}>
+                <p className={styles.latestTitle}>СПИСОК ОСІБ</p>
+                <p className={styles.latestDescription}>
+                  Оновлюваний список осіб, які були залучені до корупції, хабарництва, зловживання
+                  владою, некомпетентності та інших неприйнятних дій.
+                </p>
+              </div>
+              <div className={styles.latestButtons}>
+                <Link to={'/rating'} className={styles.latestButton}>
+                  ВСІ ОСОБИ
+                  <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
+                </Link>
+              </div>
             </div>
-            <div className={styles.latestButtons}>
-              <Link to={'/shames'} className={styles.latestButton}>
-                ВСІ ЗАШКВАРИ
-                <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
-              </Link>
+            <div className={styles.latestCards}>
+              {repeatedRatingCards.slice(0, 8).map((latestCard, index) => (
+                <PersonCard key={index} {...latestCard} />
+              ))}
             </div>
-          </div>
-          <div className={styles.latestCards}>
-            {latestCards.map((latestCard, index) => (
-              <ShameCard key={index} {...latestCard} />
-            ))}
-          </div>
-        </section>
+          </section>
+        </div>
       </main>
       <Footer />
     </>
