@@ -192,29 +192,33 @@ const HomePage: FC = () => {
             </Link>
           </div>
         </section>
-        <section className={styles.latest}>
-          <div className={styles.latestHeader}>
-            <div className={styles.latestInfo}>
-              <p className={styles.latestTitle}>ОСТАННІ ЗАШКВАРИ</p>
-              <p className={styles.latestDescription}>
-                Згадайте, які ситуації з життя черкаської громади викликали значний інтерес з боку
-                жителів, здобули широкого публічного розголосу, а дії та рішення міської влади по
-                ним викликали осуд та гостру негативну реакцію суспільства.
-              </p>
-            </div>
-            <div className={styles.latestButtons}>
-              <Link to="/shames" className={styles.latestButton}>
-                ВСІ ЗАШКВАРИ
-                <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
-              </Link>
-            </div>
+        <div className={styles.latest}>
+          <div className="container">
+            <section className={styles.latestLayout}>
+              <div className={styles.latestHeader}>
+                <div className={styles.latestInfo}>
+                  <p className={styles.latestTitle}>ОСТАННІ ЗАШКВАРИ</p>
+                  <p className={styles.latestDescription}>
+                    Згадайте, які ситуації з життя черкаської громади викликали значний інтерес з
+                    боку жителів, здобули широкого публічного розголосу, а дії та рішення міської
+                    влади по ним викликали осуд та гостру негативну реакцію суспільства.
+                  </p>
+                </div>
+                <div className={styles.latestButtons}>
+                  <Link to="/shames" className={styles.latestButton}>
+                    ВСІ ЗАШКВАРИ
+                    <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
+                  </Link>
+                </div>
+              </div>
+              <div className={styles.latestCards}>
+                {latestCards.map((latestCard, index) => (
+                  <ShameCard key={index} {...latestCard} />
+                ))}
+              </div>
+            </section>
           </div>
-          <div className={styles.latestCards}>
-            {latestCards.map((latestCard, index) => (
-              <ShameCard key={index} {...latestCard} />
-            ))}
-          </div>
-        </section>
+        </div>
       </main>
       <Footer />
     </>
