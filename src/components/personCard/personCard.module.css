@@ -4,7 +4,7 @@
 
 .person-card {
   position: relative;
-  max-width: 310px;
+  max-width: 320px;
   height: auto;
   cursor: pointer;
   overflow: hidden;
@@ -14,7 +14,15 @@
   }
 
   @media (max-width: 858px) {
-    max-width: 200px;
+    max-width: 280px;
+  }
+
+  @media (max-width: 723px) {
+    max-width: 300px;
+  }
+
+  @media (max-width: 614px) {
+    max-width: 100%;
   }
 
   @media (max-width: 462px) {
