@@ -35,6 +35,20 @@ const ratingCards: PersonCardInfo[] = [
     party: 'Голос України',
     logo: partyLogo,
   },
+  {
+    image: cardImage,
+    name: 'АНДРІЙ ШЕВЧЕНКО',
+    count: 26,
+    party: 'Голос України',
+    logo: partyLogo,
+  },
+  {
+    image: cardImage,
+    name: 'АННА ШЕВЧЕНКО',
+    count: 26,
+    party: 'Голос України',
+    logo: partyLogo,
+  },
 ]
 
 const latestCards: ShameCardInfo[] = [
@@ -83,7 +97,7 @@ const latestCards: ShameCardInfo[] = [
 ]
 
 const HomePage: FC = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' })
   const [progress, setProgress] = useState(0)
 
   const scrollPrev = useCallback(() => {
@@ -137,61 +151,68 @@ const HomePage: FC = () => {
             </div>
           </section>
         </div>
-        <section className={styles.rating}>
-          <div className={styles.ratingHeader}>
-            <div className={styles.ratingInfo}>
-              <p className={styles.ratingTitle}>РЕЙТИНГ ЗАШКВАРІВ</p>
-              <p className={styles.ratingDescription}>
-                Перевірте, хто з депутатів міської ради найбільше засвітився в черкаських зашкварах
-                і як саме
+        <div className={styles.ratingBg}>
+          <div className="container">
+            <section className={styles.rating}>
+              <div className={styles.ratingHeader}>
+                <div className={styles.ratingInfo}>
+                  <p className={styles.ratingTitle}>РЕЙТИНГ ЗАШКВАРІВ</p>
+                  <p className={styles.ratingDescription}>
+                    Перевірте, хто з депутатів міської ради найбільше засвітився в черкаських
+                    зашкварах і як саме
+                  </p>
+                </div>
+                <div className={styles.ratingButtons}>
+                  <Link to="/rating" className={styles.ratingButton}>
+                    РЕЙТИНГ ЗАШКВАРІВ
+                    <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
+                  </Link>
+                </div>
+              </div>
+              <div className={styles.embla} ref={emblaRef}>
+                <div className={styles.emblaContainer}>
+                  {ratingCards.map((ratingCard, index) => (
+                    <div className={styles.emblaSlide} key={index}>
+                      <PersonCard {...ratingCard} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className={styles.ratingLine} style={ratingLineStyle} />{' '}
+              <div className={styles.slider}>
+                <button className={styles.sliderButton} onClick={scrollPrev}>
+                  <Icon icon="bxs:chevron-left" className={styles.sliderIcon} />
+                </button>
+                <button className={styles.sliderButton} onClick={scrollNext}>
+                  <Icon icon="bxs:chevron-right" className={styles.sliderIcon} />
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div className="container">
+          <section className={styles.remember}>
+            <div className={styles.rememberInfo}>
+              <p className={styles.rememberHead}>ЧЕРКАСИ ПАМ'ЯТАЮТЬ УСЕ</p>
+              <p className={styles.rememberText}>
+                Цей сайт - "зовнішній носій" пам'яті виборців про діяльність депутатів Черкаської
+                міської ради і причетність їх до ситуацій, які викликали великий суспільний
+                резонанс.
               </p>
             </div>
-            <div className={styles.ratingButtons}>
-              <Link to="/rating" className={styles.ratingButton}>
-                РЕЙТИНГ ЗАШКВАРІВ
-                <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
+            <div className={styles.rememberLinks}>
+              <Link to="/shames" className={styles.rememberLink}>
+                <p className={styles.linkText}>ЗАШКВАРИ</p>
+                <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
+              </Link>
+              <div className={styles.thinLine} />
+              <Link to="/rating" className={styles.rememberLink}>
+                <p className={styles.linkText}>ОСОБИ</p>
+                <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
               </Link>
             </div>
-          </div>
-          <div className={styles.embla} ref={emblaRef}>
-            <div className={styles.emblaContainer}>
-              {ratingCards.map((ratingCard, index) => (
-                <div className={styles.emblaSlide} key={index}>
-                  <PersonCard {...ratingCard} />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={styles.ratingLine} style={ratingLineStyle} />{' '}
-          <div className={styles.slider}>
-            <button className={styles.sliderButton} onClick={scrollPrev}>
-              <Icon icon="bxs:chevron-left" className={styles.sliderIcon} />
-            </button>
-            <button className={styles.sliderButton} onClick={scrollNext}>
-              <Icon icon="bxs:chevron-right" className={styles.sliderIcon} />
-            </button>
-          </div>
-        </section>
-        <section className={styles.remember}>
-          <div className={styles.rememberInfo}>
-            <p className={styles.rememberHead}>ЧЕРКАСИ ПАМ'ЯТАЮТЬ УСЕ</p>
-            <p className={styles.rememberText}>
-              Цей сайт - "зовнішній носій" пам'яті виборців про діяльність депутатів Черкаської
-              міської ради і причетність їх до ситуацій, які викликали великий суспільний резонанс.
-            </p>
-          </div>
-          <div className={styles.rememberLinks}>
-            <Link to="/shames" className={styles.rememberLink}>
-              <p className={styles.linkText}>ЗАШКВАРИ</p>
-              <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
-            </Link>
-            <div className={styles.thinLine} />
-            <Link to="/rating" className={styles.rememberLink}>
-              <p className={styles.linkText}>ОСОБИ</p>
-              <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
-            </Link>
-          </div>
-        </section>
+          </section>
+        </div>
         <div className={styles.latest}>
           <div className="container">
             <section className={styles.latestLayout}>
