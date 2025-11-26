@@ -227,6 +227,10 @@
 
 .emblaSlide {
   flex: 0 0 25%;
+
+  &:last-child {
+    padding-right: 30px;
+  }
 }
 
 .slider {

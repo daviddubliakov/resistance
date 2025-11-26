@@ -16,7 +16,6 @@
   align-items: center;
   flex: 1;
   justify-content: flex-end;
-
 }
 
 .links:first-child {
@@ -25,7 +24,6 @@
 
 .logoContainer {
   flex-shrink: 0;
-  margin: 0 20px;
 }
 
 .link {
@@ -102,10 +100,9 @@
   transform: rotate(-40deg) translate(5px, 1px);
 }
 
-.burgerButton.open:hover span{
- background-color: var(--selected-color);
+.burgerButton.open:hover span {
+  background-color: var(--selected-color);
 }
-
 
 @media (max-width: 768px) {
   .links {
