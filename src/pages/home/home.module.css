@@ -101,17 +101,28 @@
   gap: 20px;
 }
 
+.ratingBg {
+  background-image: url('../../assets/images/light_background.png');
+}
+
 .rating {
   display: flex;
   flex-direction: column;
   gap: 60px;
-  padding: 80px 240px;
-  background-image: url('../../assets/images/light_background.png');
+  padding: 80px 0;
+
+  @media (max-width: 476px) {
+    gap: 30px;
+  }
 }
 
-.rating-header {
+.ratingHeader {
   display: flex;
   gap: 25px;
+
+  @media (max-width: 944px) {
+    flex-direction: column;
+  }
 }
 
 .rating-info {
@@ -126,13 +137,25 @@
   font-size: 80px;
   color: var(--background-color);
   line-height: 1.2em;
+
+  @media (max-width: 1024px) {
+    font-size: 60px;
+  }
+
+  @media (max-width: 476px) {
+    font-size: 40px;
+  }
 }
 
-.rating-description {
+.ratingDescription {
   margin: 0;
   font-family: 'e-Ukraine-Light';
   font-size: 24px;
   line-height: 1.7em;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
 }
 
 .rating-buttons {
@@ -155,6 +178,12 @@
   text-decoration: none;
   color: black;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  @media (max-width: 1024px) {
+    background-color: var(--selected-color);
+    color: white;
+  }
 }
 
 .rating-button:hover {
@@ -193,11 +222,15 @@
 
 .emblaContainer {
   display: flex;
-  gap: 30px; /* your original gap */
+  gap: 30px;
 }
 
 .emblaSlide {
-  flex: 0 0 auto;
+  flex: 0 0 25%;
+
+  &:last-child {
+    padding-right: 30px;
+  }
 }
 
 .slider {
@@ -212,6 +245,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .slider-button:hover {
@@ -224,7 +258,7 @@
 }
 
 .remember {
-  padding: 80px 271px;
+  padding: 80px 0;
   display: flex;
   flex-direction: column;
   gap: 60px;
@@ -237,27 +271,51 @@
 }
 
 .remember-head {
-  width: 1060px;
+  width: 100%;
   margin: 0;
   font-family: 'e-Ukraine-Head-Bold';
   line-height: 1.2em;
   font-size: 80px;
   color: var(--light-heading-color);
+
+  @media (max-width: 1024px) {
+    font-size: 60px;
+  }
+
+  @media (max-width: 476px) {
+    font-size: 40px;
+  }
 }
 
 .remember-text {
   margin: 0;
-  width: 1058px;
+  width: 100%;
   font-family: 'e-Ukraine-Light';
   font-size: 24px;
   line-height: 1.7em;
   color: rgb(255, 255, 255, 0.7);
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 476px) {
+    font-size: 14px;
+  }
 }
 
 .remember-links {
   display: flex;
   flex-direction: column;
   gap: 38px;
+
+  @media (max-width: 1024px) {
+    gap: 20px;
+  }
+
+  @media (max-width: 476px) {
+    gap: 10px;
+  }
 }
 
 .remember-link {
@@ -282,6 +340,11 @@
   font-family: 'e-Ukraine-Head-Medium';
   font-size: 64px;
   color: var(--light-heading-color);
+  transition: color 0.3s ease-in-out;
+
+  @media (max-width: 1024px) {
+    font-size: 40px;
+  }
 }
 
 .link-icon {
@@ -290,6 +353,14 @@
   font-size: 95px;
   transform: rotate(-45deg);
   color: white;
+
+  @media (max-width: 1024px) {
+    font-size: 60px;
+  }
+
+  @media (max-width: 476px) {
+    font-size: 40px;
+  }
 }
 
 .thin-line {
@@ -383,6 +454,7 @@
   text-decoration: none;
   color: black;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 
   @media (max-width: 1024px) {
     background-color: var(--selected-color);
@@ -404,8 +476,9 @@
 .latest-cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 30px;
+  overflow: hidden;
 
   @media (max-width: 770px) {
     flex-direction: column;
