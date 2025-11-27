@@ -16,13 +16,16 @@
 .links {
   display: flex;
   justify-content: space-between;
+  width: 100%;
   align-items: center;
 }
 
-.nav-links {
+.navLinks {
   display: flex;
   gap: 20px;
   width: 100%;
+  align-items: center;
+  justify-content: space-between;
 
   @media (max-width: 768px) {
     justify-content: space-between;
@@ -37,7 +40,6 @@
 }
 
 .navLinksItems {
-  width: 100%;
   display: flex;
   justify-content: justify-between;
   align-items: center;
@@ -54,7 +56,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 32px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -65,14 +67,15 @@
 
 .name {
   margin: 0;
-  font-family: 'e-Ukraine-Head-Bold';
-  font-size: 24px;
+  font-family: "e-Ukraine-Head-Bold";
+  font-size: 28px;
+  line-height: 27.5px;
   margin-right: 20px;
   color: var(--light-text-color);
 }
 
 .link {
-  font-family: 'e-Ukraine-Regular';
+  font-family: "e-Ukraine-Regular";
   font-size: 20px;
   line-height: 26px;
   color: var(--light-text-color);
@@ -94,7 +97,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 20px;
-  font-family: 'e-Ukraine-Regular';
+  font-family: "e-Ukraine-Regular";
   font-size: 16px;
   color: var(--light-text-color);
 }
@@ -112,7 +115,7 @@
 
 .info-row {
   margin: 0;
-  font-family: 'e-Ukraine-Bold';
-  font-size: 16px;
-  color: var(--light-text-color);
+  font-family: "e-Ukraine-Light";
+  font-size: 14px;
+  color: var(--gray-text-color);
 }

@@ -1,6 +1,6 @@
-import { FC } from 'react'
-import { Link } from 'react-router-dom'
-import styles from './footer.module.css'
+import { FC } from "react";
+import { Link } from "react-router-dom";
+import styles from "./footer.module.css";
 
 const Footer: FC = () => {
   return (
@@ -18,10 +18,10 @@ const Footer: FC = () => {
                   <Link to="/rating" className={styles.link}>
                     Особи
                   </Link>
+                  <Link to="/about-us" className={styles.link}>
+                    Про проєкт
+                  </Link>
                 </div>
-                <Link to="/about-us" className={styles.link}>
-                  Про проєкт
-                </Link>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@ const Footer: FC = () => {
         </div>
       </section>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
