@@ -42,25 +42,29 @@ const RatingPage: FC = () => {
       <Header />
       <main className={styles.main}>
         <section className={styles.introduction}>
-          <div className={styles.breadcrumb}>
-            <Link to={'/'} className={styles.breadcrumbLinkMain}>
-              Головна <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
-            </Link>
-            <p className={styles.breadcrumbLinkCurrent}>Особи</p>
-          </div>
-          <div className={styles.introductionHead}>
-            <p className={styles.name}>РЕЙТИНГ ЗАШКВАРІВ</p>
-            <div className={styles.whiteLine}></div>
-            <p className={styles.goal}>
-              Перевірте, хто з депутатів міської ради найбільше
-              засвітився в черкаських зашкварах і як саме.
-            </p>
-            <div className={styles.arrows}>
-              <img src={arrowDown} alt="arrow" />
-              <img src={arrowDown} alt="arrow" />
-              <img src={arrowDown} alt="arrow" />
+          <section className="container">
+            <div className={styles.breadcrumb}>
+              <Link to={'/'} className={styles.breadcrumbLinkMain}>
+                Головна <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
+              </Link>
+              <p className={styles.breadcrumbLinkCurrent}>Особи</p>
             </div>
-          </div>
+          </section>
+          <section className="container">
+            <div className={styles.introductionHead}>
+              <p className={styles.name}>РЕЙТИНГ ЗАШКВАРІВ</p>
+              <div className={styles.whiteLine}></div>
+              <p className={styles.goal}>
+                Перевірте, хто з депутатів міської ради найбільше засвітився в черкаських зашкварах
+                і як саме.
+              </p>
+              <div className={styles.arrows}>
+                <img src={arrowDown} alt="arrow" />
+                <img src={arrowDown} alt="arrow" />
+                <img src={arrowDown} alt="arrow" />
+              </div>
+            </div>
+          </section>
         </section>
         <section className="container">
           <PaginatedCards cards={repeatedRatingCards} />
