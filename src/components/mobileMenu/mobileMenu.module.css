@@ -1,60 +1,61 @@
 .mobileMenu {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100vh;
-    background-color: var(--background-color);
-    z-index: 1000;
-    padding: 80px 20px 20px;
-    transition: left 0.3s ease-in-out;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 95%;
+  height: 100vh;
+  background-color: var(--background-color);
+  z-index: 1000;
+  padding: 80px 20px 20px;
+  transition: left 0.3s ease-in-out;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .mobileMenu.open {
-    left: 0;
+  left: 0;
 }
 
 .mobileMenuContent {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 60px;
+  gap: 24px;
 }
 
 .mobileLink {
-    padding: 15px 20px;
-    font-family: 'e-Ukraine-Bold', sans-serif;
-    border-bottom: 1px solid var(--light-heading-color);
-    font-size: 18px;
-    color: var(--light-text-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
+  padding: 15px 20px;
+  font-family: "e-Ukraine-Bold", sans-serif;
+  font-size: 20px;
+  line-height: 23px;
+  color: var(--light-text-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .mobileLink:hover {
-    border-color: var(--selected-color);
+  border-color: var(--selected-color);
 }
 
 .mobileLink.active {
-    border-color: var(--selected-color);
+  border-color: var(--selected-color);
 }
 
 .mobileMenu::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    pointer-events: none;
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
 }
 
 .mobileMenu.open::before {
-    opacity: 1;
-    pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
