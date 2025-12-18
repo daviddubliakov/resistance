@@ -42,8 +42,8 @@ const Header: FC = () => {
               src={logo}
               alt="logo"
               className={styles.logo}
-              width={60}
-              height={60}
+              width={30}
+              height={30}
             />
           </Link>
 

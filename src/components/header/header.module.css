@@ -103,6 +103,19 @@
   background-color: var(--selected-color);
 }
 
+@media (max-width: 1046px) {
+  .layout {
+    padding: 5px 0;
+  }
+  .link {
+    font-size: 20px;
+  }
+  .logo {
+    height: 30px;
+    width: 30px;
+  }
+}
+
 @media (max-width: 768px) {
   .links {
     display: none;
@@ -110,30 +123,23 @@
 
   .burgerButton {
     display: flex;
+    position: fixed;
+    top: 10px;
+    right: 20px;
   }
 
   .layout {
     justify-content: space-between;
-    padding: 10px 15px;
+    padding: 10px 5px;
   }
 
   .logoContainer {
-    left: -20px;
+    left: 0px;
   }
 }
 
 @media (min-width: 769px) {
   .mobileMenu {
     display: none;
-  }
-}
-
-@media (max-width: 1046px) {
-  .link {
-    font-size: 20px;
-  }
-  .logo {
-    height: 64px;
-    width: 64px;
   }
 }
