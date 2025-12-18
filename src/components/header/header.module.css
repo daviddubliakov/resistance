@@ -87,6 +87,11 @@
   background-color: var(--selected-color);
 }
 
+.burgerButton.open {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
 .burgerButton.open span:first-child {
   transform: rotate(42deg);
 }
@@ -123,9 +128,6 @@
 
   .burgerButton {
     display: flex;
-    position: fixed;
-    top: 10px;
-    right: 20px;
   }
 
   .layout {
