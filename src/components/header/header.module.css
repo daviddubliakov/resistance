@@ -32,8 +32,17 @@
   font-size: 16px;
   color: var(--light-text-color);
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   white-space: nowrap;
+}
+
+.activeLink {
+  color: var(--selected-color);
+  font-weight: bold;
+}
+
+.activeLink:hover {
+  color: var(--light-text-color) !important;
 }
 
 .link:hover {
@@ -87,6 +96,11 @@
   background-color: var(--selected-color);
 }
 
+.burgerButton.open {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
 .burgerButton.open span:first-child {
   transform: rotate(42deg);
 }
@@ -103,6 +117,19 @@
   background-color: var(--selected-color);
 }
 
+@media (max-width: 1046px) {
+  .layout {
+    padding: 5px 0;
+  }
+  .link {
+    font-size: 20px;
+  }
+  .logo {
+    height: 30px;
+    width: 30px;
+  }
+}
+
 @media (max-width: 768px) {
   .links {
     display: none;
@@ -114,26 +141,16 @@
 
   .layout {
     justify-content: space-between;
-    padding: 10px 15px;
+    padding: 10px 5px;
   }
 
   .logoContainer {
-    left: -20px;
+    left: 0px;
   }
 }
 
 @media (min-width: 769px) {
   .mobileMenu {
     display: none;
-  }
-}
-
-@media (max-width: 1046px) {
-  .link {
-    font-size: 20px;
-  }
-  .logo {
-    height: 64px;
-    width: 64px;
   }
 }

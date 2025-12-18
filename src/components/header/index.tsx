@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import logo from "../../assets/images/logo.png";
 import styles from "./header.module.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MobileMenu, { MenuItem } from "../mobileMenu";
 
 const Header: FC = () => {
@@ -26,14 +26,16 @@ const Header: FC = () => {
         <section className={styles.layout}>
           <div className={styles.links}>
             {menuItems.slice(0, 2).map((item) => (
-              <Link
+              <NavLink
                 key={item.to}
                 to={item.to}
-                className={styles.link}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.activeLink : ""}`
+                }
                 onClick={closeMenu}
               >
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
@@ -42,21 +44,23 @@ const Header: FC = () => {
               src={logo}
               alt="logo"
               className={styles.logo}
-              width={60}
-              height={60}
+              width={30}
+              height={30}
             />
           </Link>
 
           <div className={styles.links}>
             {menuItems.slice(2).map((item) => (
-              <Link
+              <NavLink
                 key={item.to}
                 to={item.to}
-                className={styles.link}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.activeLink : ""}`
+                }
                 onClick={closeMenu}
               >
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
