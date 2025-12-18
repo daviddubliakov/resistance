@@ -33,6 +33,15 @@
   transition: all 0.3s ease;
 }
 
+.activeLink {
+  color: var(--selected-color);
+  font-weight: bold;
+}
+
+.activeLink:hover {
+  color: var(--light-text-color) !important;
+}
+
 .mobileLink:hover {
   border-color: var(--selected-color);
 }

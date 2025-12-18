@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from "./mobileMenu.module.css";
 
 export type MenuItem = {
@@ -44,14 +44,16 @@ const MobileMenu: FC<MobileMenuProps> = ({ items, isOpen, onClose }) => {
         {items.map((item) => {
           const isActive = location.pathname === item.to;
           return (
-            <Link
+            <NavLink
               key={item.to}
               to={item.to}
-              className={`${styles.mobileLink} ${isActive ? styles.active : ""}`}
+              className={({ isActive }) =>
+                `${styles.mobileLink} ${isActive ? styles.activeLink : ""}`
+              }
               onClick={onClose}
             >
               {item.label}
-            </Link>
+            </NavLink>
           );
         })}
       </div>
