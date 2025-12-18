@@ -28,7 +28,7 @@
 
 .link {
   padding: 15px 20px;
-  font-family: 'e-Ukraine-Bold', serif;
+  font-family: "e-Ukraine-Bold", serif;
   font-size: 16px;
   color: var(--light-text-color);
   text-decoration: none;
@@ -43,7 +43,7 @@
 .logoContainer {
   display: flex;
   align-items: center;
-  z-index: 1001;
+  z-index: 1000;
   position: relative;
   left: 0;
   transform: none;
@@ -63,7 +63,7 @@
   flex-direction: column;
   justify-content: space-around;
   width: 30px;
-  height: 24px;
+  height: 30px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -77,9 +77,8 @@
 
 .burgerButton span {
   width: 100%;
-  height: 2px;
+  height: 3px;
   background-color: var(--light-text-color);
-  border-radius: 2px;
   transition: all 0.3s ease;
   transform-origin: left;
 }
@@ -89,7 +88,7 @@
 }
 
 .burgerButton.open span:first-child {
-  transform: rotate(40deg) translate(5px, -1px);
+  transform: rotate(42deg);
 }
 
 .burgerButton.open span:nth-child(2) {
@@ -97,7 +96,7 @@
 }
 
 .burgerButton.open span:last-child {
-  transform: rotate(-40deg) translate(5px, 1px);
+  transform: rotate(-42deg);
 }
 
 .burgerButton.open:hover span {
@@ -119,14 +118,22 @@
   }
 
   .logoContainer {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: -20px;
   }
 }
 
 @media (min-width: 769px) {
   .mobileMenu {
     display: none;
+  }
+}
+
+@media (max-width: 1046px) {
+  .link {
+    font-size: 20px;
+  }
+  .logo {
+    height: 64px;
+    width: 64px;
   }
 }
