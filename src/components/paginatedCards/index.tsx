@@ -1,32 +1,38 @@
-import { FC, useState } from 'react'
-import Pagination from 'rc-pagination'
-import { PersonCardInfo, ShameCardInfo } from '../../types'
-import PersonCard from '../personCard'
-import styles from './paginatedCards.module.css'
-import 'rc-pagination/assets/index.css'
-import './pagination.css'
-import ShameCard from '../shameCard'
+import { FC, useState } from 'react';
+import Pagination from 'rc-pagination';
+import { PersonCardInfo, ShameCardInfo } from '../../types';
+import PersonCard from '../personCard';
+import styles from './paginatedCards.module.css';
+import 'rc-pagination/assets/index.css';
+import './pagination.css';
+import ShameCard from '../shameCard';
 
-const ITEMS_PER_PAGE = 12
+const ITEMS_PER_PAGE = 12;
 
-const PaginatedCards: FC<{ cards: PersonCardInfo[] | ShameCardInfo[] }> = ({ cards }) => {
-  const [currentPage, setCurrentPage] = useState<number>(1)
+const PaginatedCards: FC<{
+  cards: PersonCardInfo[] | ShameCardInfo[];
+  className?: string;
+}> = ({ cards, className }) => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-  }
+    setCurrentPage(page);
+  };
 
-  const currentCards = cards.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+  const currentCards = cards.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
     <div className={styles.layout}>
-      <div className={styles.cardContainer}>
+      <div className={`${styles.cardContainer} ${className}`}>
         {currentCards.map((card, index) => {
           return 'description' in card ? (
             <ShameCard key={index} {...(card as unknown as ShameCardInfo)} />
           ) : (
             <PersonCard key={index} {...(card as unknown as PersonCardInfo)} />
-          )
+          );
         })}
       </div>
       <Pagination
@@ -37,7 +43,7 @@ const PaginatedCards: FC<{ cards: PersonCardInfo[] | ShameCardInfo[] }> = ({ car
         showTitle={false}
       />
     </div>
-  )
-}
+  );
+};
 
-export default PaginatedCards
+export default PaginatedCards;

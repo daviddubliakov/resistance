@@ -5,11 +5,12 @@
 .introduction {
   background-image: url('../../assets/images/head_background.png');
   background-repeat: no-repeat;
-  background-color: transparent;
+  background-size: 100% 100%;
+  background-position: center;
 }
 
 .breadcrumb {
-  padding: 50px 240px;
+  padding: 50px 0;
   display: flex;
   gap: 10px;
 }
@@ -38,7 +39,7 @@
 }
 
 .page-head {
-  padding: 80px 240px;
+  padding: 80px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,6 +51,10 @@
   display: flex;
   align-items: center;
   gap: 40px;
+
+  @media (max-width: 1016px) {
+    text-align: center;
+  }
 }
 
 .name {
@@ -57,6 +62,18 @@
   font-family: 'e-Ukraine-Head-Bold';
   font-size: 80px;
   color: var(--light-heading-color);
+
+  @media (max-width: 1024px) {
+    font-size: 60px;
+  }
+
+  @media (max-width: 462px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 30px;
+  }
 }
 
 .whiteLine {
@@ -73,6 +90,22 @@
   font-size: 24px;
   line-height: 1.7em;
   color: var(--light-text-color);
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+
+  @media (max-width: 462px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 12px;
+  }
 }
 
 .arrows {
@@ -80,9 +113,21 @@
   gap: 20px;
 }
 
-.shame-cards {
-  padding: 80px 240px;
+.shameCards {
+  padding: 80px 0;
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    flex-wrap: nowrap;
+  }
+}
+
+.shameCardsRewrite {
+  @media (max-width: 768px) {
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
 }

@@ -63,35 +63,39 @@ const LatestPage: FC = () => {
       <Header />
       <main className={styles.main}>
         <section className={styles.introduction}>
-          <div className={styles.breadcrumb}>
-            <Link to={'/'} className={styles.breadcrumbLinkMain}>
-              Головна{' '}
-              <Icon
-                icon="bxs:chevron-right"
-                className={styles.breadcrumbIcon}
-              ></Icon>
-            </Link>
-            <p className={styles.breadcrumbLinkCurrent}>Зашквари</p>
-          </div>
-          <div className={styles.pageHead}>
-            <div className={styles.pageName}>
-              <p className={styles.name}>ОСТАННІ ЗАШКВАРИ</p>
+          <div className="container">
+            <div className={styles.breadcrumb}>
+              <Link to={'/'} className={styles.breadcrumbLinkMain}>
+                Головна{' '}
+                <Icon
+                  icon="bxs:chevron-right"
+                  className={styles.breadcrumbIcon}
+                ></Icon>
+              </Link>
+              <p className={styles.breadcrumbLinkCurrent}>Зашквари</p>
             </div>
-            <div className={styles.whiteLine}></div>
-            <p className={styles.goal}>
-              Згадайте, які дії та рішення міської влади зашкодили громаді або викликали
-              осуд та гостру негативну реакцію суспільства.
-            </p>
-            <div className={styles.arrows}>
-              <img src={arrowDown} alt="arrow" />
-              <img src={arrowDown} alt="arrow" />
-              <img src={arrowDown} alt="arrow" />
+            <div className={styles.pageHead}>
+              <div className={styles.pageName}>
+                <p className={styles.name}>ОСТАННІ ЗАШКВАРИ</p>
+              </div>
+              <div className={styles.whiteLine}></div>
+              <p className={styles.goal}>
+                Згадайте, які дії та рішення міської влади зашкодили громаді або
+                викликали осуд та гостру негативну реакцію суспільства.
+              </p>
+              <div className={styles.arrows}>
+                <img src={arrowDown} alt="arrow" />
+                <img src={arrowDown} alt="arrow" />
+                <img src={arrowDown} alt="arrow" />
+              </div>
             </div>
           </div>
         </section>
-        <section className={styles.shameCards}>
-          <PaginatedCards cards={repeatedShameCards} />
-        </section>
+        <div className="container">
+          <section className={styles.shameCards}>
+            <PaginatedCards cards={repeatedShameCards} className={styles.shameCardsRewrite} />
+          </section>
+        </div>
       </main>
       <Footer />
     </>
