@@ -4,43 +4,23 @@
 
 .person-card {
   position: relative;
-  max-width: 320px;
+  max-width: 332px;
   height: auto;
   cursor: pointer;
   overflow: hidden;
 
   @media (max-width: 1046px) {
-    max-width: 250px;
+    max-width: 344px;
   }
 
-  @media (max-width: 858px) {
-    max-width: 280px;
-  }
-
-  @media (max-width: 723px) {
-    max-width: 300px;
-  }
-
-  @media (max-width: 614px) {
-    max-width: 100%;
+  @media (max-width: 480px) {
+    max-width: 328px;
   }
 }
 
 .personCardImage {
   object-fit: cover;
-  height: 450px;
-
-  @media (max-width: 1046px) {
-    height: 350px;
-  }
-
-  @media (max-width: 858px) {
-    height: 300px;
-  }
-
-  @media (max-width: 462px) {
-    height: 400px;
-  }
+  height: 395px;
 }
 
 .person-card-count {
@@ -49,7 +29,7 @@
   padding: 10px 20px;
   background-color: var(--background-color);
   color: var(--light-text-color);
-  font-family: 'e-Ukraine-Head-Bold';
+  font-family: "e-Ukraine-Head-Bold";
   font-size: 24px;
   letter-spacing: 0.4px;
   line-height: 1.5em;
@@ -63,16 +43,12 @@
 .person-card-name {
   display: table-caption;
   margin: 20px 0 0 0;
-  font-family: 'e-Ukraine-Head-Bold';
+  font-family: "e-Ukraine-Head-Bold";
   font-size: 36px;
   color: var(--background-color);
 
   @media (max-width: 1046px) {
-    font-size: 30px;
-  }
-
-  @media (max-width: 858px) {
-    font-size: 24px;
+    font-size: 36px;
   }
 }
 
@@ -92,7 +68,7 @@
 
 .party-name {
   margin: 0;
-  font-family: 'e-Ukraine-Light';
+  font-family: "e-Ukraine-Light";
   font-size: 18px;
 }
 
