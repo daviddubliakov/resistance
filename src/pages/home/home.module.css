@@ -4,13 +4,23 @@
   flex-direction: column;
 }
 .introduction {
-  height: 94vh;
+  height: 110vh;
   padding: 0 20px;
   justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 60px;
+
+  @media (max-width: 1536px) {
+    height: 130vh;
+  }
+  @media (max-width: 1200px) {
+    height: 105vh;
+  }
+  @media (max-width: 768px) {
+    height: 120vh;
+  }
 }
 .sitename {
   height: auto;
