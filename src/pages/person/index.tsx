@@ -52,7 +52,20 @@ const shameCards: ShameCardInfo[] = [
 const repeatedShameCards = Array(100).fill(shameCards).flat();
 
 const PersonPage: FC = () => {
-  const isCorruptListed = true;
+  const person = {
+    party: 'Партія "Сила народу"',
+    faction: 'ВО "Батьківщина"',
+    position: 'КП "Черкаська служба чистоти"',
+    isCorruptListed: true,
+    businesses: ['ТОВ "Черкаси-Агро"', "ФОП Коваль С.В"],
+    extraIncomeSources: [
+      "Оренда житлової нерухомості",
+      "Дивіденди",
+      "Оренда комерційної нерухомості",
+      "Роялті",
+      "Cпадщина",
+    ],
+  };
 
   return (
     <>
@@ -98,7 +111,7 @@ const PersonPage: FC = () => {
                     ></Icon>
                     <div className={styles.optionText}>
                       <h4>Обирався / обиралась від:</h4>
-                      <p>Партія "Сила народу"</p>
+                      <p>{person.party}</p>
                     </div>
                   </div>
                   <div className={styles.option}>
@@ -108,7 +121,7 @@ const PersonPage: FC = () => {
                     ></Icon>
                     <div className={styles.optionText}>
                       <h4>Фракція:</h4>
-                      <p>ВО "Батьківщина"</p>
+                      <p>{person.faction}</p>
                     </div>
                   </div>
                   <div className={styles.option}>
@@ -118,7 +131,7 @@ const PersonPage: FC = () => {
                     ></Icon>
                     <div className={styles.optionText}>
                       <h4>Місце роботи/посада:</h4>
-                      <p>КП "Черкаська служба чистоти"</p>
+                      <p>{person.position}</p>
                     </div>
                   </div>
                   <div className={styles.option}>
@@ -128,7 +141,43 @@ const PersonPage: FC = () => {
                     />
                     <div className={styles.optionText}>
                       <h4>Чи є у базі корупціонерів:</h4>
-                      <p>{isCorruptListed ? "Так" : "Ні"}</p>
+                      <p>{person.isCorruptListed ? "Так" : "Ні"}</p>
+                    </div>
+                  </div>
+                  <div className={styles.option}>
+                    <Icon
+                      icon="mdi:office-building-outline"
+                      className={styles.breadcrumbIcon}
+                    />
+                    <div className={styles.optionText}>
+                      <h4>Асоційовані бізнеси:</h4>
+                      {person.businesses.length > 0 ? (
+                        <ul className={styles.list}>
+                          {person.businesses.map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className={styles.empty}>Немає даних</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className={styles.option}>
+                    <Icon
+                      icon="mdi:cash-multiple"
+                      className={styles.breadcrumbIcon}
+                    />
+                    <div className={styles.optionText}>
+                      <h4>Додаткові джерела доходу:</h4>
+                      {person.extraIncomeSources.length > 0 ? (
+                        <ul className={styles.list}>
+                          {person.extraIncomeSources.map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className={styles.empty}>Немає даних</p>
+                      )}
                     </div>
                   </div>
                 </div>
