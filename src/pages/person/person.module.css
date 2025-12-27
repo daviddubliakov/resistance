@@ -92,10 +92,12 @@
   @media (max-width: 1464px) {
     height: 600px;
     padding: 40px;
+    overflow-y: auto;
   }
 
   @media (max-width: 1092px) {
     height: 100%;
+    overflow-y: auto;
   }
 }
 
@@ -163,6 +165,10 @@
   overflow-y: auto;
   scrollbar-color: #555 transparent;
   scrollbar-width: thin;
+
+  @media (max-width: 486px) {
+    max-height: fit-content;
+  }
 }
 .list li {
   margin: 0;
