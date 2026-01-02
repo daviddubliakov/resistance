@@ -1,26 +1,29 @@
-import { FC } from 'react';
-import { PersonCardInfo } from '../../types';
-import styles from './personCard.module.css';
-import { Icon } from '@iconify/react/dist/iconify.js';
-import { Link } from 'react-router-dom';
+import { FC } from "react";
+import { PersonCardInfo } from "../../types";
+import styles from "./personCard.module.css";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { Link } from "react-router-dom";
+import partyLogo from "../../assets/images/party_logo_example.png";
 
 const PersonCard: FC<PersonCardInfo> = (personCard) => {
+  const imageUrl = personCard.photo?.formats?.small?.url;
   return (
-    <Link to={'/person'} className={styles.cardLink}>
+    <Link to={"/person"} className={styles.cardLink}>
       <div className={styles.personCard}>
         <img
-          src={personCard.image}
+          src={`${import.meta.env.VITE_STRAPI_URL}${imageUrl}`}
           alt="card image"
           className={styles.personCardImage}
         />
-        <p className={styles.personCardCount}>{personCard.count} ЗАШКВАРІВ</p>
-        <p className={styles.personCardName}>{personCard.name}</p>
+        <p className={styles.personCardCount}>
+          {personCard.shames.length}{" "}
+          {personCard.shames.length > 4 ? "ЗАШКВАРІВ" : "ЗАШКВАРА"}
+        </p>
+        <p className={styles.personCardName}>
+          {personCard.firstName + " " + personCard.lastName}
+        </p>
         <div className={styles.personCardParty}>
-          <img
-            src={personCard.logo}
-            alt="party logo"
-            className={styles.partyLogo}
-          />
+          <img src={partyLogo} alt="party logo" className={styles.partyLogo} />
           <p className={styles.partyName}>{personCard.party}</p>
         </div>
         <div className={styles.triangle}></div>

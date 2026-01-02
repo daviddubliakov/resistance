@@ -1,133 +1,135 @@
-import { FC, useCallback, useEffect, useState } from 'react'
-import Header from '../../components/header'
-import arrowDown from '../../assets/images/arrow_down.png'
-import styles from './home.module.css'
-import cardImage from '../../assets/images/card_image_example.png'
-import partyLogo from '../../assets/images/party_logo_example.png'
-import smallCardImage from '../../assets/images/small_card_image_example.png'
-import Footer from '../../components/footer'
-import { Icon } from '@iconify/react'
-import PersonCard from '../../components/personCard'
-import { PersonCardInfo, ShameCardInfo } from '../../types'
-import ShameCard from '../../components/shameCard'
-import { Link } from 'react-router-dom'
-import useEmblaCarousel from 'embla-carousel-react'
+import { FC, useCallback, useEffect, useState } from "react";
+import Header from "../../components/header";
+import arrowDown from "../../assets/images/arrow_down.png";
+import styles from "./home.module.css";
+import cardImage from "../../assets/images/card_image_example.png";
+import partyLogo from "../../assets/images/party_logo_example.png";
+import smallCardImage from "../../assets/images/small_card_image_example.png";
+import Footer from "../../components/footer";
+import { Icon } from "@iconify/react";
+import PersonCard from "../../components/personCard";
+import { PersonCardInfo, ShameCardInfo } from "../../types";
+import ShameCard from "../../components/shameCard";
+import { Link } from "react-router-dom";
+import useEmblaCarousel from "embla-carousel-react";
 
 const ratingCards: PersonCardInfo[] = [
   {
     image: cardImage,
     count: 59,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    party: 'Сила народу',
+    name: "МАКСИМ ШЕВЧЕНКО",
+    party: "Сила народу",
     logo: partyLogo,
   },
   {
     image: cardImage,
     count: 45,
-    name: 'ОЛЕГ СИДОРЕНКО',
-    party: 'Партія справедливості',
+    name: "ОЛЕГ СИДОРЕНКО",
+    party: "Партія справедливості",
     logo: partyLogo,
   },
   {
     image: cardImage,
     count: 26,
-    name: 'ОЛЕНА ПЕТРЕНКО',
-    party: 'Голос України',
+    name: "ОЛЕНА ПЕТРЕНКО",
+    party: "Голос України",
     logo: partyLogo,
   },
   {
     image: cardImage,
-    name: 'АНДРІЙ ШЕВЧЕНКО',
+    name: "АНДРІЙ ШЕВЧЕНКО",
     count: 26,
-    party: 'Голос України',
+    party: "Голос України",
     logo: partyLogo,
   },
   {
     image: cardImage,
-    name: 'АННА ШЕВЧЕНКО',
+    name: "АННА ШЕВЧЕНКО",
     count: 26,
-    party: 'Голос України',
+    party: "Голос України",
     logo: partyLogo,
   },
-]
+];
 
 const latestCards: ShameCardInfo[] = [
   {
     image: smallCardImage,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    add: '+2',
-    date: '22 БЕР 2024',
-    description: 'Депутат викритий на хабарі: час для справедливості!',
+    name: "МАКСИМ ШЕВЧЕНКО",
+    add: "+2",
+    date: "22 БЕР 2024",
+    description: "Депутат викритий на хабарі: час для справедливості!",
   },
   {
     image: smallCardImage,
-    name: 'ОЛЕНА ПЕТРЕНКО',
-    add: '+4',
-    date: '20 БЕР 2024',
+    name: "ОЛЕНА ПЕТРЕНКО",
+    add: "+4",
+    date: "20 БЕР 2024",
     description: "Політик фальсифікував вибори: громадськість має об'єднатися!",
   },
   {
     image: smallCardImage,
-    name: 'ОЛЕГ СИДОРЕНКО',
-    add: '+3',
-    date: '15 БЕР 2024',
-    description: 'Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!',
+    name: "ОЛЕГ СИДОРЕНКО",
+    add: "+3",
+    date: "15 БЕР 2024",
+    description:
+      "Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!",
   },
   {
     image: smallCardImage,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    add: '+5',
-    date: '09 БЕР 2024',
-    description: 'Незаконне збагачення політиків - це злочин проти народу: час покласти край!',
+    name: "МАКСИМ ШЕВЧЕНКО",
+    add: "+5",
+    date: "09 БЕР 2024",
+    description:
+      "Незаконне збагачення політиків - це злочин проти народу: час покласти край!",
   },
   {
     image: smallCardImage,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    add: '+3',
-    date: '03 БЕР 2024',
-    description: 'Корупція у владних коридорах: потрібні рішучі дії!',
+    name: "МАКСИМ ШЕВЧЕНКО",
+    add: "+3",
+    date: "03 БЕР 2024",
+    description: "Корупція у владних коридорах: потрібні рішучі дії!",
   },
   {
     image: smallCardImage,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    add: '',
-    date: '01 БЕР 2024',
-    description: 'Міністр зловживав владою: не можна залишати безкарним!',
+    name: "МАКСИМ ШЕВЧЕНКО",
+    add: "",
+    date: "01 БЕР 2024",
+    description: "Міністр зловживав владою: не можна залишати безкарним!",
   },
-]
+];
 
 const HomePage: FC = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' })
-  const [progress, setProgress] = useState(0)
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
+  const [progress, setProgress] = useState(0);
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev()
-  }, [emblaApi])
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext()
-  }, [emblaApi])
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   const ratingLineStyle = {
-    '--progress': `${progress * 100}%`,
-  } as React.CSSProperties
+    "--progress": `${progress * 100}%`,
+  } as React.CSSProperties;
 
   useEffect(() => {
-    if (!emblaApi) return
+    if (!emblaApi) return;
 
     const onScroll = () => {
-      setProgress(emblaApi.scrollProgress())
-    }
+      setProgress(emblaApi.scrollProgress());
+    };
 
-    emblaApi.on('scroll', onScroll)
-    emblaApi.on('resize', onScroll)
-    onScroll()
+    emblaApi.on("scroll", onScroll);
+    emblaApi.on("resize", onScroll);
+    onScroll();
 
     return () => {
-      emblaApi.off('scroll', onScroll)
-      emblaApi.off('resize', onScroll)
-    }
-  }, [emblaApi])
+      emblaApi.off("scroll", onScroll);
+      emblaApi.off("resize", onScroll);
+    };
+  }, [emblaApi]);
 
   return (
     <>
@@ -141,9 +143,10 @@ const HomePage: FC = () => {
             </div>
             <div className={styles.whiteLine}></div>
             <p className={styles.goal}>
-              Проєкт створений, щоб фіксувати шкідливі або суперечливі рішення міської влади,
-              виявляти їхню причетність до черкаських зашкварів і дати можливість жителям громади
-              відстежувати доброчесність кожного депутата Черкаської міської ради і не тільки.
+              Проєкт створений, щоб фіксувати шкідливі або суперечливі рішення
+              міської влади, виявляти їхню причетність до черкаських зашкварів і
+              дати можливість жителям громади відстежувати доброчесність кожного
+              депутата Черкаської міської ради і не тільки.
             </p>
             <div className={styles.arrows}>
               <img src={arrowDown} alt="arrow" />
@@ -157,15 +160,21 @@ const HomePage: FC = () => {
             <section className={styles.rating}>
               <div className={styles.ratingHeader}>
                 <div className={styles.ratingInfo}>
-                  <p className={styles.ratingTitle}>РЕЙТИНГ УЧАСТІ У ЗАШКВАРАХ</p>
+                  <p className={styles.ratingTitle}>
+                    РЕЙТИНГ УЧАСТІ У ЗАШКВАРАХ
+                  </p>
                   <p className={styles.ratingDescription}>
-                    Перевірте, хто з представників міської влади найбільше засвітився в черкаських зашкварах і як саме.
+                    Перевірте, хто з представників міської влади найбільше
+                    засвітився в черкаських зашкварах і як саме.
                   </p>
                 </div>
                 <div className={styles.ratingButtons}>
                   <Link to="/rating" className={styles.ratingButton}>
                     РЕЙТИНГ ЗАШКВАРІВ
-                    <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
+                    <Icon
+                      icon="fontisto:arrow-right"
+                      className={styles.arrowRight}
+                    ></Icon>
                   </Link>
                 </div>
               </div>
@@ -178,13 +187,16 @@ const HomePage: FC = () => {
                   ))}
                 </div>
               </div>
-              <div className={styles.ratingLine} style={ratingLineStyle} />{' '}
+              <div className={styles.ratingLine} style={ratingLineStyle} />{" "}
               <div className={styles.slider}>
                 <button className={styles.sliderButton} onClick={scrollPrev}>
                   <Icon icon="bxs:chevron-left" className={styles.sliderIcon} />
                 </button>
                 <button className={styles.sliderButton} onClick={scrollNext}>
-                  <Icon icon="bxs:chevron-right" className={styles.sliderIcon} />
+                  <Icon
+                    icon="bxs:chevron-right"
+                    className={styles.sliderIcon}
+                  />
                 </button>
               </div>
             </section>
@@ -195,19 +207,26 @@ const HomePage: FC = () => {
             <div className={styles.rememberInfo}>
               <p className={styles.rememberHead}>ЧЕРКАСИ ПАМ'ЯТАЮТЬ УСЕ</p>
               <p className={styles.rememberText}>
-                Цей сайт — "зовнішній носій" пам'яті виборців про діяльність представників міської влади та їхню
-                причетність до подій, які викликали суспільний резонанс.
+                Цей сайт — "зовнішній носій" пам'яті виборців про діяльність
+                представників міської влади та їхню причетність до подій, які
+                викликали суспільний резонанс.
               </p>
             </div>
             <div className={styles.rememberLinks}>
               <Link to="/shames" className={styles.rememberLink}>
                 <p className={styles.linkText}>ЗАШКВАРИ</p>
-                <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
+                <Icon
+                  icon="fontisto:arrow-right"
+                  className={styles.linkIcon}
+                ></Icon>
               </Link>
               <div className={styles.thinLine} />
               <Link to="/rating" className={styles.rememberLink}>
                 <p className={styles.linkText}>ОСОБИ</p>
-                <Icon icon="fontisto:arrow-right" className={styles.linkIcon}></Icon>
+                <Icon
+                  icon="fontisto:arrow-right"
+                  className={styles.linkIcon}
+                ></Icon>
               </Link>
             </div>
           </section>
@@ -226,7 +245,10 @@ const HomePage: FC = () => {
                 <div className={styles.latestButtons}>
                   <Link to="/shames" className={styles.latestButton}>
                     ВСІ ЗАШКВАРИ
-                    <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
+                    <Icon
+                      icon="fontisto:arrow-right"
+                      className={styles.arrowRight}
+                    ></Icon>
                   </Link>
                 </div>
               </div>
@@ -241,7 +263,7 @@ const HomePage: FC = () => {
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
