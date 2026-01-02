@@ -12,44 +12,7 @@ import { PersonCardInfo, ShameCardInfo } from "../../types";
 import ShameCard from "../../components/shameCard";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
-
-const ratingCards: PersonCardInfo[] = [
-  {
-    image: cardImage,
-    count: 59,
-    name: "МАКСИМ ШЕВЧЕНКО",
-    party: "Сила народу",
-    logo: partyLogo,
-  },
-  {
-    image: cardImage,
-    count: 45,
-    name: "ОЛЕГ СИДОРЕНКО",
-    party: "Партія справедливості",
-    logo: partyLogo,
-  },
-  {
-    image: cardImage,
-    count: 26,
-    name: "ОЛЕНА ПЕТРЕНКО",
-    party: "Голос України",
-    logo: partyLogo,
-  },
-  {
-    image: cardImage,
-    name: "АНДРІЙ ШЕВЧЕНКО",
-    count: 26,
-    party: "Голос України",
-    logo: partyLogo,
-  },
-  {
-    image: cardImage,
-    name: "АННА ШЕВЧЕНКО",
-    count: 26,
-    party: "Голос України",
-    logo: partyLogo,
-  },
-];
+import { getDeputies } from "../../services/getDeputies";
 
 const latestCards: ShameCardInfo[] = [
   {
@@ -101,6 +64,8 @@ const latestCards: ShameCardInfo[] = [
 const HomePage: FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [progress, setProgress] = useState(0);
+  const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -113,6 +78,18 @@ const HomePage: FC = () => {
   const ratingLineStyle = {
     "--progress": `${progress * 100}%`,
   } as React.CSSProperties;
+
+  useEffect(() => {
+    const loadData = async () => {
+      const data = await getDeputies();
+      if (data) {
+        setDeputies(data);
+      } else {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -180,9 +157,9 @@ const HomePage: FC = () => {
               </div>
               <div className={styles.embla} ref={emblaRef}>
                 <div className={styles.emblaContainer}>
-                  {ratingCards.map((ratingCard, index) => (
+                  {deputies.map((deputy, index) => (
                     <div className={styles.emblaSlide} key={index}>
-                      <PersonCard {...ratingCard} />
+                      <PersonCard {...deputy} />
                     </div>
                   ))}
                 </div>
