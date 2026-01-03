@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import partyLogo from "../../assets/images/party_logo_example.png";
 
 const PersonCard: FC<PersonCardInfo> = (personCard) => {
-  const imageUrl = personCard.photo?.formats?.small?.url;
+  const imageUrl =
+    personCard.photo?.formats?.small?.url ||
+    personCard.photo?.formats?.thumbnail?.url;
   return (
     <Link to={"/person"} className={styles.cardLink}>
       <div className={styles.personCard}>
