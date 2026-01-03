@@ -14,6 +14,7 @@ const LatestPage: FC = () => {
 
   useEffect(() => {
     const loadData = async () => {
+      setLoading(true);
       const data = await getShames();
       if (data) {
         setshames(data);

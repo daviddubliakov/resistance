@@ -2,9 +2,6 @@ import { FC, useCallback, useEffect, useState } from "react";
 import Header from "../../components/header";
 import arrowDown from "../../assets/images/arrow_down.png";
 import styles from "./home.module.css";
-import cardImage from "../../assets/images/card_image_example.png";
-import partyLogo from "../../assets/images/party_logo_example.png";
-import smallCardImage from "../../assets/images/small_card_image_example.png";
 import Footer from "../../components/footer";
 import { Icon } from "@iconify/react";
 import PersonCard from "../../components/personCard";
@@ -20,7 +17,6 @@ const HomePage: FC = () => {
   const [progress, setProgress] = useState(0);
   const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
   const [shames, setShames] = useState<ShameCardInfo[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -39,8 +35,6 @@ const HomePage: FC = () => {
       const data = await getDeputies();
       if (data) {
         setDeputies(data);
-      } else {
-        setLoading(false);
       }
     };
     loadData();
@@ -50,8 +44,6 @@ const HomePage: FC = () => {
       const data = await getShames();
       if (data) {
         setShames(data);
-      } else {
-        setLoading(false);
       }
     };
     loadData();

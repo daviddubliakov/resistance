@@ -10,7 +10,7 @@ const PersonCard: FC<PersonCardInfo> = (personCard) => {
     personCard.photo?.formats?.small?.url ||
     personCard.photo?.formats?.thumbnail?.url;
   return (
-    <Link to={"/person"} className={styles.cardLink}>
+    <Link to={`/person/${personCard.documentId}`} className={styles.cardLink}>
       <div className={styles.personCard}>
         <img
           src={`${import.meta.env.VITE_STRAPI_URL}${imageUrl}`}
@@ -18,8 +18,8 @@ const PersonCard: FC<PersonCardInfo> = (personCard) => {
           className={styles.personCardImage}
         />
         <p className={styles.personCardCount}>
-          {personCard.shames.length}{" "}
-          {personCard.shames.length > 4 ? "ЗАШКВАРІВ" : "ЗАШКВАРА"}
+          {personCard.shames.length}
+          {personCard.shames.length > 4 ? " ЗАШКВАРІВ" : " ЗАШКВАРА"}
         </p>
         <p className={styles.personCardName}>
           {personCard.firstName + " " + personCard.lastName}

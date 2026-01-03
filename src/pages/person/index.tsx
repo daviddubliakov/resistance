@@ -1,70 +1,39 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import styles from "./person.module.css";
 import Tape from "../../assets/images/Masking Tape - 38.png";
 import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { PersonCardInfo } from "../../types";
+import { getOneDeputy } from "../../services/getOneDeputy";
 import PaginatedCards from "../../components/paginatedCards";
-import smallCardImage from "../../assets/images/small_card_image_example.png";
-import { ShameCardInfo } from "../../types";
-import personPhoto from "../../assets/images/card_image_example.png";
-
-const shameCards: ShameCardInfo[] = [
-  {
-    image: smallCardImage,
-    name: "Максим Шевченко",
-    add: "+2",
-    date: "22 Бер 2024",
-    description: "Депутат викритий на хабарі: час для справедливості!",
-  },
-  {
-    image: smallCardImage,
-    name: "Максим Шевченко",
-    add: "+5",
-    date: "09 Бер 2024",
-    description:
-      "Незаконне збагачення політиків - це злочин проти народу: час покласти край!",
-  },
-  {
-    image: smallCardImage,
-    name: "Максим Шевченко",
-    add: "+3",
-    date: "03 Бер 2024",
-    description: "Корупція у владних коридорах: потрібні рішучі дії!",
-  },
-  {
-    image: smallCardImage,
-    name: "Олена Петренко",
-    add: "+4",
-    date: "20 Бер 2024",
-    description: "Політик фальсифікував вибори: громадськість має об'єднатися!",
-  },
-  {
-    image: smallCardImage,
-    name: "Олег Сидоренко",
-    add: "+3",
-    date: "15 Бер 2024",
-    description:
-      "Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!",
-  },
-];
-const repeatedShameCards = Array(100).fill(shameCards).flat();
 
 const PersonPage: FC = () => {
-  const person = {
-    party: 'Партія "Сила народу"',
-    faction: 'ВО "Батьківщина"',
-    position: 'КП "Черкаська служба чистоти"',
-    isCorruptListed: true,
-    businesses: ['ТОВ "Черкаси-Агро"', "ФОП Коваль С.В"],
-    extraIncomeSources: [
-      "Оренда житлової нерухомості",
-      "Дивіденди",
-      "Оренда комерційної нерухомості",
-      "Роялті",
-    ],
-  };
+  const [deputy, setDeputy] = useState<PersonCardInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const { id } = useParams<{ id: string }>();
+
+  const imageUrl =
+    deputy?.photo?.formats?.small?.url ||
+    deputy?.photo?.formats?.thumbnail?.url;
+  const fullname = deputy?.firstName + " " + deputy?.lastName;
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      const data = await getOneDeputy(id);
+      if (data) {
+        setDeputy(data);
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, [id]);
+
+  if (loading) return <div>Завантаження...</div>;
+  if (!deputy) return <div>Депутата не знайдено</div>;
 
   return (
     <>
@@ -87,13 +56,13 @@ const PersonPage: FC = () => {
                   className={styles.breadcrumbIcon}
                 ></Icon>
               </Link>
-              <p className={styles.breadcrumbLinkCurrent}>Максим Шевченко</p>
+              <p className={styles.breadcrumbLinkCurrent}>{fullname}</p>
             </div>
             <div className={styles.personIntroduction}>
               <div className={styles.personIntroductionImage}>
                 <img src={Tape} className={styles.tape} />
                 <img
-                  src={personPhoto}
+                  src={`${import.meta.env.VITE_STRAPI_URL}${imageUrl}`}
                   alt="Person"
                   className={styles.personPhoto}
                   width={509}
@@ -101,7 +70,7 @@ const PersonPage: FC = () => {
                 />
               </div>
               <div className={styles.personInfo}>
-                <div className={styles.name}>МАКСИМ ШЕВЧЕНКО</div>
+                <div className={styles.name}>{fullname}</div>
                 <div className={styles.characteristics}>
                   <div className={styles.option}>
                     <Icon
@@ -110,7 +79,7 @@ const PersonPage: FC = () => {
                     ></Icon>
                     <div className={styles.optionText}>
                       <h4>Обирався / обиралась від:</h4>
-                      <p>{person.party}</p>
+                      <p>{deputy.party}</p>
                     </div>
                   </div>
                   <div className={styles.option}>
@@ -120,7 +89,7 @@ const PersonPage: FC = () => {
                     ></Icon>
                     <div className={styles.optionText}>
                       <h4>Фракція:</h4>
-                      <p>{person.faction}</p>
+                      <p>{deputy.fraction}</p>
                     </div>
                   </div>
                   <div className={styles.option}>
@@ -130,7 +99,7 @@ const PersonPage: FC = () => {
                     ></Icon>
                     <div className={styles.optionText}>
                       <h4>Місце роботи/посада:</h4>
-                      <p>{person.position}</p>
+                      <p>{deputy.placeOfEmployment}</p>
                     </div>
                   </div>
                   <div className={styles.option}>
@@ -140,7 +109,7 @@ const PersonPage: FC = () => {
                     />
                     <div className={styles.optionText}>
                       <h4>Чи є у базі корупціонерів:</h4>
-                      <p>{person.isCorruptListed ? "Так" : "Ні"}</p>
+                      <p>{deputy.isCorrupt ? "Так" : "Ні"}</p>
                     </div>
                   </div>
                   <div className={styles.option}>
@@ -150,10 +119,11 @@ const PersonPage: FC = () => {
                     />
                     <div className={styles.optionText}>
                       <h4>Асоційовані бізнеси:</h4>
-                      {person.businesses.length > 0 ? (
+                      {deputy.relatedBusinessess &&
+                      deputy.relatedBusinessess.length > 0 ? (
                         <ul className={styles.list}>
-                          {person.businesses.map((item, index) => (
-                            <li key={index}>{item}</li>
+                          {deputy.relatedBusinessess.map((item, index) => (
+                            <li key={index}>{item.title}</li>
                           ))}
                         </ul>
                       ) : (
@@ -168,10 +138,10 @@ const PersonPage: FC = () => {
                     />
                     <div className={styles.optionText}>
                       <h4>Додаткові джерела доходу:</h4>
-                      {person.extraIncomeSources.length > 0 ? (
+                      {deputy.otherIncomes.length > 0 ? (
                         <ul className={styles.list}>
-                          {person.extraIncomeSources.map((item, index) => (
-                            <li key={index}>{item}</li>
+                          {deputy.otherIncomes.map((item, index) => (
+                            <li key={index}>{item.title}</li>
                           ))}
                         </ul>
                       ) : (
@@ -205,7 +175,7 @@ const PersonPage: FC = () => {
                   </Link>
                 </div>
               </div>
-              <PaginatedCards cards={repeatedShameCards} />
+              <PaginatedCards cards={deputy.shames} />
             </section>
           </div>
         </section>

@@ -14,6 +14,7 @@ const RatingPage: FC = () => {
 
   useEffect(() => {
     const loadData = async () => {
+      setLoading(true);
       const data = await getDeputies();
       if (data) {
         setDeputies(data);

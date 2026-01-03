@@ -12,7 +12,7 @@ const ShameCard: FC<ShameCardInfo> = (shameCard) => {
     shameCard.deputats[0].firstName + " " + shameCard.deputats[0].lastName;
 
   return (
-    <Link to={"/details"} className={styles.cardLink}>
+    <Link to={`/details/${shameCard.documentId}`} className={styles.cardLink}>
       <div className={styles.shameCard}>
         <div className={styles.shameCardHead}>
           <img

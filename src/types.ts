@@ -17,9 +17,15 @@ interface PersonCardInfo {
       };
     };
   };
-  shames: any[];
-  relatedBusinessess: any[];
-  otherIncomes: any[];
+  shames: ShameCardInfo[];
+  relatedBusinessess: {
+    id: number;
+    title: string;
+  }[];
+  otherIncomes: {
+    id: number;
+    title?: string;
+  }[];
 }
 
 interface ShameCardInfo {
