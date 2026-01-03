@@ -13,58 +13,13 @@ import ShameCard from "../../components/shameCard";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { getDeputies } from "../../services/getDeputies";
-
-const latestCards: ShameCardInfo[] = [
-  {
-    image: smallCardImage,
-    name: "МАКСИМ ШЕВЧЕНКО",
-    add: "+2",
-    date: "22 БЕР 2024",
-    description: "Депутат викритий на хабарі: час для справедливості!",
-  },
-  {
-    image: smallCardImage,
-    name: "ОЛЕНА ПЕТРЕНКО",
-    add: "+4",
-    date: "20 БЕР 2024",
-    description: "Політик фальсифікував вибори: громадськість має об'єднатися!",
-  },
-  {
-    image: smallCardImage,
-    name: "ОЛЕГ СИДОРЕНКО",
-    add: "+3",
-    date: "15 БЕР 2024",
-    description:
-      "Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!",
-  },
-  {
-    image: smallCardImage,
-    name: "МАКСИМ ШЕВЧЕНКО",
-    add: "+5",
-    date: "09 БЕР 2024",
-    description:
-      "Незаконне збагачення політиків - це злочин проти народу: час покласти край!",
-  },
-  {
-    image: smallCardImage,
-    name: "МАКСИМ ШЕВЧЕНКО",
-    add: "+3",
-    date: "03 БЕР 2024",
-    description: "Корупція у владних коридорах: потрібні рішучі дії!",
-  },
-  {
-    image: smallCardImage,
-    name: "МАКСИМ ШЕВЧЕНКО",
-    add: "",
-    date: "01 БЕР 2024",
-    description: "Міністр зловживав владою: не можна залишати безкарним!",
-  },
-];
+import { getShames } from "../../services/getShames";
 
 const HomePage: FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [progress, setProgress] = useState(0);
   const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
+  const [shames, setShames] = useState<ShameCardInfo[]>([]);
   const [loading, setLoading] = useState(true);
 
   const scrollPrev = useCallback(() => {
@@ -84,6 +39,17 @@ const HomePage: FC = () => {
       const data = await getDeputies();
       if (data) {
         setDeputies(data);
+      } else {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+  useEffect(() => {
+    const loadData = async () => {
+      const data = await getShames();
+      if (data) {
+        setShames(data);
       } else {
         setLoading(false);
       }
@@ -230,8 +196,8 @@ const HomePage: FC = () => {
                 </div>
               </div>
               <div className={styles.latestCards}>
-                {latestCards.map((latestCard, index) => (
-                  <ShameCard key={index} {...latestCard} />
+                {shames.map((shame, index) => (
+                  <ShameCard key={index} {...shame} />
                 ))}
               </div>
             </section>

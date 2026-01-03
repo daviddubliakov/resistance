@@ -12,6 +12,9 @@ interface PersonCardInfo {
       small: {
         url: string;
       };
+      thumbnail: {
+        url: string;
+      };
     };
   };
   shames: any[];
@@ -20,11 +23,19 @@ interface PersonCardInfo {
 }
 
 interface ShameCardInfo {
-  image: string;
-  name: string;
-  add: string;
+  id: number;
+  documentId: string;
   date: string;
+  title: string;
   description: string;
+  details: any;
+  deputats: PersonCardInfo[];
+  resources: any[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale?: string;
+  localizations?: any[];
 }
 
 export type { PersonCardInfo, ShameCardInfo };
