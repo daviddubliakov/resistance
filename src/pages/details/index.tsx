@@ -43,10 +43,7 @@ const DetailsPage: FC = () => {
                 className={styles.breadcrumbIcon}
               ></Icon>
             </Link>
-            <p className={styles.breadcrumbLinkCurrent}>
-              Журналістське розслідування викриває давно забуті корупційні схеми
-              в уряді
-            </p>
+            <p className={styles.breadcrumbLinkCurrent}>{shame?.title}</p>
           </div>
           <div className={styles.introductionInfo}>
             <p className={styles.infoDate}>{shame?.date}</p>
