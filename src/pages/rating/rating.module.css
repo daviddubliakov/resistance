@@ -1,11 +1,11 @@
 .main {
-  background-image: url('../../assets/images/light_background.png');
+  background-image: url("../../assets/images/light_background.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
 .introduction {
-  background-image: url('../../assets/images/head_background.png');
+  background-image: url("../../assets/images/head_background.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -19,7 +19,7 @@
 .breadcrumb-link-main {
   margin: 0;
   line-height: 24px;
-  font-family: 'e-Ukraine-Light';
+  font-family: "e-Ukraine-Light";
   color: rgb(239, 240, 243);
   font-size: 14px;
   line-height: 1.7em;
@@ -28,7 +28,7 @@
 .breadcrumb-link-current {
   margin: 0;
   line-height: 24px;
-  font-family: 'e-Ukraine-Light';
+  font-family: "e-Ukraine-Light";
   color: rgb(239, 240, 243, 0.7);
   font-size: 14px;
   line-height: 1.7em;
@@ -50,7 +50,7 @@
 
 .name {
   margin: 0;
-  font-family: 'e-Ukraine-Head-Bold';
+  font-family: "e-Ukraine-Head-Bold";
   font-size: 80px;
   color: var(--light-heading-color);
 
@@ -73,7 +73,7 @@
   margin: 0;
   width: 760px;
   text-align: center;
-  font-family: 'e-Ukraine-Light';
+  font-family: "e-Ukraine-Light";
   font-size: 24px;
   line-height: 1.7em;
   color: var(--light-text-color);
@@ -99,10 +99,11 @@
 .ratingLayout {
   padding: 0 64px;
 }
-
-.rating-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.skeletonContainer {
+  display: flex;
   gap: 30px;
-  text-decoration: none;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  padding: 60px 0;
 }

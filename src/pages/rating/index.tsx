@@ -8,6 +8,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link } from "react-router-dom";
 import { getDeputies } from "../../services/getDeputies";
 import { PersonCardInfo } from "../../types";
+import PersonSkeleton from "../../components/personSkeleton";
 
 const RatingPage: FC = () => {
   const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
@@ -84,7 +85,11 @@ const RatingPage: FC = () => {
         </section>
         <section className="container">
           {loading ? (
-            <div className="spinner-border">Завантаження...</div>
+            <div className={styles.skeletonContainer}>
+              {Array.from({ length: 12 }).map((_, i) => (
+                <PersonSkeleton key={i} />
+              ))}
+            </div>
           ) : (
             <PaginatedCards cards={deputies} />
           )}

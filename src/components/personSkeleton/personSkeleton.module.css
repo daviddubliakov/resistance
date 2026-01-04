@@ -1,0 +1,86 @@
+.personSkeleton {
+  width: 332px;
+  height: 550px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1046px) {
+    max-width: 344px;
+  }
+
+  @media (max-width: 640px) {
+    max-width: 100%;
+  }
+}
+
+.animatePulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeletonItem {
+  background-color: #e5e7eb;
+  border-radius: 4px;
+}
+
+.skeletonImage {
+  width: 100%;
+  border-radius: 0;
+  height: 395px;
+  margin-bottom: 12px;
+}
+
+.skeletonCount {
+  height: 0.9rem;
+  width: 100%;
+  margin: 0 auto 10px auto;
+
+  position: relative;
+  margin: -58px 0 0 0;
+  padding: 10px 20px;
+  background-color: rgb(177, 177, 177);
+
+  @media (max-width: 640px) {
+    margin: -50px 0 0 0;
+  }
+}
+
+.skeletonName {
+  display: table-caption;
+  margin: 30px 0 0 10px;
+  height: 2.5rem;
+  width: 80%;
+}
+
+.skeletonParty {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 0 10px;
+  gap: 10px;
+}
+
+.skeletonPartyLogo {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+.skeletonPartyName {
+  height: 0.8rem;
+  width: 40%;
+}
