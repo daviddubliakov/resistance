@@ -11,12 +11,16 @@ import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { getDeputies } from "../../services/getDeputies";
 import { getShames } from "../../services/getShames";
+import PersonSkeleton from "../../components/personSkeleton";
+import ShameSkeleton from "../../components/shameSkeleton";
 
 const HomePage: FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [progress, setProgress] = useState(0);
   const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
   const [shames, setShames] = useState<ShameCardInfo[]>([]);
+  const [deputiesLoading, setDeputiesLoading] = useState(true);
+  const [shamesLoading, setShamesLoading] = useState(true);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -36,6 +40,7 @@ const HomePage: FC = () => {
       if (data) {
         setDeputies(data);
       }
+      setDeputiesLoading(false);
     };
     loadData();
   }, []);
@@ -45,6 +50,7 @@ const HomePage: FC = () => {
       if (data) {
         setShames(data);
       }
+      setShamesLoading(false);
     };
     loadData();
   }, []);
@@ -115,11 +121,23 @@ const HomePage: FC = () => {
               </div>
               <div className={styles.embla} ref={emblaRef}>
                 <div className={styles.emblaContainer}>
-                  {deputies.map((deputy, index) => (
-                    <div className={styles.emblaSlide} key={index}>
-                      <PersonCard {...deputy} />
-                    </div>
-                  ))}
+                  {deputiesLoading
+                    ? Array.from({ length: 5 }).map((_, index) => (
+                        <div
+                          className={styles.emblaSlide}
+                          key={`skeleton-${index}`}
+                        >
+                          <PersonSkeleton />
+                        </div>
+                      ))
+                    : deputies.map((deputy, index) => (
+                        <div
+                          className={styles.emblaSlide}
+                          key={deputy.documentId || index}
+                        >
+                          <PersonCard {...deputy} />
+                        </div>
+                      ))}
                 </div>
               </div>
               <div className={styles.ratingLine} style={ratingLineStyle} />{" "}
@@ -188,9 +206,13 @@ const HomePage: FC = () => {
                 </div>
               </div>
               <div className={styles.latestCards}>
-                {shames.map((shame, index) => (
-                  <ShameCard key={index} {...shame} />
-                ))}
+                {shamesLoading
+                  ? Array.from({ length: 4 }).map((_, index) => (
+                      <ShameSkeleton key={`latest-skel-${index}`} />
+                    ))
+                  : shames.map((shame, index) => (
+                      <ShameCard key={index} {...shame} />
+                    ))}
               </div>
             </section>
           </div>
