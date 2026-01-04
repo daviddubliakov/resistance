@@ -28,7 +28,9 @@ const ShameCard: FC<ShameCardInfo> = (shameCard) => {
           </p>
         </div>
         <div className={styles.shameCardInfo}>
-          <p className={styles.shameCardDate}>{shameCard.date}</p>
+          <p className={styles.shameCardDate}>
+            {new Date(shameCard.date).toLocaleDateString("uk-UA")}
+          </p>
           <p className={styles.shameCardDescription}>{shameCard.description}</p>
         </div>
         <div className={styles.triangle}></div>

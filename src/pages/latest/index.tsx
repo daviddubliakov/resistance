@@ -7,21 +7,35 @@ import PaginatedCards from "../../components/paginatedCards";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { getShames } from "../../services/getShames";
+import { ShameCardInfo } from "../../types";
 
 const LatestPage: FC = () => {
-  const [shames, setshames] = useState([]);
+  const [shames, setshames] = useState<ShameCardInfo[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
-      setLoading(true);
-      const data = await getShames();
-      if (data) {
-        setshames(data);
-      } else {
+      try {
+        setLoading(true);
+        const data = await getShames();
+
+        if (data) {
+          const sortedData = [...data].sort((a, b) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+
+            return dateB - dateA;
+          });
+
+          setshames(sortedData);
+        }
+      } catch (error) {
+        console.error("Помилка при завантаженні зашкварів:", error);
+      } finally {
         setLoading(false);
       }
     };
+
     loadData();
   }, []);
   return (
@@ -59,7 +73,7 @@ const LatestPage: FC = () => {
         </section>
         <div className="container">
           <section className={styles.shameCards}>
-            {!loading ? (
+            {loading ? (
               <div className="spinner-border">Завантаження...</div>
             ) : (
               <PaginatedCards
