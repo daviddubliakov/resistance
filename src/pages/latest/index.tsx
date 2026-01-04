@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { getShames } from "../../services/getShames";
 import { ShameCardInfo } from "../../types";
+import ShameSkeleton from "../../components/shameSkeleton";
 
 const LatestPage: FC = () => {
   const [shames, setshames] = useState<ShameCardInfo[]>([]);
@@ -74,7 +75,9 @@ const LatestPage: FC = () => {
         <div className="container">
           <section className={styles.shameCards}>
             {loading ? (
-              <div className="spinner-border">Завантаження...</div>
+              Array.from({ length: 4 }).map((_, index) => (
+                <ShameSkeleton key={index} />
+              ))
             ) : (
               <PaginatedCards
                 cards={shames}
