@@ -93,7 +93,11 @@ const DetailsPage: FC = () => {
           <div className={styles.sourcesLinks}>
             {shame?.resources?.map((resource) => (
               <div className={styles.sourcesLink} key={resource.id}>
-                <a className={styles.sourcesName} href={resource.url}>
+                <a
+                  className={styles.sourcesName}
+                  href={resource.url}
+                  target="_blank"
+                >
                   {resource.subtitle}
                   <Icon
                     icon="fontisto:arrow-right"
