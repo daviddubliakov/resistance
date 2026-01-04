@@ -52,38 +52,11 @@ const DetailsPage: FC = () => {
           </div>
         </section>
         <section className={styles.description}>
-          {shame?.details?.slice(0, 1).map((paragraph: any, index: number) => (
+          {shame?.details?.map((paragraph: any, index: number) => (
             <p key={index} className={styles.descriptionText}>
               {paragraph.children?.[0]?.text}
             </p>
           ))}
-          <img
-            className={styles.descriptionImage}
-            src={detailedImage}
-            alt="details"
-          />
-          <img src={tape} alt="tape" className={styles.tape} />
-          <div className={styles.descriptionDetails}>
-            {shame?.details
-              ?.slice(2, 5)
-              .map((paragraph: any, index: number) => (
-                <p key={index} className={styles.descriptionText}>
-                  {paragraph.children?.[0]?.text}
-                </p>
-              ))}
-
-            {/* <ul className={styles.descriptionList}>
-              <li className={styles.descriptionText}>
-                Цей випадок є свідченням корупції в Україні.
-              </li>
-              <li className={styles.descriptionText}>
-                Важливо, щоб подібні злочини розслідувалися та каралися.
-              </li>
-              <li className={styles.descriptionText}>
-                Це допоможе запобігти подібним випадкам у майбутньому.
-              </li>
-            </ul> */}
-          </div>
         </section>
         <section className={styles.sources}>
           <p className={styles.sourcesHead}>СПИСОК ДЖЕРЕЛ</p>
