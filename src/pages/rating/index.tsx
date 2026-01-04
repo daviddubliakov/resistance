@@ -7,21 +7,45 @@ import PaginatedCards from "../../components/paginatedCards";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link } from "react-router-dom";
 import { getDeputies } from "../../services/getDeputies";
+import { PersonCardInfo } from "../../types";
 
 const RatingPage: FC = () => {
-  const [deputies, setDeputies] = useState([]);
+  const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
-      setLoading(true);
-      const data = await getDeputies();
-      if (data) {
-        setDeputies(data);
-      } else {
+      try {
+        setLoading(true);
+        const data = await getDeputies();
+
+        if (data) {
+          const sortedData = [...data].sort((a, b) => {
+            const targetName = "Бондаренко";
+
+            if (a.lastName === targetName && b.lastName !== targetName)
+              return -1;
+            if (b.lastName === targetName && a.lastName !== targetName)
+              return 1;
+
+            const lastNameCompare = a.lastName.localeCompare(b.lastName, "uk");
+
+            if (lastNameCompare === 0) {
+              return a.firstName.localeCompare(b.firstName, "uk");
+            }
+
+            return lastNameCompare;
+          });
+
+          setDeputies(sortedData);
+        }
+      } catch (error) {
+        console.error("Помилка при завантаженні депутатів:", error);
+      } finally {
         setLoading(false);
       }
     };
+
     loadData();
   }, []);
 
@@ -59,7 +83,7 @@ const RatingPage: FC = () => {
           </section>
         </section>
         <section className="container">
-          {!loading ? (
+          {loading ? (
             <div className="spinner-border">Завантаження...</div>
           ) : (
             <PaginatedCards cards={deputies} />

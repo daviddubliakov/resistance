@@ -26,7 +26,9 @@ const PersonCard: FC<PersonCardInfo> = (personCard) => {
         </p>
         <div className={styles.personCardParty}>
           <img src={partyLogo} alt="party logo" className={styles.partyLogo} />
-          <p className={styles.partyName}>{personCard.party}</p>
+          <p className={styles.partyName}>
+            {personCard.party || "Позапартійний"}
+          </p>
         </div>
         <div className={styles.triangle}></div>
         <Icon icon="fontisto:arrow-right" className={styles.arrow}></Icon>
