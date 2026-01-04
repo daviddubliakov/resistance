@@ -23,7 +23,9 @@ const ShameCard: FC<ShameCardInfo> = (shameCard) => {
           <div>
             <p className={styles.shameCardName}>{fullname}</p>
           </div>
-          <p className={styles.shameCardAdd}>+ {shameCard.deputats.length}</p>
+          <p className={styles.shameCardAdd}>
+            + {shameCard.deputats.length - 1}
+          </p>
         </div>
         <div className={styles.shameCardInfo}>
           <p className={styles.shameCardDate}>{shameCard.date}</p>
