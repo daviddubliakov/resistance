@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import { getDeputies } from "../../services/getDeputies";
 import { getShames } from "../../services/getShames";
-import PersonSkeleton from "../../components/personSkeleton";
+import PersonCardSkeleton from "../../components/personCardSkeleton/";
 import ShameSkeleton from "../../components/shameSkeleton";
 
 const HomePage: FC = () => {
@@ -127,7 +127,7 @@ const HomePage: FC = () => {
                           className={styles.emblaSlide}
                           key={`skeleton-${index}`}
                         >
-                          <PersonSkeleton />
+                          <PersonCardSkeleton />
                         </div>
                       ))
                     : deputies.map((deputy, index) => (

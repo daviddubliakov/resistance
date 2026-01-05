@@ -8,7 +8,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link } from "react-router-dom";
 import { getDeputies } from "../../services/getDeputies";
 import { PersonCardInfo } from "../../types";
-import PersonSkeleton from "../../components/personSkeleton";
+import PersonCardSkeleton from "../../components/personCardSkeleton";
 
 const RatingPage: FC = () => {
   const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
@@ -87,7 +87,7 @@ const RatingPage: FC = () => {
           {loading ? (
             <div className={styles.skeletonContainer}>
               {Array.from({ length: 12 }).map((_, i) => (
-                <PersonSkeleton key={i} />
+                <PersonCardSkeleton key={i} />
               ))}
             </div>
           ) : (

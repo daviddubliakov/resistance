@@ -4,8 +4,6 @@ import Footer from "../../components/footer";
 import styles from "./details.module.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link, useParams } from "react-router-dom";
-import detailedImage from "../../assets/images/detailed_image.png";
-import tape from "../../assets/images/tape.png";
 import PersonCard from "../../components/personCard";
 import { ShameCardInfo } from "../../types";
 import { getOneShame } from "../../services/getOneShame";

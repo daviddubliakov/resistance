@@ -1,6 +1,6 @@
-import styles from "./personSkeleton.module.css";
+import styles from "./personCardSkeleton.module.css";
 
-const PersonSkeleton = () => {
+const PersonCardSkeleton = () => {
   return (
     <div className={`${styles.personSkeleton} ${styles.animatePulse}`}>
       <div className={`${styles.skeletonItem} ${styles.skeletonImage}`}></div>
@@ -22,4 +22,4 @@ const PersonSkeleton = () => {
   );
 };
 
-export default PersonSkeleton;
+export default PersonCardSkeleton;

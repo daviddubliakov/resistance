@@ -19,7 +19,11 @@ const PersonCard: FC<PersonCardInfo> = (personCard) => {
         />
         <p className={styles.personCardCount}>
           {personCard.shames.length}
-          {personCard.shames.length > 4 ? " ЗАШКВАРІВ" : " ЗАШКВАРА"}
+          {personCard.shames.length == 1
+            ? " ЗАШКВАР"
+            : personCard.shames.length > 1
+              ? " ЗАШКВАРА"
+              : " Зашкварів"}
         </p>
         <p className={styles.personCardName}>
           {personCard.firstName + " " + personCard.lastName}
