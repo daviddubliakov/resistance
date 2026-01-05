@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import PersonCard from "../../components/personCard";
 import { ShameCardInfo } from "../../types";
 import { getOneShame } from "../../services/getOneShame";
+import PersonCardSkeleton from "../../components/personCardSkeleton";
 
 const DetailsPage: FC = () => {
   const [shame, setShame] = useState<ShameCardInfo | null>(null);
@@ -99,15 +100,13 @@ const DetailsPage: FC = () => {
               </div>
             </div>
             <div className={styles.latestCards}>
-              {shame?.deputats && shame.deputats.length > 0 ? (
-                shame.deputats.map((deputat, index) => (
-                  <PersonCard key={index} {...deputat} />
-                ))
-              ) : (
-                <p className={styles.noData}>
-                  Пов'язаних депутатів не знайдено
-                </p>
-              )}
+              {shame?.deputats && shame.deputats.length > 0
+                ? shame.deputats.map((deputat, index) => (
+                    <PersonCard key={index} {...deputat} />
+                  ))
+                : Array.from({ length: 4 }).map((_, index) => (
+                    <PersonCardSkeleton key={index} />
+                  ))}
             </div>
           </section>
         </div>

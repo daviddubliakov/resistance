@@ -33,6 +33,8 @@ const PersonPage: FC = () => {
     loadData();
   }, [id]);
 
+  if (!deputy) return <div>Депутата не знайдено</div>;
+
   return (
     <>
       <Header />
