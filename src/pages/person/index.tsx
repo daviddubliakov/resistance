@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { PersonCardInfo } from "../../types";
 import { getOneDeputy } from "../../services/getOneDeputy";
 import PaginatedCards from "../../components/paginatedCards";
+import PersonSkeleton from "../../components/personSkeleton";
 
 const PersonPage: FC = () => {
   const [deputy, setDeputy] = useState<PersonCardInfo | null>(null);
@@ -26,14 +27,11 @@ const PersonPage: FC = () => {
       const data = await getOneDeputy(id);
       if (data) {
         setDeputy(data);
-        setLoading(false);
       }
+      setLoading(false);
     };
     loadData();
   }, [id]);
-
-  if (loading) return <div>Завантаження...</div>;
-  if (!deputy) return <div>Депутата не знайдено</div>;
 
   return (
     <>
@@ -58,100 +56,104 @@ const PersonPage: FC = () => {
               </Link>
               <p className={styles.breadcrumbLinkCurrent}>{fullname}</p>
             </div>
-            <div className={styles.personIntroduction}>
-              <div className={styles.personIntroductionImage}>
-                <img src={Tape} className={styles.tape} />
-                <img
-                  src={`${import.meta.env.VITE_STRAPI_URL}${imageUrl}`}
-                  alt="Person"
-                  className={styles.personPhoto}
-                  width={509}
-                  height={731}
-                />
-              </div>
-              <div className={styles.personInfo}>
-                <div className={styles.name}>{fullname}</div>
-                <div className={styles.characteristics}>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="fontisto:checkbox-active"
-                      className={styles.breadcrumbIcon}
-                    ></Icon>
-                    <div className={styles.optionText}>
-                      <h4>Обирався / обиралась від:</h4>
-                      <p>{deputy.party}</p>
+            {loading ? (
+              <PersonSkeleton />
+            ) : (
+              <div className={styles.personIntroduction}>
+                <div className={styles.personIntroductionImage}>
+                  <img src={Tape} className={styles.tape} />
+                  <img
+                    src={`${import.meta.env.VITE_STRAPI_URL}${imageUrl}`}
+                    alt="Person"
+                    className={styles.personPhoto}
+                    width={509}
+                    height={731}
+                  />
+                </div>
+                <div className={styles.personInfo}>
+                  <div className={styles.name}>{fullname}</div>
+                  <div className={styles.characteristics}>
+                    <div className={styles.option}>
+                      <Icon
+                        icon="fontisto:checkbox-active"
+                        className={styles.breadcrumbIcon}
+                      ></Icon>
+                      <div className={styles.optionText}>
+                        <h4>Обирався / обиралась від:</h4>
+                        <p>{deputy.party}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="fontisto:persons"
-                      className={styles.breadcrumbIcon}
-                    ></Icon>
-                    <div className={styles.optionText}>
-                      <h4>Фракція:</h4>
-                      <p>{deputy.fraction}</p>
+                    <div className={styles.option}>
+                      <Icon
+                        icon="fontisto:persons"
+                        className={styles.breadcrumbIcon}
+                      ></Icon>
+                      <div className={styles.optionText}>
+                        <h4>Фракція:</h4>
+                        <p>{deputy.fraction}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="fontisto:suitcase"
-                      className={styles.breadcrumbIcon}
-                    ></Icon>
-                    <div className={styles.optionText}>
-                      <h4>Місце роботи/посада:</h4>
-                      <p>{deputy.placeOfEmployment}</p>
+                    <div className={styles.option}>
+                      <Icon
+                        icon="fontisto:suitcase"
+                        className={styles.breadcrumbIcon}
+                      ></Icon>
+                      <div className={styles.optionText}>
+                        <h4>Місце роботи/посада:</h4>
+                        <p>{deputy.placeOfEmployment}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="fontisto:wallet"
-                      className={styles.breadcrumbIcon}
-                    />
-                    <div className={styles.optionText}>
-                      <h4>Чи є у базі корупціонерів:</h4>
-                      <p>{deputy.isCorrupt ? "Так" : "Ні"}</p>
+                    <div className={styles.option}>
+                      <Icon
+                        icon="fontisto:wallet"
+                        className={styles.breadcrumbIcon}
+                      />
+                      <div className={styles.optionText}>
+                        <h4>Чи є у базі корупціонерів:</h4>
+                        <p>{deputy.isCorrupt ? "Так" : "Ні"}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="mdi:office-building-outline"
-                      className={styles.breadcrumbIcon}
-                    />
-                    <div className={styles.optionText}>
-                      <h4>Асоційовані бізнеси:</h4>
-                      {deputy.relatedBusinessess &&
-                      deputy.relatedBusinessess.length > 0 ? (
-                        <ul className={styles.list}>
-                          {deputy.relatedBusinessess.map((item, index) => (
-                            <li key={index}>{item.title}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className={styles.empty}>Немає даних</p>
-                      )}
+                    <div className={styles.option}>
+                      <Icon
+                        icon="mdi:office-building-outline"
+                        className={styles.breadcrumbIcon}
+                      />
+                      <div className={styles.optionText}>
+                        <h4>Асоційовані бізнеси:</h4>
+                        {deputy.relatedBusinessess &&
+                        deputy.relatedBusinessess.length > 0 ? (
+                          <ul className={styles.list}>
+                            {deputy.relatedBusinessess.map((item, index) => (
+                              <li key={index}>{item.title}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className={styles.empty}>Немає даних</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="mdi:cash-multiple"
-                      className={styles.breadcrumbIcon}
-                    />
-                    <div className={styles.optionText}>
-                      <h4>Додаткові джерела доходу:</h4>
-                      {deputy.otherIncomes.length > 0 ? (
-                        <ul className={styles.list}>
-                          {deputy.otherIncomes.map((item, index) => (
-                            <li key={index}>{item.title}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className={styles.empty}>Немає даних</p>
-                      )}
+                    <div className={styles.option}>
+                      <Icon
+                        icon="mdi:cash-multiple"
+                        className={styles.breadcrumbIcon}
+                      />
+                      <div className={styles.optionText}>
+                        <h4>Додаткові джерела доходу:</h4>
+                        {deputy.otherIncomes.length > 0 ? (
+                          <ul className={styles.list}>
+                            {deputy.otherIncomes.map((item, index) => (
+                              <li key={index}>{item.title}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className={styles.empty}>Немає даних</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </section>
         </section>
         <section className={styles.latestBg}>
