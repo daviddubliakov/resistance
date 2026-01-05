@@ -166,7 +166,7 @@
   scrollbar-color: #555 transparent;
   scrollbar-width: thin;
 
-  @media (max-width: 486px) {
+  @media (max-width: 960px) {
     max-height: fit-content;
   }
 }
