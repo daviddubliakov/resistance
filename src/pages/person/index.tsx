@@ -159,7 +159,10 @@ const PersonPage: FC = () => {
             <section className={styles.latest}>
               <div className={styles.latestHeader}>
                 <div className={styles.latestInfo}>
-                  <p className={styles.latestTitle}>59 ЗАШКВАРІВ</p>
+                  <p className={styles.latestTitle}>
+                    {deputy.shames.length}{" "}
+                    {deputy.shames.length > 4 ? "зашкварів" : "зашквара"}
+                  </p>
                   <p className={styles.latestDescription}>
                     Перевірте, в яких черкаських зашкварах засвітився депутат і
                     як саме.
