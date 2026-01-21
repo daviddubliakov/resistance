@@ -3,7 +3,13 @@ interface PersonCardInfo {
   documentId: string;
   firstName: string;
   lastName: string;
-  party: string;
+  party: {
+    logo: {
+      url: string;
+    };
+    name: string;
+    deputats: PersonCardInfo[];
+  };
   fraction: string;
   isCorrupt: boolean;
   placeOfEmployment: string;
@@ -16,6 +22,7 @@ interface PersonCardInfo {
         url: string;
       };
     };
+    url: string;
   };
   shames: ShameCardInfo[];
   relatedBusinessess: {

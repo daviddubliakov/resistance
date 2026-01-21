@@ -1,21 +1,21 @@
-import { FC, useCallback, useEffect, useState } from "react";
-import Header from "../../components/header";
-import arrowDown from "../../assets/images/arrow_down.png";
-import styles from "./home.module.css";
-import Footer from "../../components/footer";
-import { Icon } from "@iconify/react";
-import PersonCard from "../../components/personCard";
-import { PersonCardInfo, ShameCardInfo } from "../../types";
-import ShameCard from "../../components/shameCard";
-import { Link } from "react-router-dom";
-import useEmblaCarousel from "embla-carousel-react";
-import { getDeputies } from "../../services/getDeputies";
-import { getShames } from "../../services/getShames";
-import PersonCardSkeleton from "../../components/personCardSkeleton/";
-import ShameSkeleton from "../../components/shameSkeleton";
+import { FC, useCallback, useEffect, useState } from 'react';
+import Header from '../../components/header';
+import arrowDown from '../../assets/images/arrow_down.png';
+import styles from './home.module.css';
+import Footer from '../../components/footer';
+import { Icon } from '@iconify/react';
+import PersonCard from '../../components/personCard';
+import { PersonCardInfo, ShameCardInfo } from '../../types';
+import ShameCard from '../../components/shameCard';
+import { Link } from 'react-router-dom';
+import useEmblaCarousel from 'embla-carousel-react';
+import { getDeputies } from '../../services/getDeputies';
+import { getShames } from '../../services/getShames';
+import PersonCardSkeleton from '../../components/personCardSkeleton/';
+import ShameSkeleton from '../../components/shameSkeleton';
 
 const HomePage: FC = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' });
   const [progress, setProgress] = useState(0);
   const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
   const [shames, setShames] = useState<ShameCardInfo[]>([]);
@@ -31,7 +31,7 @@ const HomePage: FC = () => {
   }, [emblaApi]);
 
   const ratingLineStyle = {
-    "--progress": `${progress * 100}%`,
+    '--progress': `${progress * 100}%`,
   } as React.CSSProperties;
 
   useEffect(() => {
@@ -62,13 +62,13 @@ const HomePage: FC = () => {
       setProgress(emblaApi.scrollProgress());
     };
 
-    emblaApi.on("scroll", onScroll);
-    emblaApi.on("resize", onScroll);
+    emblaApi.on('scroll', onScroll);
+    emblaApi.on('resize', onScroll);
     onScroll();
 
     return () => {
-      emblaApi.off("scroll", onScroll);
-      emblaApi.off("resize", onScroll);
+      emblaApi.off('scroll', onScroll);
+      emblaApi.off('resize', onScroll);
     };
   }, [emblaApi]);
 
@@ -140,7 +140,7 @@ const HomePage: FC = () => {
                       ))}
                 </div>
               </div>
-              <div className={styles.ratingLine} style={ratingLineStyle} />{" "}
+              <div className={styles.ratingLine} style={ratingLineStyle} />{' '}
               <div className={styles.slider}>
                 <button className={styles.sliderButton} onClick={scrollPrev}>
                   <Icon icon="bxs:chevron-left" className={styles.sliderIcon} />

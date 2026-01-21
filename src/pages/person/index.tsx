@@ -1,14 +1,14 @@
-import { FC, useEffect, useState } from "react";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import styles from "./person.module.css";
-import Tape from "../../assets/images/Masking Tape - 38.png";
-import { Icon } from "@iconify/react";
-import { Link, useParams } from "react-router-dom";
-import { PersonCardInfo } from "../../types";
-import { getOneDeputy } from "../../services/getOneDeputy";
-import PaginatedCards from "../../components/paginatedCards";
-import PersonSkeleton from "../../components/personSkeleton";
+import { FC, useEffect, useState } from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import styles from './person.module.css';
+import Tape from '../../assets/images/Masking Tape - 38.png';
+import { Icon } from '@iconify/react';
+import { Link, useParams } from 'react-router-dom';
+import { PersonCardInfo } from '../../types';
+import { getOneDeputy } from '../../services/getOneDeputy';
+import PaginatedCards from '../../components/paginatedCards';
+import PersonSkeleton from '../../components/personSkeleton';
 
 const PersonPage: FC = () => {
   const [deputy, setDeputy] = useState<PersonCardInfo | null>(null);
@@ -16,10 +16,8 @@ const PersonPage: FC = () => {
 
   const { id } = useParams<{ id: string }>();
 
-  const imageUrl =
-    deputy?.photo?.formats?.small?.url ||
-    deputy?.photo?.formats?.thumbnail?.url;
-  const fullname = deputy?.firstName + " " + deputy?.lastName;
+  const imageUrl = deputy?.photo?.url;
+  const fullname = deputy?.firstName + ' ' + deputy?.lastName;
 
   useEffect(() => {
     const loadData = async () => {
@@ -42,15 +40,15 @@ const PersonPage: FC = () => {
         <section className={styles.person}>
           <section className="container">
             <div className={styles.breadcrumb}>
-              <Link to={"/"} className={styles.breadcrumbLinkMain}>
-                Головна{" "}
+              <Link to={'/'} className={styles.breadcrumbLinkMain}>
+                Головна{' '}
                 <Icon
                   icon="bxs:chevron-right"
                   className={styles.breadcrumbIcon}
                 ></Icon>
               </Link>
-              <Link to={"/shames"} className={styles.breadcrumbLinkMain}>
-                Особи{" "}
+              <Link to={'/shames'} className={styles.breadcrumbLinkMain}>
+                Особи{' '}
                 <Icon
                   icon="bxs:chevron-right"
                   className={styles.breadcrumbIcon}
@@ -65,7 +63,7 @@ const PersonPage: FC = () => {
                 <div className={styles.personIntroductionImage}>
                   <img src={Tape} className={styles.tape} />
                   <img
-                    src={`${import.meta.env.VITE_STRAPI_URL}${imageUrl}`}
+                    src={imageUrl}
                     alt="Person"
                     className={styles.personPhoto}
                     width={509}
@@ -82,7 +80,7 @@ const PersonPage: FC = () => {
                       ></Icon>
                       <div className={styles.optionText}>
                         <h4>Обирався / обиралась від:</h4>
-                        <p>{deputy.party}</p>
+                        <p>{deputy.party.name}</p>
                       </div>
                     </div>
                     <div className={styles.option}>
@@ -112,7 +110,7 @@ const PersonPage: FC = () => {
                       />
                       <div className={styles.optionText}>
                         <h4>Чи є у базі корупціонерів:</h4>
-                        <p>{deputy.isCorrupt ? "Так" : "Ні"}</p>
+                        <p>{deputy.isCorrupt ? 'Так' : 'Ні'}</p>
                       </div>
                     </div>
                     <div className={styles.option}>
@@ -165,7 +163,7 @@ const PersonPage: FC = () => {
                 <div className={styles.latestInfo}>
                   <p className={styles.latestTitle}>
                     Зашкварів:
-                    {" " + deputy.shames.length}
+                    {' ' + deputy.shames.length}
                   </p>
                   <p className={styles.latestDescription}>
                     Перевірте, в яких черкаських зашкварах засвітився депутат і
@@ -173,7 +171,7 @@ const PersonPage: FC = () => {
                   </p>
                 </div>
                 <div className={styles.latestButtons}>
-                  <Link to={"/shames"} className={styles.latestButton}>
+                  <Link to={'/shames'} className={styles.latestButton}>
                     ВСІ ЗАШКВАРИ
                     <Icon
                       icon="fontisto:arrow-right"
@@ -185,7 +183,7 @@ const PersonPage: FC = () => {
               {deputy.shames.length ? (
                 <PaginatedCards cards={deputy.shames} />
               ) : (
-                ""
+                ''
               )}
             </section>
           </div>
