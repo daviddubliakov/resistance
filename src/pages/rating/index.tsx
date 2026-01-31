@@ -1,42 +1,39 @@
-import { FC } from 'react'
-import Header from '../../components/header'
-import Footer from '../../components/footer'
-import styles from './rating.module.css'
-import arrowDown from '../../assets/images/arrow_down.png'
-import cardImage from '../../assets/images/card_image_example.png'
-import partyLogo from '../../assets/images/party_logo_example.png'
-import { PersonCardInfo } from '../../types'
-import PaginatedCards from '../../components/paginatedCards'
-import { Icon } from '@iconify/react/dist/iconify.js'
-import { Link } from 'react-router-dom'
-
-const ratingCards: PersonCardInfo[] = [
-  {
-    image: cardImage,
-    count: 59,
-    name: 'МАКСИМ ШЕВЧЕНКО',
-    party: 'Сила народу',
-    logo: partyLogo,
-  },
-  {
-    image: cardImage,
-    count: 45,
-    name: 'ОЛЕГ СИДОРЕНКО',
-    party: 'Партія справедливості',
-    logo: partyLogo,
-  },
-  {
-    image: cardImage,
-    count: 26,
-    name: 'ОЛЕНА ПЕТРЕНКО',
-    party: 'Голос України',
-    logo: partyLogo,
-  },
-]
-
-const repeatedRatingCards = Array(100).fill(ratingCards).flat()
+import { FC, useMemo } from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import styles from './rating.module.css';
+import arrowDown from '../../assets/images/arrow_down.png';
+import PaginatedCards from '../../components/paginatedCards';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getDeputies } from '../../services/getDeputies';
+import { PersonCardInfo } from '../../types';
+import PersonCardSkeleton from '../../components/personCardSkeleton';
 
 const RatingPage: FC = () => {
+  const { data: deputiesData = [], isLoading } = useQuery<PersonCardInfo[]>({
+    queryKey: ['deputies'],
+    queryFn: getDeputies,
+  });
+
+  const deputies = useMemo(() => {
+    return [...deputiesData].sort((a, b) => {
+      const targetName = 'Бондаренко';
+
+      if (a.lastName === targetName && b.lastName !== targetName) return -1;
+      if (b.lastName === targetName && a.lastName !== targetName) return 1;
+
+      const lastNameCompare = a.lastName.localeCompare(b.lastName, 'uk');
+
+      if (lastNameCompare === 0) {
+        return a.firstName.localeCompare(b.firstName, 'uk');
+      }
+
+      return lastNameCompare;
+    });
+  }, [deputiesData]);
+
   return (
     <>
       <Header />
@@ -67,12 +64,20 @@ const RatingPage: FC = () => {
           </section>
         </section>
         <section className="container">
-          <PaginatedCards cards={repeatedRatingCards} />
+          {isLoading ? (
+            <div className={styles.skeletonContainer}>
+              {Array.from({ length: 12 }).map((_, i) => (
+                <PersonCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : (
+            <PaginatedCards cards={deputies} />
+          )}
         </section>
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default RatingPage
+export default RatingPage;

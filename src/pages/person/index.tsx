@@ -1,70 +1,29 @@
-import { FC } from "react";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import styles from "./person.module.css";
-import Tape from "../../assets/images/Masking Tape - 38.png";
-import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
-import PaginatedCards from "../../components/paginatedCards";
-import smallCardImage from "../../assets/images/small_card_image_example.png";
-import { ShameCardInfo } from "../../types";
-import personPhoto from "../../assets/images/card_image_example.png";
-
-const shameCards: ShameCardInfo[] = [
-  {
-    image: smallCardImage,
-    name: "Максим Шевченко",
-    add: "+2",
-    date: "22 Бер 2024",
-    description: "Депутат викритий на хабарі: час для справедливості!",
-  },
-  {
-    image: smallCardImage,
-    name: "Максим Шевченко",
-    add: "+5",
-    date: "09 Бер 2024",
-    description:
-      "Незаконне збагачення політиків - це злочин проти народу: час покласти край!",
-  },
-  {
-    image: smallCardImage,
-    name: "Максим Шевченко",
-    add: "+3",
-    date: "03 Бер 2024",
-    description: "Корупція у владних коридорах: потрібні рішучі дії!",
-  },
-  {
-    image: smallCardImage,
-    name: "Олена Петренко",
-    add: "+4",
-    date: "20 Бер 2024",
-    description: "Політик фальсифікував вибори: громадськість має об'єднатися!",
-  },
-  {
-    image: smallCardImage,
-    name: "Олег Сидоренко",
-    add: "+3",
-    date: "15 Бер 2024",
-    description:
-      "Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!",
-  },
-];
-const repeatedShameCards = Array(100).fill(shameCards).flat();
+import { FC } from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import styles from './person.module.css';
+import Tape from '../../assets/images/Masking Tape - 38.png';
+import { Icon } from '@iconify/react';
+import { Link, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { PersonCardInfo } from '../../types';
+import { getOneDeputy } from '../../services/getOneDeputy';
+import PaginatedCards from '../../components/paginatedCards';
+import PersonSkeleton from '../../components/personSkeleton';
 
 const PersonPage: FC = () => {
-  const person = {
-    party: 'Партія "Сила народу"',
-    faction: 'ВО "Батьківщина"',
-    position: 'КП "Черкаська служба чистоти"',
-    isCorruptListed: true,
-    businesses: ['ТОВ "Черкаси-Агро"', "ФОП Коваль С.В"],
-    extraIncomeSources: [
-      "Оренда житлової нерухомості",
-      "Дивіденди",
-      "Оренда комерційної нерухомості",
-      "Роялті",
-    ],
-  };
+  const { id } = useParams<{ id: string }>();
+
+  const { data: deputy, isLoading } = useQuery<PersonCardInfo | null>({
+    queryKey: ['deputy', id],
+    queryFn: () => getOneDeputy(id),
+    enabled: !!id,
+  });
+
+  const imageUrl = deputy?.photo?.url;
+  const fullname = deputy ? deputy.firstName + ' ' + deputy.lastName : '';
+
+  if (!deputy && !isLoading) return <div>Депутата не знайдено</div>;
 
   return (
     <>
@@ -73,142 +32,124 @@ const PersonPage: FC = () => {
         <section className={styles.person}>
           <section className="container">
             <div className={styles.breadcrumb}>
-              <Link to={"/"} className={styles.breadcrumbLinkMain}>
-                Головна{" "}
-                <Icon
-                  icon="bxs:chevron-right"
-                  className={styles.breadcrumbIcon}
-                ></Icon>
+              <Link to={'/'} className={styles.breadcrumbLinkMain}>
+                Головна <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
               </Link>
-              <Link to={"/shames"} className={styles.breadcrumbLinkMain}>
-                Особи{" "}
-                <Icon
-                  icon="bxs:chevron-right"
-                  className={styles.breadcrumbIcon}
-                ></Icon>
+              <Link to={'/shames'} className={styles.breadcrumbLinkMain}>
+                Особи <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
               </Link>
-              <p className={styles.breadcrumbLinkCurrent}>Максим Шевченко</p>
+              <p className={styles.breadcrumbLinkCurrent}>{fullname}</p>
             </div>
-            <div className={styles.personIntroduction}>
-              <div className={styles.personIntroductionImage}>
-                <img src={Tape} className={styles.tape} />
-                <img
-                  src={personPhoto}
-                  alt="Person"
-                  className={styles.personPhoto}
-                  width={509}
-                  height={731}
-                />
-              </div>
-              <div className={styles.personInfo}>
-                <div className={styles.name}>МАКСИМ ШЕВЧЕНКО</div>
-                <div className={styles.characteristics}>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="fontisto:checkbox-active"
-                      className={styles.breadcrumbIcon}
-                    ></Icon>
-                    <div className={styles.optionText}>
-                      <h4>Обирався / обиралась від:</h4>
-                      <p>{person.party}</p>
+            {isLoading ? (
+              <PersonSkeleton />
+            ) : deputy ? (
+              <div className={styles.personIntroduction}>
+                <div className={styles.personIntroductionImage}>
+                  <img src={Tape} className={styles.tape} />
+                  <img
+                    src={imageUrl}
+                    alt="Person"
+                    className={styles.personPhoto}
+                    width={509}
+                    height={731}
+                  />
+                </div>
+                <div className={styles.personInfo}>
+                  <div className={styles.name}>{fullname}</div>
+                  <div className={styles.characteristics}>
+                    <div className={styles.option}>
+                      <Icon
+                        icon="fontisto:checkbox-active"
+                        className={styles.breadcrumbIcon}
+                      ></Icon>
+                      <div className={styles.optionText}>
+                        <h4>Обирався / обиралась від:</h4>
+                        <p>{deputy.party.name}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="fontisto:persons"
-                      className={styles.breadcrumbIcon}
-                    ></Icon>
-                    <div className={styles.optionText}>
-                      <h4>Фракція:</h4>
-                      <p>{person.faction}</p>
+                    <div className={styles.option}>
+                      <Icon icon="fontisto:persons" className={styles.breadcrumbIcon}></Icon>
+                      <div className={styles.optionText}>
+                        <h4>Фракція:</h4>
+                        <p>{deputy.fraction}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="fontisto:suitcase"
-                      className={styles.breadcrumbIcon}
-                    ></Icon>
-                    <div className={styles.optionText}>
-                      <h4>Місце роботи/посада:</h4>
-                      <p>{person.position}</p>
+                    <div className={styles.option}>
+                      <Icon icon="fontisto:suitcase" className={styles.breadcrumbIcon}></Icon>
+                      <div className={styles.optionText}>
+                        <h4>Місце роботи/посада:</h4>
+                        <p>{deputy.placeOfEmployment}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="fontisto:wallet"
-                      className={styles.breadcrumbIcon}
-                    />
-                    <div className={styles.optionText}>
-                      <h4>Чи є у базі корупціонерів:</h4>
-                      <p>{person.isCorruptListed ? "Так" : "Ні"}</p>
+                    <div className={styles.option}>
+                      <Icon icon="fontisto:wallet" className={styles.breadcrumbIcon} />
+                      <div className={styles.optionText}>
+                        <h4>Чи є у базі корупціонерів:</h4>
+                        <p>{deputy.isCorrupt ? 'Так' : 'Ні'}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="mdi:office-building-outline"
-                      className={styles.breadcrumbIcon}
-                    />
-                    <div className={styles.optionText}>
-                      <h4>Асоційовані бізнеси:</h4>
-                      {person.businesses.length > 0 ? (
-                        <ul className={styles.list}>
-                          {person.businesses.map((item, index) => (
-                            <li key={index}>{item}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className={styles.empty}>Немає даних</p>
-                      )}
+                    <div className={styles.option}>
+                      <Icon icon="mdi:office-building-outline" className={styles.breadcrumbIcon} />
+                      <div className={styles.optionText}>
+                        <h4>Асоційовані бізнеси:</h4>
+                        {deputy.relatedBusinessess && deputy.relatedBusinessess.length > 0 ? (
+                          <ul className={styles.list}>
+                            {deputy.relatedBusinessess.map((item, index) => (
+                              <li key={index}>{item.title}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className={styles.empty}>Немає даних</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.option}>
-                    <Icon
-                      icon="mdi:cash-multiple"
-                      className={styles.breadcrumbIcon}
-                    />
-                    <div className={styles.optionText}>
-                      <h4>Додаткові джерела доходу:</h4>
-                      {person.extraIncomeSources.length > 0 ? (
-                        <ul className={styles.list}>
-                          {person.extraIncomeSources.map((item, index) => (
-                            <li key={index}>{item}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className={styles.empty}>Немає даних</p>
-                      )}
+                    <div className={styles.option}>
+                      <Icon icon="mdi:cash-multiple" className={styles.breadcrumbIcon} />
+                      <div className={styles.optionText}>
+                        <h4>Додаткові джерела доходу:</h4>
+                        {deputy.otherIncomes.length > 0 ? (
+                          <ul className={styles.list}>
+                            {deputy.otherIncomes.map((item, index) => (
+                              <li key={index}>{item.title}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className={styles.empty}>Немає даних</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ) : null}
           </section>
         </section>
-        <section className={styles.latestBg}>
-          <div className="container">
-            <section className={styles.latest}>
-              <div className={styles.latestHeader}>
-                <div className={styles.latestInfo}>
-                  <p className={styles.latestTitle}>59 ЗАШКВАРІВ</p>
-                  <p className={styles.latestDescription}>
-                    Перевірте, в яких черкаських зашкварах засвітився депутат і
-                    як саме.
-                  </p>
+        {deputy && (
+          <section className={styles.latestBg}>
+            <div className="container">
+              <section className={styles.latest}>
+                <div className={styles.latestHeader}>
+                  <div className={styles.latestInfo}>
+                    <p className={styles.latestTitle}>
+                      Зашкварів:
+                      {' ' + deputy.shames.length}
+                    </p>
+                    <p className={styles.latestDescription}>
+                      Перевірте, в яких черкаських зашкварах засвітився депутат і як саме.
+                    </p>
+                  </div>
+                  <div className={styles.latestButtons}>
+                    <Link to={'/shames'} className={styles.latestButton}>
+                      ВСІ ЗАШКВАРИ
+                      <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
+                    </Link>
+                  </div>
                 </div>
-                <div className={styles.latestButtons}>
-                  <Link to={"/shames"} className={styles.latestButton}>
-                    ВСІ ЗАШКВАРИ
-                    <Icon
-                      icon="fontisto:arrow-right"
-                      className={styles.arrowRight}
-                    ></Icon>
-                  </Link>
-                </div>
-              </div>
-              <PaginatedCards cards={repeatedShameCards} />
-            </section>
-          </div>
-        </section>
+                {deputy.shames.length ? <PaginatedCards cards={deputy.shames} /> : ''}
+              </section>
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>

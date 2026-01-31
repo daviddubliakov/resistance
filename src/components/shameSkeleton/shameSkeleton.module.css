@@ -1,0 +1,88 @@
+.shameCardSkeleton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 63px;
+  width: 330px;
+  height: 300px;
+  flex-grow: 1;
+  padding: 30px;
+  opacity: 0.9;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background-color: #fff;
+  position: relative;
+
+  @media (max-width: 1110px) {
+    width: 400px;
+  }
+
+  @media (max-width: 879px) {
+    width: 350px;
+  }
+
+  @media (max-width: 770px) {
+    width: 100%;
+  }
+}
+
+.animatePulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeletonItem {
+  background-color: #e5e7eb;
+  border-radius: 4px;
+}
+
+.skeletonHead {
+  display: flex;
+  height: 42px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.skeletonAvatar {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+}
+
+.skeletonName {
+  height: 1.2rem;
+  width: 140px;
+  display: table-caption;
+  margin: 0;
+}
+
+.skeletonInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeletonDate {
+  height: 0.9rem;
+  width: 80px;
+  margin: 0;
+  padding: 0 10px;
+}
+.skeletonLineContainer {
+  display: flex;
+  flex-direction: column;
+}
+.skeletonLine {
+  height: 1rem;
+}

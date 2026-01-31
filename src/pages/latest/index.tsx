@@ -1,63 +1,29 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import arrowDown from '../../assets/images/arrow_down.png';
 import styles from './latest.module.css';
-import { ShameCardInfo } from '../../types';
-import smallCardImage from '../../assets/images/small_card_image_example.png';
 import PaginatedCards from '../../components/paginatedCards';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
-
-const shameCards: ShameCardInfo[] = [
-  {
-    image: smallCardImage,
-    name: 'Максим Шевченко',
-    add: '+2',
-    date: '22 Бер 2024',
-    description: 'Депутат викритий на хабарі: час для справедливості!',
-  },
-  {
-    image: smallCardImage,
-    name: 'Максим Шевченко',
-    add: '+5',
-    date: '09 Бер 2024',
-    description:
-      'Незаконне збагачення політиків - це злочин проти народу: час покласти край!',
-  },
-  {
-    image: smallCardImage,
-    name: 'Максим Шевченко',
-    add: '+3',
-    date: '03 Бер 2024',
-    description: 'Корупція у владних коридорах: потрібні рішучі дії!',
-  },
-  {
-    image: smallCardImage,
-    name: 'Олена Петренко',
-    add: '+4',
-    date: '20 Бер 2024',
-    description: "Політик фальсифікував вибори: громадськість має об'єднатися!",
-  },
-  {
-    image: smallCardImage,
-    name: 'Олег Сидоренко',
-    add: '+3',
-    date: '15 Бер 2024',
-    description:
-      'Корупція у владних коридорах сягнула жахливих масштабів: потрібні рішучі дії!',
-  },
-  /*  {
-    image: smallCardImage,
-    name: 'Максим Шевченко',
-    add: '+3',
-    date: '01 Бер 2024',
-    description: 'Міністр зловживав владою: не можна залишати безкарним!',
-  },*/
-];
-const repeatedShameCards = Array(100).fill(shameCards).flat();
+import { useQuery } from '@tanstack/react-query';
+import { getShames } from '../../services/getShames';
+import { ShameCardInfo } from '../../types';
+import ShameSkeleton from '../../components/shameSkeleton';
 
 const LatestPage: FC = () => {
+  const { data: shamesData = [], isLoading } = useQuery<ShameCardInfo[]>({
+    queryKey: ['shames'],
+    queryFn: getShames,
+  });
+
+  const shames = useMemo(() => {
+    return [...shamesData].sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateB - dateA;
+    });
+  }, [shamesData]);
   return (
     <>
       <Header />
@@ -66,11 +32,7 @@ const LatestPage: FC = () => {
           <div className="container">
             <div className={styles.breadcrumb}>
               <Link to={'/'} className={styles.breadcrumbLinkMain}>
-                Головна{' '}
-                <Icon
-                  icon="bxs:chevron-right"
-                  className={styles.breadcrumbIcon}
-                ></Icon>
+                Головна <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
               </Link>
               <p className={styles.breadcrumbLinkCurrent}>Зашквари</p>
             </div>
@@ -80,8 +42,8 @@ const LatestPage: FC = () => {
               </div>
               <div className={styles.whiteLine}></div>
               <p className={styles.goal}>
-                Згадайте, які дії та рішення міської влади зашкодили громаді або
-                викликали осуд та гостру негативну реакцію суспільства.
+                Згадайте, які дії та рішення міської влади зашкодили громаді або викликали осуд та
+                гостру негативну реакцію суспільства.
               </p>
               <div className={styles.arrows}>
                 <img src={arrowDown} alt="arrow" />
@@ -93,7 +55,11 @@ const LatestPage: FC = () => {
         </section>
         <div className="container">
           <section className={styles.shameCards}>
-            <PaginatedCards cards={repeatedShameCards} className={styles.shameCardsRewrite} />
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, index) => <ShameSkeleton key={index} />)
+            ) : (
+              <PaginatedCards cards={shames} className={styles.shameCardsRewrite} />
+            )}
           </section>
         </div>
       </main>

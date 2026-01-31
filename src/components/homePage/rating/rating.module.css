@@ -1,0 +1,155 @@
+.ratingBg {
+  background-image: url("../../../assets/images/light_background.png");
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding: 80px 0;
+
+  @media (max-width: 476px) {
+    gap: 30px;
+  }
+}
+
+.ratingHeader {
+  display: flex;
+  gap: 25px;
+
+  @media (max-width: 944px) {
+    flex-direction: column;
+  }
+}
+
+.ratingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.ratingTitle {
+  margin: 0;
+  font-family: "e-Ukraine-Head-Bold";
+  font-size: 80px;
+  color: var(--background-color);
+  line-height: 1.2em;
+
+  @media (max-width: 1024px) {
+    font-size: 60px;
+  }
+
+  @media (max-width: 476px) {
+    font-size: 40px;
+  }
+}
+
+.ratingDescription {
+  margin: 0;
+  font-family: "e-Ukraine-Light";
+  font-size: 24px;
+  line-height: 1.7em;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+.ratingButtons {
+  display: flex;
+  align-items: end;
+}
+
+.ratingButton {
+  display: flex;
+  justify-content: flex-end;
+  gap: 13px;
+  align-items: center;
+  padding: 10px 25px;
+  width: 284px;
+  border: none;
+  font-family: "e-Ukraine-Bold";
+  font-size: 20px;
+  line-height: 1.5em;
+  background-color: transparent;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  @media (max-width: 1024px) {
+    background-color: var(--selected-color);
+    color: white;
+  }
+}
+
+.ratingButton:hover {
+  background-color: var(--selected-color);
+  color: white;
+}
+
+.arrowRight {
+  display: inline-block;
+  font-size: 18px;
+  transform: rotate(-45deg);
+}
+
+.ratingLine {
+  margin-top: -3px;
+  height: 4px;
+  width: 100%;
+  background: var(--background-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.ratingLine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--progress);
+  background: var(--selected-color);
+}
+
+.embla {
+  overflow: hidden;
+}
+
+.emblaContainer {
+  display: flex;
+  gap: 30px;
+}
+
+.emblaSlide {
+  flex: 0 0 25%;
+
+  &:last-child {
+    padding-right: 30px;
+  }
+}
+
+.slider {
+  display: flex;
+}
+
+.sliderButton {
+  width: 230px;
+  height: 80px;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.sliderButton:hover {
+  background-color: var(--selected-color);
+}
+
+.sliderIcon {
+  font-size: 36px;
+  color: white;
+}
