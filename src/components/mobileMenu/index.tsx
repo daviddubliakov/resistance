@@ -1,6 +1,6 @@
-import { FC, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
-import styles from "./mobileMenu.module.css";
+import { FC, useEffect, useRef } from 'react';
+import { NavLink } from 'react-router-dom';
+import styles from './mobileMenu.module.css';
 
 export type MenuItem = {
   to: string;
@@ -22,31 +22,31 @@ const MobileMenu: FC<MobileMenuProps> = ({ items, isOpen, onClose }) => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
 
-      if (target.closest("[data-burger-button]")) return;
+      if (target.closest('[data-burger-button]')) return;
 
       if (menuRef.current && !menuRef.current.contains(target)) {
         onClose();
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className={`${styles.mobileMenu} ${isOpen ? styles.open : ""}`}>
+    <div className={`${styles.mobileMenu} ${isOpen ? styles.open : ''}`}>
       <div ref={menuRef} className={styles.mobileMenuContent}>
-        {items.map((item) => {
+        {items.map(item => {
           return (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `${styles.mobileLink} ${isActive ? styles.activeLink : ""}`
+                `${styles.mobileLink} ${isActive ? styles.activeLink : ''}`
               }
               onClick={onClose}
             >

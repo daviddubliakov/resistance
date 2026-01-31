@@ -1,54 +1,38 @@
-import { FC, useState, useEffect } from "react";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import styles from "./rating.module.css";
-import arrowDown from "../../assets/images/arrow_down.png";
-import PaginatedCards from "../../components/paginatedCards";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Link } from "react-router-dom";
-import { getDeputies } from "../../services/getDeputies";
-import { PersonCardInfo } from "../../types";
-import PersonCardSkeleton from "../../components/personCardSkeleton";
+import { FC, useMemo } from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import styles from './rating.module.css';
+import arrowDown from '../../assets/images/arrow_down.png';
+import PaginatedCards from '../../components/paginatedCards';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getDeputies } from '../../services/getDeputies';
+import { PersonCardInfo } from '../../types';
+import PersonCardSkeleton from '../../components/personCardSkeleton';
 
 const RatingPage: FC = () => {
-  const [deputies, setDeputies] = useState<PersonCardInfo[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: deputiesData = [], isLoading } = useQuery<PersonCardInfo[]>({
+    queryKey: ['deputies'],
+    queryFn: getDeputies,
+  });
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-        const data = await getDeputies();
+  const deputies = useMemo(() => {
+    return [...deputiesData].sort((a, b) => {
+      const targetName = 'Бондаренко';
 
-        if (data) {
-          const sortedData = [...data].sort((a, b) => {
-            const targetName = "Бондаренко";
+      if (a.lastName === targetName && b.lastName !== targetName) return -1;
+      if (b.lastName === targetName && a.lastName !== targetName) return 1;
 
-            if (a.lastName === targetName && b.lastName !== targetName)
-              return -1;
-            if (b.lastName === targetName && a.lastName !== targetName)
-              return 1;
+      const lastNameCompare = a.lastName.localeCompare(b.lastName, 'uk');
 
-            const lastNameCompare = a.lastName.localeCompare(b.lastName, "uk");
-
-            if (lastNameCompare === 0) {
-              return a.firstName.localeCompare(b.firstName, "uk");
-            }
-
-            return lastNameCompare;
-          });
-
-          setDeputies(sortedData);
-        }
-      } catch (error) {
-        console.error("Помилка при завантаженні депутатів:", error);
-      } finally {
-        setLoading(false);
+      if (lastNameCompare === 0) {
+        return a.firstName.localeCompare(b.firstName, 'uk');
       }
-    };
 
-    loadData();
-  }, []);
+      return lastNameCompare;
+    });
+  }, [deputiesData]);
 
   return (
     <>
@@ -57,12 +41,8 @@ const RatingPage: FC = () => {
         <section className={styles.introduction}>
           <section className="container">
             <div className={styles.breadcrumb}>
-              <Link to={"/"} className={styles.breadcrumbLinkMain}>
-                Головна{" "}
-                <Icon
-                  icon="bxs:chevron-right"
-                  className={styles.breadcrumbIcon}
-                ></Icon>
+              <Link to={'/'} className={styles.breadcrumbLinkMain}>
+                Головна <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
               </Link>
               <p className={styles.breadcrumbLinkCurrent}>Особи</p>
             </div>
@@ -72,8 +52,8 @@ const RatingPage: FC = () => {
               <p className={styles.name}>РЕЙТИНГ ЗАШКВАРІВ</p>
               <div className={styles.whiteLine}></div>
               <p className={styles.goal}>
-                Перевірте, хто з депутатів міської ради найбільше засвітився в
-                черкаських зашкварах і як саме.
+                Перевірте, хто з депутатів міської ради найбільше засвітився в черкаських зашкварах
+                і як саме.
               </p>
               <div className={styles.arrows}>
                 <img src={arrowDown} alt="arrow" />
@@ -84,7 +64,7 @@ const RatingPage: FC = () => {
           </section>
         </section>
         <section className="container">
-          {loading ? (
+          {isLoading ? (
             <div className={styles.skeletonContainer}>
               {Array.from({ length: 12 }).map((_, i) => (
                 <PersonCardSkeleton key={i} />

@@ -1,44 +1,29 @@
-import { FC, useEffect, useState } from "react";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import arrowDown from "../../assets/images/arrow_down.png";
-import styles from "./latest.module.css";
-import PaginatedCards from "../../components/paginatedCards";
-import { Link } from "react-router-dom";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { getShames } from "../../services/getShames";
-import { ShameCardInfo } from "../../types";
-import ShameSkeleton from "../../components/shameSkeleton";
+import { FC, useMemo } from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import arrowDown from '../../assets/images/arrow_down.png';
+import styles from './latest.module.css';
+import PaginatedCards from '../../components/paginatedCards';
+import { Link } from 'react-router-dom';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { useQuery } from '@tanstack/react-query';
+import { getShames } from '../../services/getShames';
+import { ShameCardInfo } from '../../types';
+import ShameSkeleton from '../../components/shameSkeleton';
 
 const LatestPage: FC = () => {
-  const [shames, setshames] = useState<ShameCardInfo[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: shamesData = [], isLoading } = useQuery<ShameCardInfo[]>({
+    queryKey: ['shames'],
+    queryFn: getShames,
+  });
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-        const data = await getShames();
-
-        if (data) {
-          const sortedData = [...data].sort((a, b) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-
-            return dateB - dateA;
-          });
-
-          setshames(sortedData);
-        }
-      } catch (error) {
-        console.error("Помилка при завантаженні зашкварів:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
+  const shames = useMemo(() => {
+    return [...shamesData].sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateB - dateA;
+    });
+  }, [shamesData]);
   return (
     <>
       <Header />
@@ -46,12 +31,8 @@ const LatestPage: FC = () => {
         <section className={styles.introduction}>
           <div className="container">
             <div className={styles.breadcrumb}>
-              <Link to={"/"} className={styles.breadcrumbLinkMain}>
-                Головна{" "}
-                <Icon
-                  icon="bxs:chevron-right"
-                  className={styles.breadcrumbIcon}
-                ></Icon>
+              <Link to={'/'} className={styles.breadcrumbLinkMain}>
+                Головна <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
               </Link>
               <p className={styles.breadcrumbLinkCurrent}>Зашквари</p>
             </div>
@@ -61,8 +42,8 @@ const LatestPage: FC = () => {
               </div>
               <div className={styles.whiteLine}></div>
               <p className={styles.goal}>
-                Згадайте, які дії та рішення міської влади зашкодили громаді або
-                викликали осуд та гостру негативну реакцію суспільства.
+                Згадайте, які дії та рішення міської влади зашкодили громаді або викликали осуд та
+                гостру негативну реакцію суспільства.
               </p>
               <div className={styles.arrows}>
                 <img src={arrowDown} alt="arrow" />
@@ -74,15 +55,10 @@ const LatestPage: FC = () => {
         </section>
         <div className="container">
           <section className={styles.shameCards}>
-            {loading ? (
-              Array.from({ length: 4 }).map((_, index) => (
-                <ShameSkeleton key={index} />
-              ))
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, index) => <ShameSkeleton key={index} />)
             ) : (
-              <PaginatedCards
-                cards={shames}
-                className={styles.shameCardsRewrite}
-              />
+              <PaginatedCards cards={shames} className={styles.shameCardsRewrite} />
             )}
           </section>
         </div>

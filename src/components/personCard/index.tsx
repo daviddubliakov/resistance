@@ -4,17 +4,13 @@ import styles from './personCard.module.css';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { Link } from 'react-router-dom';
 
-const PersonCard: FC<PersonCardInfo> = (personCard) => {
+const PersonCard: FC<PersonCardInfo> = personCard => {
   const imageUrl = personCard.photo?.url;
   const partyLogo = personCard.party?.logo?.url;
   return (
     <Link to={`/person/${personCard.documentId}`} className={styles.cardLink}>
       <div className={styles.personCard}>
-        <img
-          src={imageUrl}
-          alt="card image"
-          className={styles.personCardImage}
-        />
+        <img src={imageUrl} alt="card image" className={styles.personCardImage} />
         <p className={styles.personCardCount}>
           {personCard.shames.length}
           {personCard.shames.length == 1
@@ -23,14 +19,10 @@ const PersonCard: FC<PersonCardInfo> = (personCard) => {
               ? ' ЗАШКВАРА'
               : ' Зашкварів'}
         </p>
-        <p className={styles.personCardName}>
-          {personCard.firstName + ' ' + personCard.lastName}
-        </p>
+        <p className={styles.personCardName}>{personCard.firstName + ' ' + personCard.lastName}</p>
         <div className={styles.personCardParty}>
           <img src={partyLogo} alt="party logo" className={styles.partyLogo} />
-          <p className={styles.partyName}>
-            {personCard.party?.name || 'Позапартійний'}
-          </p>
+          <p className={styles.partyName}>{personCard.party?.name || 'Позапартійний'}</p>
         </div>
         <div className={styles.triangle}></div>
         <Icon icon="fontisto:arrow-right" className={styles.arrow}></Icon>

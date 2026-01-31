@@ -1,5 +1,4 @@
-import api from './api';
-import axios from 'axios';
+import api from '.';
 
 export async function getOneShame(id: string | undefined) {
   if (!id) return null;
@@ -15,10 +14,6 @@ export async function getOneShame(id: string | undefined) {
     const shame = response.data.data;
     return shame;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log('Помилка запиту: ', error.response?.data || error.message);
-    } else {
-      console.log('Неочікувана помилка: ', error);
-    }
+    throw error;
   }
 }

@@ -1,21 +1,21 @@
-import { FC, useState } from "react";
-import logo from "../../assets/images/logo.png";
-import styles from "./header.module.css";
-import { Link, NavLink } from "react-router-dom";
-import MobileMenu, { MenuItem } from "../mobileMenu";
+import { FC, useState } from 'react';
+import logo from '../../assets/images/logo.png';
+import styles from './header.module.css';
+import { Link, NavLink } from 'react-router-dom';
+import MobileMenu, { MenuItem } from '../mobileMenu';
 
 const Header: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems: MenuItem[] = [
-    { to: "/shames", label: "Зашквари" },
-    { to: "/rating", label: "Особи" },
-    { to: "/about-us", label: "Про проєкт" },
+    { to: '/shames', label: 'Зашквари' },
+    { to: '/rating', label: 'Особи' },
+    { to: '/about-us', label: 'Про проєкт' },
   ];
 
   const toggleMenu = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsMenuOpen((prev) => !prev);
+    setIsMenuOpen(prev => !prev);
   };
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -25,13 +25,11 @@ const Header: FC = () => {
       <div className="container">
         <section className={styles.layout}>
           <div className={styles.links}>
-            {menuItems.slice(0, 2).map((item) => (
+            {menuItems.slice(0, 2).map(item => (
               <NavLink
                 key={item.to}
                 to={item.to}
-                className={({ isActive }) =>
-                  `${styles.link} ${isActive ? styles.activeLink : ""}`
-                }
+                className={({ isActive }) => `${styles.link} ${isActive ? styles.activeLink : ''}`}
                 onClick={closeMenu}
               >
                 {item.label}
@@ -40,23 +38,15 @@ const Header: FC = () => {
           </div>
 
           <Link to="/" className={styles.logoContainer} onClick={closeMenu}>
-            <img
-              src={logo}
-              alt="logo"
-              className={styles.logo}
-              width={30}
-              height={30}
-            />
+            <img src={logo} alt="logo" className={styles.logo} width={30} height={30} />
           </Link>
 
           <div className={styles.links}>
-            {menuItems.slice(2).map((item) => (
+            {menuItems.slice(2).map(item => (
               <NavLink
                 key={item.to}
                 to={item.to}
-                className={({ isActive }) =>
-                  `${styles.link} ${isActive ? styles.activeLink : ""}`
-                }
+                className={({ isActive }) => `${styles.link} ${isActive ? styles.activeLink : ''}`}
                 onClick={closeMenu}
               >
                 {item.label}
@@ -66,7 +56,7 @@ const Header: FC = () => {
 
           <button
             data-burger-button
-            className={`${styles.burgerButton} ${isMenuOpen ? styles.open : ""}`}
+            className={`${styles.burgerButton} ${isMenuOpen ? styles.open : ''}`}
             onClick={toggleMenu}
           >
             <span></span>

@@ -1,46 +1,35 @@
-import { FC, useEffect, useState } from "react";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import styles from "./details.module.css";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Link, useParams } from "react-router-dom";
-import PersonCard from "../../components/personCard";
-import { ShameCardInfo } from "../../types";
-import { getOneShame } from "../../services/getOneShame";
-import PersonCardSkeleton from "../../components/personCardSkeleton";
+import { FC } from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import styles from './details.module.css';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { Link, useParams } from 'react-router-dom';
+import PersonCard from '../../components/personCard';
+import { ShameCardInfo } from '../../types';
+import { getOneShame } from '../../services/getOneShame';
+import PersonCardSkeleton from '../../components/personCardSkeleton';
+import { useQuery } from '@tanstack/react-query';
 
 const DetailsPage: FC = () => {
-  const [shame, setShame] = useState<ShameCardInfo | null>(null);
   const { id } = useParams<{ id: string }>();
 
-  useEffect(() => {
-    const loadData = async () => {
-      const data = await getOneShame(id);
-      if (data) {
-        setShame(data);
-      }
-    };
-    loadData();
-  }, [id]);
+  const { data: shame } = useQuery<ShameCardInfo | null>({
+    queryKey: ['shame', id],
+    queryFn: () => getOneShame(id),
+    enabled: !!id,
+  });
+
   return (
     <>
       <Header />
       <main className={styles.main}>
         <section className={styles.introduction}>
           <div className={styles.breadcrumb}>
-            <Link to={"/"} className={styles.breadcrumbLinkMain}>
-              Головна{" "}
-              <Icon
-                icon="bxs:chevron-right"
-                className={styles.breadcrumbIcon}
-              ></Icon>
+            <Link to={'/'} className={styles.breadcrumbLinkMain}>
+              Головна <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
             </Link>
-            <Link to={"/shames"} className={styles.breadcrumbLinkMain}>
-              Зашквари{" "}
-              <Icon
-                icon="bxs:chevron-right"
-                className={styles.breadcrumbIcon}
-              ></Icon>
+            <Link to={'/shames'} className={styles.breadcrumbLinkMain}>
+              Зашквари <Icon icon="bxs:chevron-right" className={styles.breadcrumbIcon}></Icon>
             </Link>
             <p className={styles.breadcrumbLinkCurrent}>{shame?.title}</p>
           </div>
@@ -51,6 +40,7 @@ const DetailsPage: FC = () => {
           </div>
         </section>
         <section className={styles.description}>
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {shame?.details?.map((paragraph: any, index: number) => (
             <p key={index} className={styles.descriptionText}>
               {paragraph.children?.[0]?.text}
@@ -60,18 +50,16 @@ const DetailsPage: FC = () => {
         <section className={styles.sources}>
           <p className={styles.sourcesHead}>СПИСОК ДЖЕРЕЛ</p>
           <div className={styles.sourcesLinks}>
-            {shame?.resources?.map((resource) => (
+            {shame?.resources.map(resource => (
               <div className={styles.sourcesLink} key={resource.id}>
                 <a
                   className={styles.sourcesName}
                   href={resource.url}
                   target="_blank"
+                  rel="noreferrer"
                 >
                   {resource.subtitle}
-                  <Icon
-                    icon="fontisto:arrow-right"
-                    className={styles.linkArrow}
-                  ></Icon>
+                  <Icon icon="fontisto:arrow-right" className={styles.linkArrow}></Icon>
                 </a>
                 <p className={styles.sourcesDescription}>{resource.title}</p>
               </div>
@@ -84,29 +72,21 @@ const DetailsPage: FC = () => {
               <div className={styles.latestInfo}>
                 <p className={styles.latestTitle}>СПИСОК ОСІБ</p>
                 <p className={styles.latestDescription}>
-                  Оновлюваний список осіб, які були залучені до корупції,
-                  хабарництва, зловживання владою, некомпетентності та інших
-                  неприйнятних дій.
+                  Оновлюваний список осіб, які були залучені до корупції, хабарництва, зловживання
+                  владою, некомпетентності та інших неприйнятних дій.
                 </p>
               </div>
               <div className={styles.latestButtons}>
-                <Link to={"/rating"} className={styles.latestButton}>
+                <Link to={'/rating'} className={styles.latestButton}>
                   ВСІ ОСОБИ
-                  <Icon
-                    icon="fontisto:arrow-right"
-                    className={styles.arrowRight}
-                  ></Icon>
+                  <Icon icon="fontisto:arrow-right" className={styles.arrowRight}></Icon>
                 </Link>
               </div>
             </div>
             <div className={styles.latestCards}>
               {shame?.deputats && shame.deputats.length > 0
-                ? shame.deputats.map((deputat, index) => (
-                    <PersonCard key={index} {...deputat} />
-                  ))
-                : Array.from({ length: 4 }).map((_, index) => (
-                    <PersonCardSkeleton key={index} />
-                  ))}
+                ? shame.deputats.map((deputat, index) => <PersonCard key={index} {...deputat} />)
+                : Array.from({ length: 4 }).map((_, index) => <PersonCardSkeleton key={index} />)}
             </div>
           </section>
         </div>

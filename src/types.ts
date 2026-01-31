@@ -35,19 +35,27 @@ interface PersonCardInfo {
   }[];
 }
 
+type Resource = {
+  id: number;
+  subtitle: string;
+  title: string;
+  url: string;
+};
+
 interface ShameCardInfo {
   id: number;
   documentId: string;
   date: string;
   title: string;
   description: string;
-  details: any;
+  details: unknown[];
   deputats: PersonCardInfo[];
-  resources: any[];
+  resources: Resource[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   locale?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   localizations?: any[];
 }
 

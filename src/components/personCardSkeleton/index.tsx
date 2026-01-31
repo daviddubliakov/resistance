@@ -1,4 +1,4 @@
-import styles from "./personCardSkeleton.module.css";
+import styles from './personCardSkeleton.module.css';
 
 const PersonCardSkeleton = () => {
   return (
@@ -11,12 +11,8 @@ const PersonCardSkeleton = () => {
       <div className={`${styles.skeletonItem} ${styles.skeletonName}`}></div>
 
       <div className={styles.skeletonParty}>
-        <div
-          className={`${styles.skeletonItem} ${styles.skeletonPartyLogo}`}
-        ></div>
-        <div
-          className={`${styles.skeletonItem} ${styles.skeletonPartyName}`}
-        ></div>
+        <div className={`${styles.skeletonItem} ${styles.skeletonPartyLogo}`}></div>
+        <div className={`${styles.skeletonItem} ${styles.skeletonPartyName}`}></div>
       </div>
     </div>
   );
