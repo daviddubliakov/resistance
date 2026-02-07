@@ -1,0 +1,147 @@
+.accordion {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @media (max-width: 860px) {
+    max-width: calc(100% - 10%);
+  }
+}
+
+.title {
+  font-family: 'e-Ukraine-Head-Bold';
+  font-size: 40px;
+  color: var(--dark-text-color);
+  margin: 0 0 24px 0;
+  padding-bottom: 16px;
+  border-bottom: 4px solid var(--selected-color);
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 462px) {
+    font-size: 22px;
+  }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  border-bottom: 1px solid var(--gray-text-color);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 20px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--selected-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--selected-color);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px 0;
+  }
+}
+
+.question {
+  font-family: 'e-Ukraine-Medium';
+  font-size: 18px;
+  color: var(--dark-text-color);
+  line-height: 1.4;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 462px) {
+    font-size: 14px;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid var(--selected-color);
+  border-bottom: 2px solid var(--selected-color);
+  transform: rotate(-45deg);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (max-width: 768px) {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.iconOpen {
+  transform: rotate(135deg);
+}
+
+.content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contentOpen {
+  grid-template-rows: 1fr;
+}
+
+.contentInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.answer {
+  font-family: 'e-Ukraine-Light';
+  font-size: 16px;
+  line-height: 1.7em;
+  color: var(--dark-text-color);
+  padding: 0 0 20px 0;
+  animation: fadeIn 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding-bottom: 16px;
+  }
+
+  @media (max-width: 462px) {
+    font-size: 13px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
