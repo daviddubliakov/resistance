@@ -9,7 +9,7 @@ import RatingPage from './pages/rating';
 import PersonPage from './pages/person';
 import LatestPage from './pages/latest';
 import DetailsPage from './pages/details';
-import { AboutUsPage } from './pages/about-us';
+import AboutUsPage from './pages/aboutUs';
 import { RootLayout } from './components/root-layout';
 import Error500Page from './pages/error500';
 import Error404Page from './pages/error404';
