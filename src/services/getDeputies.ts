@@ -7,6 +7,7 @@ export async function getDeputies() {
       'populate[photo][fields][1]=formats',
       'populate[party][populate][logo][fields][0]=url',
       'populate[shames][populate][deputats][populate][photo][fields][0]=url',
+      'sort[0]=lastName:asc&sort[1]=firstName:asc',
     ].join('&');
     const response = await api.get(`/api/deputies?${query}`);
     const deputies = response.data.data;
