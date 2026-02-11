@@ -9,6 +9,7 @@ import RatingPage from './pages/rating';
 import PersonPage from './pages/person';
 import LatestPage from './pages/latest';
 import DetailsPage from './pages/details';
+import AboutUsPage from './pages/aboutUs';
 import { RootLayout } from './components/root-layout';
 import Error500Page from './pages/error500';
 import Error404Page from './pages/error404';
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
       { path: '/person/:id', element: <PersonPage /> },
       { path: '/shames', element: <LatestPage /> },
       { path: '/details/:id', element: <DetailsPage /> },
-      { path: '/about-us', element: <HomePage /> },
+      { path: '/about-us', element: <AboutUsPage /> },
       { path: '/500', element: <Error500Page /> },
       { path: '*', element: <Error404Page /> },
     ],
