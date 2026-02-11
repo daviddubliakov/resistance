@@ -18,20 +18,20 @@ const RatingPage: FC = () => {
   });
 
   const deputies = useMemo(() => {
-    return [...deputiesData].sort((a, b) => {
-      const targetName = 'Бондаренко';
+    if (!deputiesData || deputiesData.length === 0) return [];
 
-      if (a.lastName === targetName && b.lastName !== targetName) return -1;
-      if (b.lastName === targetName && a.lastName !== targetName) return 1;
+    const data = [...deputiesData];
 
-      const lastNameCompare = a.lastName.localeCompare(b.lastName, 'uk');
+    const mayorIndex = data.findIndex(deputy =>
+      deputy.placeOfEmployment.includes('Міський голова')
+    );
 
-      if (lastNameCompare === 0) {
-        return a.firstName.localeCompare(b.firstName, 'uk');
-      }
+    if (mayorIndex > -1) {
+      const [mayor] = data.splice(mayorIndex, 1);
+      data.unshift(mayor);
+    }
 
-      return lastNameCompare;
-    });
+    return data;
   }, [deputiesData]);
 
   return (
@@ -66,7 +66,7 @@ const RatingPage: FC = () => {
         <section className="container">
           {isLoading ? (
             <div className={styles.skeletonContainer}>
-              {Array.from({ length: 12 }).map((_, i) => (
+              {Array.from({ length: 4 }).map((_, i) => (
                 <PersonCardSkeleton key={i} />
               ))}
             </div>
