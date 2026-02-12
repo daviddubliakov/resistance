@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,13 @@ const Latest: FC = () => {
     queryKey: ['shames'],
     queryFn: getShames,
   });
+
+  const sortedShamesByData = useMemo(() => {
+    if (!shames || shames.length === 0) return [];
+    return [...shames]
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 4);
+  }, [shames]);
 
   return (
     <div className={styles.latest}>
@@ -38,7 +45,7 @@ const Latest: FC = () => {
               ? Array.from({ length: 4 }).map((_, index) => (
                   <ShameSkeleton key={`latest-skel-${index}`} />
                 ))
-              : shames.map((shame, index) => <ShameCard key={index} {...shame} />)}
+              : sortedShamesByData.map((shame, index) => <ShameCard key={index} {...shame} />)}
           </div>
         </section>
       </div>
