@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -9,17 +9,12 @@ import { getShames } from '../../../services/getShames';
 import styles from './latest.module.css';
 
 const Latest: FC = () => {
-  const { data: shames = [], isLoading: shamesLoading } = useQuery<ShameCardInfo[]>({
-    queryKey: ['shames'],
-    queryFn: getShames,
-  });
+  const params = 'sort[0]=date:desc&pagination[limit]=4';
 
-  const sortedShamesByData = useMemo(() => {
-    if (!shames || shames.length === 0) return [];
-    return [...shames]
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 4);
-  }, [shames]);
+  const { data: shames = [], isLoading: shamesLoading } = useQuery<ShameCardInfo[]>({
+    queryKey: ['shames', params],
+    queryFn: () => getShames(params),
+  });
 
   return (
     <div className={styles.latest}>
@@ -45,7 +40,7 @@ const Latest: FC = () => {
               ? Array.from({ length: 4 }).map((_, index) => (
                   <ShameSkeleton key={`latest-skel-${index}`} />
                 ))
-              : sortedShamesByData.map((shame, index) => <ShameCard key={index} {...shame} />)}
+              : shames.map((shame, index) => <ShameCard key={index} {...shame} />)}
           </div>
         </section>
       </div>
