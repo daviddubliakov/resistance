@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import arrowDown from '../../assets/images/arrow_down.png';
@@ -12,18 +12,12 @@ import { ShameCardInfo } from '../../types';
 import ShameSkeleton from '../../components/shameSkeleton';
 
 const LatestPage: FC = () => {
-  const { data: shamesData = [], isLoading } = useQuery<ShameCardInfo[]>({
-    queryKey: ['shames'],
-    queryFn: getShames,
-  });
+  const params = 'sort[0]=date:desc';
 
-  const shames = useMemo(() => {
-    return [...shamesData].sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return dateB - dateA;
-    });
-  }, [shamesData]);
+  const { data: shamesData = [], isLoading } = useQuery<ShameCardInfo[]>({
+    queryKey: ['shames', params],
+    queryFn: () => getShames(params),
+  });
   return (
     <>
       <Header />
@@ -58,7 +52,7 @@ const LatestPage: FC = () => {
             {isLoading ? (
               Array.from({ length: 4 }).map((_, index) => <ShameSkeleton key={index} />)
             ) : (
-              <PaginatedCards cards={shames} className={styles.shameCardsRewrite} />
+              <PaginatedCards cards={shamesData} className={styles.shameCardsRewrite} />
             )}
           </section>
         </div>
