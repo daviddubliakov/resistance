@@ -1,38 +1,58 @@
+// Deputy types
 interface PersonCardInfo {
   id: number;
   documentId: string;
   firstName: string;
   lastName: string;
-  party: {
-    logo: {
-      url: string;
-    };
-    name: string;
-    deputats: PersonCardInfo[];
-  };
+  party: Party[];
   fraction: string;
   isCorrupt: boolean;
   placeOfEmployment: string;
-  photo: {
-    formats?: {
-      small: {
-        url: string;
-      };
-      thumbnail: {
-        url: string;
-      };
+  photo: Photo[];
+  shames: ShameCardInfo[];
+  relatedBusinessess: Title[];
+  otherIncomes: Title[];
+}
+
+type Title = {
+  id: number;
+  title?: string;
+};
+interface Photo {
+  formats?: {
+    small: {
+      url: string;
     };
+    thumbnail: {
+      url: string;
+    };
+  };
+  url: string;
+}
+interface Party {
+  logo: {
     url: string;
   };
-  shames: ShameCardInfo[];
-  relatedBusinessess: {
-    id: number;
-    title: string;
-  }[];
-  otherIncomes: {
-    id: number;
-    title?: string;
-  }[];
+  name: string;
+  deputats: PersonCardInfo[];
+}
+
+// Shame types
+interface ShameCardInfo {
+  id: number;
+  documentId: string;
+  date: string;
+  title: string;
+  description: string;
+  details: DetailParagraph[];
+  deputats: PersonCardInfo[];
+  resources: Resource[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale?: string;
+
+  localizations?: Localizations[];
 }
 
 type Resource = {
@@ -41,22 +61,20 @@ type Resource = {
   title: string;
   url: string;
 };
-
-interface ShameCardInfo {
-  id: number;
+interface Localizations {
+  id: {
+    oneOf: number | string;
+  };
   documentId: string;
-  date: string;
-  title: string;
-  description: string;
-  details: unknown[];
-  deputats: PersonCardInfo[];
-  resources: Resource[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  locale?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  localizations?: any[];
 }
 
+interface TextChild {
+  text: string;
+  type: 'text';
+}
+
+interface DetailParagraph {
+  type: 'paragraph';
+  children: TextChild[];
+}
 export type { PersonCardInfo, ShameCardInfo };
