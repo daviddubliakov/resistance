@@ -4,11 +4,11 @@ interface PersonCardInfo {
   documentId: string;
   firstName: string;
   lastName: string;
-  party: Party[];
+  party: Party;
   fraction: string;
   isCorrupt: boolean;
   placeOfEmployment: string;
-  photo: Photo[];
+  photo: Photo;
   shames: ShameCardInfo[];
   relatedBusinessess: Title[];
   otherIncomes: Title[];
@@ -57,14 +57,12 @@ interface ShameCardInfo {
 
 type Resource = {
   id: number;
-  subtitle: string;
+  subtitle?: string;
   title: string;
   url: string;
 };
 interface Localizations {
-  id: {
-    oneOf: number | string;
-  };
+  id: number | string;
   documentId: string;
 }
 
