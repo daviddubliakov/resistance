@@ -16,7 +16,7 @@
   height: 300px;
   flex-grow: 1;
   padding: 30px;
-  background-image: url("../../assets/images/card_background.png");
+  background-image: url('../../assets/images/card_background.png');
   opacity: 0.9;
   cursor: pointer;
   transition: all 0.5s ease;
@@ -51,11 +51,10 @@
   width: 42px;
   border-radius: 50%;
 }
-
 .shame-card-name {
   display: table-caption;
   margin: 0;
-  font-family: "e-Ukraine-Medium";
+  font-family: 'e-Ukraine-Medium';
   font-size: 14px;
   line-height: 1.5em;
   color: white;
@@ -67,14 +66,14 @@
 
 .shame-card-add {
   margin: 0;
-  font-family: "e-Ukraine-Bold";
+  font-family: 'e-Ukraine-Bold';
   font-size: 18px;
   line-height: 1.5em;
   color: white;
 }
 
 .shame-card:hover .shame-card-add {
-  color: black;
+  display: none;
 }
 
 .shame-card-info {
@@ -87,7 +86,7 @@
   width: fit-content;
   margin: 0;
   padding: 0 10px;
-  font-family: "e-Ukraine-Regular";
+  font-family: 'e-Ukraine-Regular';
   font-size: 14px;
   line-height: 1.5em;
   color: var(--light-text-color);
@@ -96,7 +95,7 @@
 
 .shame-card-description {
   margin: 0;
-  font-family: "e-Ukraine-Bold";
+  font-family: 'e-Ukraine-Bold';
   font-size: 20px;
   line-height: 1.2em;
   color: white;
