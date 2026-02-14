@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getDeputies } from '../../services/getDeputies';
 import PersonCardSkeleton from '../../components/personCardSkeleton';
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 10;
 
 const RatingPage = () => {
   const [page, setPage] = useState(1);
