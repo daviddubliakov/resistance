@@ -9,9 +9,11 @@ import { getShames } from '../../../services/getShames';
 import styles from './latest.module.css';
 
 const Latest: FC = () => {
+  const params = 'sort[0]=date:desc&pagination[limit]=4';
+
   const { data: shames = [], isLoading: shamesLoading } = useQuery<ShameCardInfo[]>({
-    queryKey: ['shames'],
-    queryFn: getShames,
+    queryKey: ['shames', params],
+    queryFn: () => getShames(params),
   });
 
   return (
