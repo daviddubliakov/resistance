@@ -40,8 +40,8 @@ const DetailsPage: FC = () => {
           </div>
         </section>
         <section className={styles.description}>
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {shame?.details?.map((paragraph: any, index: number) => (
+          {}
+          {shame?.details?.map((paragraph, index: number) => (
             <p key={index} className={styles.descriptionText}>
               {paragraph.children?.[0]?.text}
             </p>

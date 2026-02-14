@@ -1,62 +1,78 @@
+// Deputy types
 interface PersonCardInfo {
   id: number;
   documentId: string;
   firstName: string;
   lastName: string;
-  party: {
-    logo: {
-      url: string;
-    };
-    name: string;
-    deputats: PersonCardInfo[];
-  };
+  party: Party;
   fraction: string;
   isCorrupt: boolean;
   placeOfEmployment: string;
-  photo: {
-    formats?: {
-      small: {
-        url: string;
-      };
-      thumbnail: {
-        url: string;
-      };
-    };
-    url: string;
-  };
+  photo: Photo;
   shames: ShameCardInfo[];
-  relatedBusinessess: {
-    id: number;
-    title: string;
-  }[];
-  otherIncomes: {
-    id: number;
-    title?: string;
-  }[];
+  relatedBusinessess: Title[];
+  otherIncomes: Title[];
 }
 
-type Resource = {
+type Title = {
   id: number;
-  subtitle: string;
-  title: string;
-  url: string;
+  title?: string;
 };
+interface Photo {
+  formats?: {
+    small: {
+      url: string;
+    };
+    thumbnail: {
+      url: string;
+    };
+  };
+  url: string;
+}
+interface Party {
+  logo: {
+    url: string;
+  };
+  name: string;
+  deputats: PersonCardInfo[];
+}
 
+// Shame types
 interface ShameCardInfo {
   id: number;
   documentId: string;
   date: string;
   title: string;
   description: string;
-  details: unknown[];
+  details: DetailParagraph[];
   deputats: PersonCardInfo[];
   resources: Resource[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   locale?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  localizations?: any[];
+
+  localizations?: Localizations[];
 }
 
+type Resource = {
+  id: number;
+  subtitle?: string;
+  title: string;
+  url: string;
+};
+interface Localizations {
+  id: number | string;
+  documentId: string;
+}
+
+interface TextChild {
+  text: string;
+  type: 'text';
+}
+
+interface DetailParagraph {
+  type: 'paragraph';
+  children: TextChild[];
+}
 export type { PersonCardInfo, ShameCardInfo };
