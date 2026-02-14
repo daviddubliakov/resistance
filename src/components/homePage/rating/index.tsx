@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -19,6 +19,14 @@ const Rating: FC = () => {
     loop: true,
     align: 'start',
   });
+
+  const topDeputies = useMemo(() => {
+    if (!deputies || deputies.length === 0) return [];
+
+    return [...deputies]
+      .sort((a, b) => (b.shames?.length || 0) - (a.shames?.length || 0))
+      .slice(0, 10);
+  }, [deputies]);
 
   return (
     <div className={styles.ratingBg}>
@@ -47,7 +55,7 @@ const Rating: FC = () => {
                       <PersonCardSkeleton />
                     </div>
                   ))
-                : deputies.map((deputy, index) => (
+                : topDeputies.map((deputy, index) => (
                     <div className={styles.emblaSlide} key={deputy.documentId || index}>
                       <PersonCard {...deputy} />
                     </div>
