@@ -1,18 +1,19 @@
-import { FC } from 'react';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ShameCard from '../../../components/shameCard';
 import ShameSkeleton from '../../../components/shameSkeleton';
-import type { ShameCardInfo } from '../../../types';
 import { getShames } from '../../../services/getShames';
 import styles from './latest.module.css';
 
-const Latest: FC = () => {
-  const { data: shames = [], isLoading: shamesLoading } = useQuery<ShameCardInfo[]>({
-    queryKey: ['shames'],
-    queryFn: getShames,
+const HOMEPAGE_SHAMES_LIMIT = 6;
+
+const Latest = () => {
+  const { data, isLoading: shamesLoading } = useQuery({
+    queryKey: ['shames', 'home'],
+    queryFn: () => getShames({ page: 1, pageSize: HOMEPAGE_SHAMES_LIMIT }),
   });
+  const shames = data?.data ?? [];
 
   return (
     <div className={styles.latest}>
@@ -35,10 +36,8 @@ const Latest: FC = () => {
           </div>
           <div className={styles.latestCards}>
             {shamesLoading
-              ? Array.from({ length: 4 }).map((_, index) => (
-                  <ShameSkeleton key={`latest-skel-${index}`} />
-                ))
-              : shames.map((shame, index) => <ShameCard key={index} {...shame} />)}
+              ? Array.from({ length: 4 }).map((_, i) => <ShameSkeleton key={`latest-skel-${i}`} />)
+              : shames.map((shame, i) => <ShameCard key={i} {...shame} />)}
           </div>
         </section>
       </div>

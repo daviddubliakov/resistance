@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import styles from './rating.module.css';
@@ -8,31 +8,32 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getDeputies } from '../../services/getDeputies';
-import { PersonCardInfo } from '../../types';
 import PersonCardSkeleton from '../../components/personCardSkeleton';
 
-const RatingPage: FC = () => {
-  const { data: deputiesData = [], isLoading } = useQuery<PersonCardInfo[]>({
-    queryKey: ['deputies'],
-    queryFn: getDeputies,
+const ITEMS_PER_PAGE = 12;
+
+const RatingPage = () => {
+  const [page, setPage] = useState(1);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['deputies', page],
+    queryFn: () => getDeputies({ page, pageSize: ITEMS_PER_PAGE }),
   });
 
   const deputies = useMemo(() => {
-    if (!deputiesData || deputiesData.length === 0) return [];
+    const list = data?.data ?? [];
+    if (list.length === 0) return [];
 
-    const data = [...deputiesData];
-
-    const mayorIndex = data.findIndex(deputy =>
+    const mayorIndex = list.findIndex(deputy =>
       deputy.placeOfEmployment.includes('Міський голова')
     );
+    if (mayorIndex <= -1) return list;
 
-    if (mayorIndex > -1) {
-      const [mayor] = data.splice(mayorIndex, 1);
-      data.unshift(mayor);
-    }
-
-    return data;
-  }, [deputiesData]);
+    const reordered = [...list];
+    const [mayor] = reordered.splice(mayorIndex, 1);
+    reordered.unshift(mayor);
+    return reordered;
+  }, [data?.data]);
 
   return (
     <>
@@ -71,7 +72,13 @@ const RatingPage: FC = () => {
               ))}
             </div>
           ) : (
-            <PaginatedCards cards={deputies} />
+            <PaginatedCards
+              cards={deputies}
+              total={data?.meta?.pagination?.total ?? 0}
+              currentPage={page}
+              onPageChange={setPage}
+              pageSize={ITEMS_PER_PAGE}
+            />
           )}
         </section>
       </main>

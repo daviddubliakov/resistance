@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useState } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import arrowDown from '../../assets/images/arrow_down.png';
@@ -8,22 +8,18 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useQuery } from '@tanstack/react-query';
 import { getShames } from '../../services/getShames';
-import { ShameCardInfo } from '../../types';
 import ShameSkeleton from '../../components/shameSkeleton';
 
+const ITEMS_PER_PAGE = 12;
+
 const LatestPage: FC = () => {
-  const { data: shamesData = [], isLoading } = useQuery<ShameCardInfo[]>({
-    queryKey: ['shames'],
-    queryFn: getShames,
+  const [page, setPage] = useState(1);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['shames', page],
+    queryFn: () => getShames({ page, pageSize: ITEMS_PER_PAGE }),
   });
 
-  const shames = useMemo(() => {
-    return [...shamesData].sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return dateB - dateA;
-    });
-  }, [shamesData]);
   return (
     <>
       <Header />
@@ -58,7 +54,14 @@ const LatestPage: FC = () => {
             {isLoading ? (
               Array.from({ length: 4 }).map((_, index) => <ShameSkeleton key={index} />)
             ) : (
-              <PaginatedCards cards={shames} className={styles.shameCardsRewrite} />
+              <PaginatedCards
+                cards={data?.data ?? []}
+                total={data?.meta?.pagination?.total ?? 0}
+                currentPage={page}
+                onPageChange={setPage}
+                pageSize={ITEMS_PER_PAGE}
+                className={styles.shameCardsRewrite}
+              />
             )}
           </section>
         </div>
