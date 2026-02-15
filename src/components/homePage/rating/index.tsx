@@ -7,6 +7,7 @@ import { PersonCardInfo } from '../../../types';
 import { getDeputies } from '../../../services/getDeputies';
 import { useEmblaCarouselWithProgress } from '../../../hooks/useEmblaCarouselWithProgress';
 import styles from './rating.module.css';
+import { useMemo } from 'react';
 
 const HOMEPAGE_DEPUTIES_LIMIT = 50;
 
@@ -15,12 +16,20 @@ const Rating = () => {
     queryKey: ['deputies', 'home'],
     queryFn: () => getDeputies({ page: 1, pageSize: HOMEPAGE_DEPUTIES_LIMIT }),
   });
-  const deputies: PersonCardInfo[] = data?.data ?? [];
+  const deputies: PersonCardInfo[] = useMemo(() => data?.data ?? [], [data?.data]);
 
   const { emblaRef, scrollPrev, scrollNext, progressStyle } = useEmblaCarouselWithProgress({
     loop: true,
     align: 'start',
   });
+
+  const topDeputies = useMemo(() => {
+    if (!deputies || deputies.length === 0) return [];
+
+    return [...deputies]
+      .sort((a, b) => (b.shames?.length || 0) - (a.shames?.length || 0))
+      .slice(0, 10);
+  }, [deputies]);
 
   return (
     <div className={styles.ratingBg}>
@@ -49,7 +58,7 @@ const Rating = () => {
                       <PersonCardSkeleton />
                     </div>
                   ))
-                : deputies.map((deputy, index) => (
+                : topDeputies.map((deputy, index) => (
                     <div className={styles.emblaSlide} key={deputy.documentId || index}>
                       <PersonCard {...deputy} />
                     </div>
