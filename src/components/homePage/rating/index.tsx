@@ -1,4 +1,3 @@
-import { FC, useMemo } from 'react';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -8,12 +7,16 @@ import { PersonCardInfo } from '../../../types';
 import { getDeputies } from '../../../services/getDeputies';
 import { useEmblaCarouselWithProgress } from '../../../hooks/useEmblaCarouselWithProgress';
 import styles from './rating.module.css';
+import { useMemo } from 'react';
 
-const Rating: FC = () => {
-  const { data: deputies = [], isLoading: deputiesLoading } = useQuery<PersonCardInfo[]>({
-    queryKey: ['deputies'],
-    queryFn: getDeputies,
+const HOMEPAGE_DEPUTIES_LIMIT = 50;
+
+const Rating = () => {
+  const { data, isLoading: deputiesLoading } = useQuery({
+    queryKey: ['deputies', 'home'],
+    queryFn: () => getDeputies({ page: 1, pageSize: HOMEPAGE_DEPUTIES_LIMIT }),
   });
+  const deputies: PersonCardInfo[] = useMemo(() => data?.data ?? [], [data?.data]);
 
   const { emblaRef, scrollPrev, scrollNext, progressStyle } = useEmblaCarouselWithProgress({
     loop: true,
