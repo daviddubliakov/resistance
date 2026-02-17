@@ -93,11 +93,11 @@ const PersonPage: FC = () => {
                       <div className={styles.optionText}>
                         <h4>Асоційовані бізнеси:</h4>
                         {deputy.relatedBusinessess && deputy.relatedBusinessess.length > 0 ? (
-                          <ul className={styles.list}>
-                            {deputy.relatedBusinessess.map((item, index) => (
-                              <li key={index}>{item.title}</li>
+                          <ol className={styles.list}>
+                            {deputy.relatedBusinessess.map(item => (
+                              <li key={item.id}>{item.title}</li>
                             ))}
-                          </ul>
+                          </ol>
                         ) : (
                           <p className={styles.empty}>Немає даних</p>
                         )}
@@ -108,11 +108,11 @@ const PersonPage: FC = () => {
                       <div className={styles.optionText}>
                         <h4>Додаткові джерела доходу:</h4>
                         {deputy.otherIncomes.length > 0 ? (
-                          <ul className={styles.list}>
-                            {deputy.otherIncomes.map((item, index) => (
-                              <li key={index}>{item.title}</li>
+                          <ol className={styles.list}>
+                            {deputy.otherIncomes.map(item => (
+                              <li key={item.id}>{item.title}</li>
                             ))}
-                          </ul>
+                          </ol>
                         ) : (
                           <p className={styles.empty}>Немає даних</p>
                         )}
