@@ -14,7 +14,7 @@ interface UseEmblaCarouselWithProgressReturn {
 }
 
 export const useEmblaCarouselWithProgress = (
-  options: UseEmblaCarouselWithProgressOptions = { loop: true, align: 'start' }
+  options: UseEmblaCarouselWithProgressOptions = { loop: false, align: 'start' }
 ): UseEmblaCarouselWithProgressReturn => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const [progress, setProgress] = useState(0);
