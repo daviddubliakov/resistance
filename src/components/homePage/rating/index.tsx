@@ -19,7 +19,7 @@ const Rating = () => {
   const deputies: PersonCardInfo[] = useMemo(() => data?.data ?? [], [data?.data]);
 
   const { emblaRef, scrollPrev, scrollNext, progressStyle } = useEmblaCarouselWithProgress({
-    loop: true,
+    loop: false,
     align: 'start',
   });
 
