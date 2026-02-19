@@ -58,6 +58,15 @@
   position: absolute;
   top: -15%;
   left: -20%;
+
+  @media (max-width: 1464px) {
+    top: -20%;
+    left: -27%;
+  }
+
+  @media (max-width: 768px) {
+    top: -25%;
+  }
 }
 
 .personPhoto {
