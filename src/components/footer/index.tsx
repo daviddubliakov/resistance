@@ -33,7 +33,7 @@ const Footer: FC = () => {
                 icon="solar:heart-angle-bold"
                 width="24"
                 height="24"
-                color="#de442c"
+                color="var(--selected-color)"
                 style={{ verticalAlign: 'middle', marginBottom: '2px' }}
               />{' '}
               до громади нашого міста
