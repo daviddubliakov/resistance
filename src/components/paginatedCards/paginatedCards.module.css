@@ -1,9 +1,21 @@
 .card-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 332px);
   gap: 30px;
-  flex-wrap: wrap;
   justify-content: center;
-  justify-content: flex-start;
+  width: 100%;
+
+  @media (max-width: 1046px) {
+    grid-template-columns: repeat(auto-fit, 344px);
+
+    column-gap: 60px;
+  }
+
+  @media (max-width: 476px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 .layout {

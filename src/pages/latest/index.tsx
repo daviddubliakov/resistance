@@ -50,20 +50,18 @@ const LatestPage: FC = () => {
           </div>
         </section>
         <div className="container">
-          <section className={styles.shameCards}>
-            {isLoading ? (
-              Array.from({ length: 4 }).map((_, index) => <ShameSkeleton key={index} />)
-            ) : (
-              <PaginatedCards
-                cards={data?.data ?? []}
-                total={data?.meta?.pagination?.total ?? 0}
-                currentPage={page}
-                onPageChange={setPage}
-                pageSize={ITEMS_PER_PAGE}
-                className={styles.shameCardsRewrite}
-              />
-            )}
-          </section>
+          {isLoading ? (
+            Array.from({ length: 4 }).map((_, index) => <ShameSkeleton key={index} />)
+          ) : (
+            <PaginatedCards
+              cards={data?.data ?? []}
+              total={data?.meta?.pagination?.total ?? 0}
+              currentPage={page}
+              onPageChange={setPage}
+              pageSize={ITEMS_PER_PAGE}
+              className={styles.shameCardsRewrite}
+            />
+          )}
         </div>
       </main>
       <Footer />
