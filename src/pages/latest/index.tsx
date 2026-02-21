@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getShames } from '../../services/getShames';
 import ShameSkeleton from '../../components/shameSkeleton';
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 8;
 
 const LatestPage: FC = () => {
   const [page, setPage] = useState(1);
