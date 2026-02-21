@@ -96,9 +96,9 @@ const PersonPage: FC = () => {
                     <div className={styles.option}>
                       <Icon icon="fontisto:wallet" className={styles.breadcrumbIcon} />
                       <div className={styles.optionText}>
-                        <h4>Чи є у базі корупціонерів:</h4>
-                        {deputy.hasCorruptOfficialsDatabase ? (
-                          <p>{deputy.hasCorruptOfficialsDatabase}</p>
+                        <h4>Є (або був/була) в реєстрі корупціонерів:</h4>
+                        {deputy.isCorrupt !== null ? (
+                          <p>{deputy.isCorrupt ? 'Так' : 'Ні'}</p>
                         ) : (
                           <p className={styles.empty}>Дані відсутні</p>
                         )}
