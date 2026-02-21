@@ -2,11 +2,11 @@
   position: fixed;
   top: 0;
   left: -100%;
-  width: 95%;
+  width: 100%;
   height: 100vh;
   background-color: var(--background-color);
   z-index: 1000;
-  padding: 80px 20px 20px;
+  padding: 80px 0;
   transition: left 0.3s ease-in-out;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -19,13 +19,12 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 60px;
   gap: 24px;
 }
 
 .mobileLink {
   padding: 15px 20px;
-  font-family: "e-Ukraine-Bold", sans-serif;
+  font-family: 'e-Ukraine-Bold', sans-serif;
   font-size: 20px;
   line-height: 23px;
   color: var(--light-text-color);
@@ -51,7 +50,7 @@
 }
 
 .mobileMenu::before {
-  content: "";
+  content: '';
   position: fixed;
   top: 0;
   right: 0;
