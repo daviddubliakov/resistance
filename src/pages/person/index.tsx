@@ -64,34 +64,50 @@ const PersonPage: FC = () => {
                       ></Icon>
                       <div className={styles.optionText}>
                         <h4>Обирався / обиралась від:</h4>
-                        <p>{deputy.party.name}</p>
+                        {deputy.party.name ? (
+                          <p>{deputy.party.name}</p>
+                        ) : (
+                          <p className={styles.empty}>Дані відсутні</p>
+                        )}
                       </div>
                     </div>
                     <div className={styles.option}>
                       <Icon icon="fontisto:persons" className={styles.breadcrumbIcon}></Icon>
                       <div className={styles.optionText}>
                         <h4>Фракція:</h4>
-                        <p>{deputy.fraction}</p>
+                        {deputy.fraction || deputy.fraction !== '-' ? (
+                          <p>{deputy.fraction}</p>
+                        ) : (
+                          <p className={styles.empty}>Дані відсутні</p>
+                        )}
                       </div>
                     </div>
                     <div className={styles.option}>
                       <Icon icon="fontisto:suitcase" className={styles.breadcrumbIcon}></Icon>
                       <div className={styles.optionText}>
                         <h4>Місце роботи/посада:</h4>
-                        <p>{deputy.placeOfEmployment}</p>
+                        {deputy.placeOfEmployment ? (
+                          <p>{deputy.placeOfEmployment}</p>
+                        ) : (
+                          <p className={styles.empty}>Дані відсутні</p>
+                        )}
                       </div>
                     </div>
                     <div className={styles.option}>
                       <Icon icon="fontisto:wallet" className={styles.breadcrumbIcon} />
                       <div className={styles.optionText}>
                         <h4>Чи є у базі корупціонерів:</h4>
-                        <p>{deputy.isCorrupt ? 'Так' : 'Ні'}</p>
+                        {deputy.hasCorruptOfficialsDatabase ? (
+                          <p>{deputy.hasCorruptOfficialsDatabase}</p>
+                        ) : (
+                          <p className={styles.empty}>Дані відсутні</p>
+                        )}
                       </div>
                     </div>
                     <div className={styles.option}>
                       <Icon icon="mdi:office-building-outline" className={styles.breadcrumbIcon} />
                       <div className={styles.optionText}>
-                        <h4>Асоційовані бізнеси:</h4>
+                        <h4>Повʼязані бізнеси/організації:</h4>
                         {deputy.relatedBusinessess && deputy.relatedBusinessess.length > 0 ? (
                           <ol className={styles.list}>
                             {deputy.relatedBusinessess.map(item => (
@@ -99,7 +115,7 @@ const PersonPage: FC = () => {
                             ))}
                           </ol>
                         ) : (
-                          <p className={styles.empty}>Немає даних</p>
+                          <p className={styles.empty}>Дані відсутні</p>
                         )}
                       </div>
                     </div>
@@ -114,7 +130,7 @@ const PersonPage: FC = () => {
                             ))}
                           </ol>
                         ) : (
-                          <p className={styles.empty}>Немає даних</p>
+                          <p className={styles.empty}>Дані відсутні</p>
                         )}
                       </div>
                     </div>

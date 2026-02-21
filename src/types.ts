@@ -6,12 +6,12 @@ interface PersonCardInfo {
   lastName: string;
   party: Party;
   fraction: string;
-  isCorrupt: boolean;
   placeOfEmployment: string;
   photo: Photo;
   shames: ShameCardInfo[];
   relatedBusinessess: Title[];
   otherIncomes: Title[];
+  hasCorruptOfficialsDatabase: string;
 }
 
 type Title = {
