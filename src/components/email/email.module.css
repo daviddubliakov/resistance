@@ -26,4 +26,12 @@
   cursor: pointer;
   padding: 0;
   display: flex;
+
+  @media (max-width: 768px) {
+    padding-bottom: 14px;
+  }
+
+  @media (max-width: 462px) {
+    padding-bottom: 16px;
+  }
 }
