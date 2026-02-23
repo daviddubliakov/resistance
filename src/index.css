@@ -1,49 +1,48 @@
 @font-face {
-  font-family: "e-Ukraine-Bold";
-  src: url("./assets/e-Ukraine/e-Ukraine-Bold.otf") format("opentype");
+  font-family: 'e-Ukraine-Bold';
+  src: url('./assets/e-Ukraine/e-Ukraine-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "e-Ukraine-Medium";
-  src: url("./assets/e-Ukraine/e-Ukraine-Medium.otf") format("opentype");
+  font-family: 'e-Ukraine-Medium';
+  src: url('./assets/e-Ukraine/e-Ukraine-Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "e-Ukraine-Regular";
-  src: url("./assets/e-Ukraine/e-Ukraine-Regular.otf") format("opentype");
+  font-family: 'e-Ukraine-Regular';
+  src: url('./assets/e-Ukraine/e-Ukraine-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "e-Ukraine-Light";
-  src: url("./assets/e-Ukraine/e-Ukraine-Light.otf") format("opentype");
+  font-family: 'e-Ukraine-Light';
+  src: url('./assets/e-Ukraine/e-Ukraine-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "e-Ukraine-Head-Bold";
-  src: url("./assets/e-Ukraine-Head/e-UkraineHead-Bold.otf") format("opentype");
+  font-family: 'e-Ukraine-Head-Bold';
+  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "e-Ukraine-Head-Medium";
-  src: url("./assets/e-Ukraine-Head/e-UkraineHead-Medium.otf")
-    format("opentype");
+  font-family: 'e-Ukraine-Head-Medium';
+  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "e-Ukraine-Head-Regular";
-  src: url("./assets/e-Ukraine-Head/e-UkraineHead-Regular.otf");
+  font-family: 'e-Ukraine-Head-Regular';
+  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Regular.otf');
   font-weight: 400;
   font-style: normal;
 }
@@ -75,4 +74,9 @@
   @media (max-width: 1300px) {
     width: 96%;
   }
+}
+
+body.lock-scroll {
+  overflow: hidden;
+  width: 100%;
 }

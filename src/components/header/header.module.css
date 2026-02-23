@@ -1,6 +1,12 @@
 .header {
   background-color: var(--background-color);
   position: relative;
+
+  @media (max-width: 768px) {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
 }
 
 .layout {
@@ -28,7 +34,7 @@
 
 .link {
   padding: 15px 20px;
-  font-family: "e-Ukraine-Bold", serif;
+  font-family: 'e-Ukraine-Bold', serif;
   font-size: 16px;
   color: var(--light-text-color);
   text-decoration: none;
