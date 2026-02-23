@@ -5,16 +5,26 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { Link } from 'react-router-dom';
 
 const ShameCard: FC<ShameCardInfo> = shameCard => {
-  const imageUrl = shameCard.deputats[0]?.photo?.url || shameCard.deputats[0]?.photo?.url;
-  const fullname = shameCard.deputats[0].firstName + ' ' + shameCard.deputats[0].lastName;
+  const { deputats } = shameCard;
 
-  const deputiesCount = shameCard.deputats.length - 1;
+  if (!deputats || deputats.length === 0) return null;
+
+  const mayor = deputats.find(d => d.placeOfEmployment?.toLowerCase().includes('міський голова'));
+
+  const secretary = deputats.find(d => d.placeOfEmployment?.toLowerCase().includes('секретар'));
+
+  const priorityDeputy = mayor || secretary || deputats[0];
+
+  const imageUrl = priorityDeputy?.photo?.url || '';
+  const fullname = `${priorityDeputy?.firstName} ${priorityDeputy?.lastName}`;
+
+  const deputiesCount = deputats.length - 1;
 
   return (
     <Link to={`/details/${shameCard.documentId}`} className={styles.cardLink}>
       <div className={styles.shameCard}>
         <div className={styles.shameCardHead}>
-          <img src={imageUrl} alt="portret" className={styles.shameCardImage} />
+          {imageUrl && <img src={imageUrl} alt="portret" className={styles.shameCardImage} />}
           <div>
             <p className={styles.shameCardName}>{fullname}</p>
           </div>
