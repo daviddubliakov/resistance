@@ -13,7 +13,9 @@ const ShameCard: FC<ShameCardInfo> = shameCard => {
 
   const secretary = deputats.find(d => d.placeOfEmployment?.toLowerCase().includes('секретар'));
 
-  const priorityDeputy = mayor || secretary || deputats[0];
+  const deputyIndex = shameCard.documentId ? shameCard.documentId.length % deputats.length : 0;
+
+  const priorityDeputy = mayor || secretary || deputats[deputyIndex];
 
   const imageUrl = priorityDeputy?.photo?.url || '';
   const fullname = `${priorityDeputy?.firstName} ${priorityDeputy?.lastName}`;
