@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import logo from '../../assets/images/logo.png';
 import styles from './header.module.css';
 import { Link, NavLink } from 'react-router-dom';
@@ -17,6 +17,16 @@ const Header: FC = () => {
     e.stopPropagation();
     setIsMenuOpen(prev => !prev);
   };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('lock-scroll');
+    } else {
+      document.body.classList.remove('lock-scroll');
+    }
+
+    return () => document.body.classList.remove('lock-scroll');
+  }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);
 
