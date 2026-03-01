@@ -25,7 +25,7 @@ const RatingPage = () => {
     if (list.length === 0) return [];
 
     const mayorIndex = list.findIndex(deputy =>
-      deputy.placeOfEmployment.includes('Міський голова')
+      deputy?.placeOfEmployment?.includes('Міський голова')
     );
     if (mayorIndex <= -1) return list;
 
@@ -67,7 +67,7 @@ const RatingPage = () => {
         <section className="container">
           {isLoading ? (
             <div className={styles.skeletonContainer}>
-              {Array.from({ length: 4 }).map((_, i) => (
+              {Array.from({ length: 12 }).map((_, i) => (
                 <PersonCardSkeleton key={i} />
               ))}
             </div>
