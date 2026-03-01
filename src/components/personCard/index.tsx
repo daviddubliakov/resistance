@@ -3,6 +3,7 @@ import { PersonCardInfo } from '../../types';
 import styles from './personCard.module.css';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { Link } from 'react-router-dom';
+import { getPlural } from '../../utils/utils';
 
 const PersonCard: FC<PersonCardInfo> = personCard => {
   const imageUrl = personCard.photo?.url;
@@ -12,12 +13,8 @@ const PersonCard: FC<PersonCardInfo> = personCard => {
       <div className={styles.personCard}>
         <img src={imageUrl} alt="card image" className={styles.personCardImage} />
         <p className={styles.personCardCount}>
-          {personCard.shames.length}
-          {personCard.shames.length == 1
-            ? ' ЗАШКВАР'
-            : personCard.shames.length > 1
-              ? ' ЗАШКВАРА'
-              : ' Зашкварів'}
+          {personCard.shames.length}{' '}
+          {getPlural(personCard.shames.length, 'ЗАШКВАР', 'ЗАШКВАРИ', 'ЗАШКВАРІВ')}
         </p>
         <p className={styles.personCardName}>{personCard.firstName + ' ' + personCard.lastName}</p>
         <div className={styles.personCardParty}>
