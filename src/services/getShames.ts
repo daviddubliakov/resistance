@@ -18,13 +18,20 @@ const POPULATE = 'populate[deputats][populate]=photo';
 export async function getShames({
   page = 1,
   pageSize = 12,
+  search = '',
 }: {
   page: number;
   pageSize: number;
+  search?: string;
 }): Promise<GetShamesResponse> {
   try {
+    let searchParam = '';
+    if (search && search.trim().length > 0) {
+      searchParam = `&filters[$or][0][title][$containsi]=${encodeURIComponent(search)}`;
+    }
+
     const response = await api.get(
-      `api/shames?${POPULATE}&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort=date:desc`
+      `api/shames?${POPULATE}${searchParam}&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort=date:desc`
     );
 
     return {

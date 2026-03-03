@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import styles from './rating.module.css';
@@ -9,15 +9,29 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getDeputies } from '../../services/getDeputies';
 import PersonCardSkeleton from '../../components/personCardSkeleton';
+import { TextField } from '../../components/text-field';
+import { NotFoundResults } from '../../components/not-found-results/not-found-results';
 
 const ITEMS_PER_PAGE = 12;
 
 const RatingPage = () => {
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['deputies', page],
-    queryFn: () => getDeputies({ page, pageSize: ITEMS_PER_PAGE }),
+    queryKey: ['deputies', page, debouncedSearch],
+    queryFn: () => getDeputies({ page, pageSize: ITEMS_PER_PAGE, search: debouncedSearch }),
   });
 
   const deputies = useMemo(() => {
@@ -34,6 +48,10 @@ const RatingPage = () => {
     reordered.unshift(mayor);
     return reordered;
   }, [data?.data]);
+
+  const onSearchHandler = (value: string) => {
+    setSearch(value);
+  };
 
   return (
     <>
@@ -65,13 +83,16 @@ const RatingPage = () => {
           </section>
         </section>
         <section className="container">
+          <div className={styles.searchInput}>
+            <TextField placeholder="Пошук депутата" onChange={onSearchHandler} value={search} />
+          </div>
           {isLoading ? (
             <div className={styles.skeletonContainer}>
               {Array.from({ length: 12 }).map((_, i) => (
                 <PersonCardSkeleton key={i} />
               ))}
             </div>
-          ) : (
+          ) : deputies.length ? (
             <PaginatedCards
               cards={deputies}
               total={data?.meta?.pagination?.total ?? 0}
@@ -79,6 +100,8 @@ const RatingPage = () => {
               onPageChange={setPage}
               pageSize={ITEMS_PER_PAGE}
             />
+          ) : (
+            <NotFoundResults message="За вашим запитом депутати не знайдені" />
           )}
         </section>
       </main>

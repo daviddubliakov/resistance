@@ -24,13 +24,30 @@ const BASE_QUERY = [
 export async function getDeputies({
   page = 1,
   pageSize = 12,
+  search = '',
 }: {
   page: number;
   pageSize: number;
+  search?: string;
 }): Promise<GetDeputiesResponse> {
   try {
+    let searchParam = '';
+    if (search && search.trim().length > 0) {
+      const searchTokens = search
+        .split(' ')
+        .map(token => token.trim())
+        .filter(Boolean);
+
+      const filters = searchTokens.map((token, idx) =>
+        [
+          `filters[$and][${idx}][$or][0][firstName][$containsi]=${encodeURIComponent(token)}`,
+          `filters[$and][${idx}][$or][1][lastName][$containsi]=${encodeURIComponent(token)}`,
+        ].join('&')
+      );
+      searchParam = `&${filters.join('&')}`;
+    }
     const response = await api.get(
-      `/api/deputies?${BASE_QUERY}&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+      `/api/deputies?${BASE_QUERY}${searchParam}&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
     );
     return {
       data: response.data.data ?? [],

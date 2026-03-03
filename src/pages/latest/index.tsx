@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import arrowDown from '../../assets/images/arrow_down.png';
@@ -9,16 +9,34 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { useQuery } from '@tanstack/react-query';
 import { getShames } from '../../services/getShames';
 import ShameSkeleton from '../../components/shameSkeleton';
+import { NotFoundResults } from '../../components/not-found-results/not-found-results';
+import { TextField } from '../../components/text-field';
 
 const ITEMS_PER_PAGE = 8;
 
 const LatestPage: FC = () => {
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['shames', page],
-    queryFn: () => getShames({ page, pageSize: ITEMS_PER_PAGE }),
+    queryKey: ['shames', page, debouncedSearch],
+    queryFn: () => getShames({ page, pageSize: ITEMS_PER_PAGE, search: debouncedSearch }),
   });
+
+  const onSearchHandler = (value: string) => {
+    setSearch(value);
+  };
 
   return (
     <>
@@ -50,9 +68,12 @@ const LatestPage: FC = () => {
           </div>
         </section>
         <div className="container">
+          <div className={styles.searchInput}>
+            <TextField placeholder="Пошук зашквару" onChange={onSearchHandler} value={search} />
+          </div>
           {isLoading ? (
             Array.from({ length: 4 }).map((_, index) => <ShameSkeleton key={index} />)
-          ) : (
+          ) : data?.data?.length ? (
             <PaginatedCards
               cards={data?.data ?? []}
               total={data?.meta?.pagination?.total ?? 0}
@@ -61,6 +82,8 @@ const LatestPage: FC = () => {
               pageSize={ITEMS_PER_PAGE}
               className={styles.shameCardsRewrite}
             />
+          ) : (
+            <NotFoundResults message="За вашим запитом зашквари не знайдені" />
           )}
         </div>
       </main>
