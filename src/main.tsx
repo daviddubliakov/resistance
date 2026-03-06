@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import HomePage from './pages/home';
 import RatingPage from './pages/rating';
@@ -41,6 +42,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary fallback={<Error500Page />}>
         <RouterProvider router={router} />
+        <SpeedInsights />
       </ErrorBoundary>
     </QueryClientProvider>
   </React.StrictMode>
