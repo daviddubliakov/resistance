@@ -159,3 +159,26 @@
 .shame-card:hover > .arrow {
   opacity: 1;
 }
+
+@media (max-width: 1024px) {
+  .shame-card:hover .shame-card-description {
+    color: white;
+  }
+  .shame-card:hover {
+    background-color: transparent;
+    background-image: url('../../assets/images/card_background.png');
+  }
+  .shame-card:hover .shame-card-name {
+    color: white;
+  }
+
+  .shame-card:hover .shame-card-add {
+    display: block;
+  }
+  .shame-card:hover > .arrow {
+    opacity: 0;
+  }
+  .shame-card:hover > .triangle {
+    opacity: 0;
+  }
+}
