@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import arrowDown from '../../assets/images/arrow_down.png';
@@ -22,6 +22,7 @@ const LatestPage = () => {
   const [page, setPage] = useState(pageFromUrl);
   const [search, setSearch] = useState(searchFromUrl);
   const [debouncedSearch, setDebouncedSearch] = useState(searchFromUrl);
+  const searchSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setSearch(searchFromUrl);
@@ -66,6 +67,11 @@ const LatestPage = () => {
     setPage(1);
   }, []);
 
+  const onPageChange = useCallback((newPage: number) => {
+    setPage(newPage);
+    searchSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   return (
     <>
       <Header />
@@ -95,7 +101,7 @@ const LatestPage = () => {
             </div>
           </div>
         </section>
-        <div className="container">
+        <div ref={searchSectionRef} className="container">
           <div className={styles.searchInput}>
             <TextField placeholder="Пошук зашквару" onChange={onSearchHandler} value={search} />
           </div>
@@ -110,7 +116,7 @@ const LatestPage = () => {
               cards={data?.data ?? []}
               total={data?.meta?.pagination?.total ?? 0}
               currentPage={page}
-              onPageChange={setPage}
+              onPageChange={onPageChange}
               pageSize={ITEMS_PER_PAGE}
               className={styles.shameCardsRewrite}
             />

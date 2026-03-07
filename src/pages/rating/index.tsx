@@ -22,7 +22,7 @@ const RatingPage = () => {
   const [page, setPage] = useState(pageFromUrl);
   const [search, setSearch] = useState(searchFromUrl);
   const [debouncedSearch, setDebouncedSearch] = useState(searchFromUrl);
-  const containerRef = useRef<HTMLElement>(null);
+  const searchSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setSearch(searchFromUrl);
@@ -54,6 +54,7 @@ const RatingPage = () => {
 
   const onPageChange = useCallback((newPage: number) => {
     setPage(newPage);
+    searchSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   const { data, isLoading } = useQuery({
@@ -115,7 +116,7 @@ const RatingPage = () => {
             </div>
           </section>
         </section>
-        <section ref={containerRef} className="container">
+        <section ref={searchSectionRef} className="container">
           <div className={styles.searchInput}>
             <TextField placeholder="Пошук депутата" onChange={onSearchHandler} value={search} />
           </div>
