@@ -37,7 +37,7 @@ const LatestPage = () => {
       const next = new URLSearchParams();
       if (trimmed) next.set('search', trimmed);
       if (page > 1) next.set('page', String(page));
-      setSearchParams(next, { replace: true });
+      setSearchParams(next, { replace: true, preventScrollReset: true });
     }, 300);
 
     return () => clearTimeout(handler);
@@ -48,7 +48,7 @@ const LatestPage = () => {
     const next = new URLSearchParams();
     if (trimmedSearch) next.set('search', trimmedSearch);
     if (page > 1) next.set('page', String(page));
-    setSearchParams(next, { replace: true });
+    setSearchParams(next, { replace: true, preventScrollReset: true });
   }, [page, search, setSearchParams]);
 
   const { data, isLoading } = useQuery({
