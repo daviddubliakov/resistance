@@ -32,33 +32,26 @@ const LatestPage = () => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      const trimmed = search.trim();
-      setDebouncedSearch(trimmed);
-
-      const next = new URLSearchParams();
-      if (trimmed) next.set('search', trimmed);
-      if (page > 1) next.set('page', String(page));
-      setSearchParams(next, { replace: true, preventScrollReset: true });
+      setDebouncedSearch(search.trim());
     }, 300);
-
     return () => clearTimeout(handler);
-  }, [search, page, setSearchParams]);
+  }, [search]);
 
   useEffect(() => {
-    const trimmedSearch = search.trim();
     const next = new URLSearchParams();
-    if (trimmedSearch) next.set('search', trimmedSearch);
+    if (debouncedSearch) next.set('search', debouncedSearch);
     if (page > 1) next.set('page', String(page));
     setSearchParams(next, { replace: true, preventScrollReset: true });
-  }, [page, search, setSearchParams]);
+  }, [debouncedSearch, page, setSearchParams]);
 
   const { data, isLoading } = useQuery({
     queryKey: ['shames', page, debouncedSearch],
-    queryFn: () =>
+    queryFn: ({ signal }) =>
       getShames({
         page,
         pageSize: ITEMS_PER_PAGE,
         search: debouncedSearch,
+        signal,
       }),
   });
 
