@@ -123,3 +123,11 @@
 .searchInput {
   padding-top: 30px;
 }
+
+.skeletonContainer {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 60px 0;
+}

@@ -9,8 +9,10 @@ export const useAxiosErrorHandler = () => {
     const interceptorId = api.interceptors.response.use(
       response => response,
       error => {
-        navigate('/500', { replace: true });
-        // Reject the promise so React Query can handle it
+        // Don't redirect on aborted requests (cancelled by AbortController)
+        if (error.name !== 'CanceledError' && error.code !== 'ERR_CANCELED') {
+          navigate('/500', { replace: true });
+        }
         return Promise.reject(error);
       }
     );

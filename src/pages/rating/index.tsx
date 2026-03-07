@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import styles from './rating.module.css';
 import arrowDown from '../../assets/images/arrow_down.png';
 import PaginatedCards from '../../components/paginatedCards';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getDeputies } from '../../services/getDeputies';
 import PersonCardSkeleton from '../../components/personCardSkeleton';
@@ -15,23 +15,49 @@ import { NotFoundResults } from '../../components/not-found-results/not-found-re
 const ITEMS_PER_PAGE = 12;
 
 const RatingPage = () => {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchFromUrl = searchParams.get('search') ?? '';
+  const pageFromUrl = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10) || 1);
+
+  const [page, setPage] = useState(pageFromUrl);
+  const [search, setSearch] = useState(searchFromUrl);
+  const [debouncedSearch, setDebouncedSearch] = useState(searchFromUrl);
+  const searchSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setSearch(searchFromUrl);
+    setDebouncedSearch(searchFromUrl);
+    setPage(pageFromUrl);
+  }, [searchFromUrl, pageFromUrl]);
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 1000);
-
-    return () => {
-      clearTimeout(handler);
-    };
+      setDebouncedSearch(search.trim());
+    }, 300);
+    return () => clearTimeout(handler);
   }, [search]);
+
+  useEffect(() => {
+    const next = new URLSearchParams();
+    if (debouncedSearch) next.set('search', debouncedSearch);
+    if (page > 1) next.set('page', String(page));
+    setSearchParams(next, { replace: true, preventScrollReset: true });
+  }, [debouncedSearch, page, setSearchParams]);
+
+  const onPageChange = useCallback((newPage: number) => {
+    setPage(newPage);
+    searchSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   const { data, isLoading } = useQuery({
     queryKey: ['deputies', page, debouncedSearch],
-    queryFn: () => getDeputies({ page, pageSize: ITEMS_PER_PAGE, search: debouncedSearch }),
+    queryFn: ({ signal }) =>
+      getDeputies({
+        page,
+        pageSize: ITEMS_PER_PAGE,
+        search: debouncedSearch,
+        signal,
+      }),
   });
 
   const deputies = useMemo(() => {
@@ -49,9 +75,10 @@ const RatingPage = () => {
     return reordered;
   }, [data?.data]);
 
-  const onSearchHandler = (value: string) => {
+  const onSearchHandler = useCallback((value: string) => {
     setSearch(value);
-  };
+    setPage(1);
+  }, []);
 
   return (
     <>
@@ -82,7 +109,7 @@ const RatingPage = () => {
             </div>
           </section>
         </section>
-        <section className="container">
+        <section ref={searchSectionRef} className="container">
           <div className={styles.searchInput}>
             <TextField placeholder="Пошук депутата" onChange={onSearchHandler} value={search} />
           </div>
@@ -97,11 +124,11 @@ const RatingPage = () => {
               cards={deputies}
               total={data?.meta?.pagination?.total ?? 0}
               currentPage={page}
-              onPageChange={setPage}
+              onPageChange={onPageChange}
               pageSize={ITEMS_PER_PAGE}
             />
           ) : (
-            <NotFoundResults message="За вашим запитом депутати не знайдені" />
+            <NotFoundResults message="На жаль, ми не можемо знайти такого депутата. Зверніться до нас, якщо вважаєте, що це помилка" />
           )}
         </section>
       </main>
