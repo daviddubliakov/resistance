@@ -25,10 +25,12 @@ export async function getDeputies({
   page = 1,
   pageSize = 12,
   search = '',
+  signal,
 }: {
   page: number;
   pageSize: number;
   search?: string;
+  signal?: AbortSignal;
 }): Promise<GetDeputiesResponse> {
   try {
     let searchParam = '';
@@ -47,7 +49,8 @@ export async function getDeputies({
       searchParam = `&${filters.join('&')}`;
     }
     const response = await api.get(
-      `/api/deputies?${BASE_QUERY}${searchParam}&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+      `/api/deputies?${BASE_QUERY}${searchParam}&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
+      { signal }
     );
     return {
       data: response.data.data ?? [],
