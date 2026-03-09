@@ -13,8 +13,8 @@ const PersonCard: FC<PersonCardInfo> = personCard => {
       <div className={styles.personCard}>
         <img src={imageUrl} alt="card image" className={styles.personCardImage} />
         <p className={styles.personCardCount}>
-          {personCard.shames.length}{' '}
-          {getPlural(personCard.shames.length, 'ЗАШКВАР', 'ЗАШКВАРИ', 'ЗАШКВАРІВ')}
+          {personCard.shamesCount}{' '}
+          {getPlural(personCard.shamesCount, 'ЗАШКВАР', 'ЗАШКВАРИ', 'ЗАШКВАРІВ')}
         </p>
         <p className={styles.personCardName}>{personCard.firstName + ' ' + personCard.lastName}</p>
         <div className={styles.personCardParty}>

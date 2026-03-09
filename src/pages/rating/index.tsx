@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import styles from './rating.module.css';
@@ -60,20 +60,7 @@ const RatingPage = () => {
       }),
   });
 
-  const deputies = useMemo(() => {
-    const list = data?.data ?? [];
-    if (list.length === 0) return [];
-
-    const mayorIndex = list.findIndex(deputy =>
-      deputy?.placeOfEmployment?.includes('Міський голова')
-    );
-    if (mayorIndex <= -1) return list;
-
-    const reordered = [...list];
-    const [mayor] = reordered.splice(mayorIndex, 1);
-    reordered.unshift(mayor);
-    return reordered;
-  }, [data?.data]);
+  const deputies = data?.data ?? [];
 
   const onSearchHandler = useCallback((value: string) => {
     setSearch(value);

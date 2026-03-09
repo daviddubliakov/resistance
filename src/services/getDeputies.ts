@@ -17,8 +17,7 @@ const BASE_QUERY = [
   'populate[photo][fields][0]=url',
   'populate[photo][fields][1]=formats',
   'populate[party][populate][logo][fields][0]=url',
-  'populate[shames][populate][deputats][populate][photo][fields][0]=url',
-  'sort[0]=lastName:asc&sort[1]=firstName:asc',
+  'sort[0]=shamesCount:desc&sort[1]=lastName:asc&sort[2]=firstName:asc',
 ].join('&');
 
 export async function getDeputies({
