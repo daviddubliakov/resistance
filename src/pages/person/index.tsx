@@ -148,7 +148,7 @@ const PersonPage: FC = () => {
                   <div className={styles.latestInfo}>
                     <p className={styles.latestTitle}>
                       Зашкварів:
-                      {' ' + deputy.shames.length}
+                      {' ' + deputy.shamesCount}
                     </p>
                     <p className={styles.latestDescription}>
                       Перевірте, в яких черкаських зашкварах засвітився депутат і як саме.
@@ -161,7 +161,7 @@ const PersonPage: FC = () => {
                     </Link>
                   </div>
                 </div>
-                {deputy.shames.length ? <PaginatedCards cards={deputy.shames} /> : ''}
+                {deputy.shamesCount ? <PaginatedCards cards={deputy.shames} /> : ''}
               </section>
             </div>
           </section>

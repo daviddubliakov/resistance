@@ -10,6 +10,7 @@ interface PersonCardInfo {
   placeOfEmployment: string;
   photo: Photo;
   shames: ShameCardInfo[];
+  shamesCount: number;
   relatedBusinessess: Title[];
   otherIncomes: Title[];
 }
