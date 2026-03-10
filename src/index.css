@@ -1,48 +1,48 @@
 @font-face {
   font-family: 'e-Ukraine-Bold';
-  src: url('./assets/e-Ukraine/e-Ukraine-Bold.otf') format('opentype');
+  src: url('./assets/e-Ukraine/e-Ukraine-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'e-Ukraine-Medium';
-  src: url('./assets/e-Ukraine/e-Ukraine-Medium.otf') format('opentype');
+  src: url('./assets/e-Ukraine/e-Ukraine-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'e-Ukraine-Regular';
-  src: url('./assets/e-Ukraine/e-Ukraine-Regular.otf') format('opentype');
+  src: url('./assets/e-Ukraine/e-Ukraine-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'e-Ukraine-Light';
-  src: url('./assets/e-Ukraine/e-Ukraine-Light.otf') format('opentype');
+  src: url('./assets/e-Ukraine/e-Ukraine-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'e-Ukraine-Head-Bold';
-  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Bold.otf') format('opentype');
+  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'e-Ukraine-Head-Medium';
-  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Medium.otf') format('opentype');
+  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'e-Ukraine-Head-Regular';
-  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Regular.otf');
+  src: url('./assets/e-Ukraine-Head/e-UkraineHead-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
