@@ -70,7 +70,7 @@ const DetailsPage: FC = () => {
           <section className={styles.latest}>
             <div className={styles.latestHeader}>
               <div className={styles.latestInfo}>
-                <p className={styles.latestTitle}>СПИСОК ОСІБ</p>
+                <p className={styles.latestTitle}>Особи, що взяли участь у зашкварі</p>
                 <p className={styles.latestDescription}>
                   Оновлюваний список осіб, які були залучені до корупції, хабарництва, зловживання
                   владою, некомпетентності та інших неприйнятних дій.
