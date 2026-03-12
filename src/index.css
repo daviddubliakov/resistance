@@ -84,6 +84,9 @@
 }
 
 body.lock-scroll {
+  height: 100%;
   overflow: hidden;
   width: 100%;
+  touch-action: none;
+  scrollbar-gutter: stable;
 }
