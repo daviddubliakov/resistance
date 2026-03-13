@@ -71,10 +71,6 @@ const DetailsPage: FC = () => {
             <div className={styles.latestHeader}>
               <div className={styles.latestInfo}>
                 <p className={styles.latestTitle}>Особи, що взяли участь у зашкварі</p>
-                <p className={styles.latestDescription}>
-                  Оновлюваний список осіб, які були залучені до корупції, хабарництва, зловживання
-                  владою, некомпетентності та інших неприйнятних дій.
-                </p>
               </div>
               <div className={styles.latestButtons}>
                 <Link to={'/rating'} className={styles.latestButton}>

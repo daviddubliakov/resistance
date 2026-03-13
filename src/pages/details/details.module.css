@@ -309,6 +309,7 @@
 
 .latest-header {
   display: flex;
+  justify-content: space-between;
   gap: 25px;
 
   @media (max-width: 1024px) {
@@ -341,25 +342,8 @@
   }
 }
 
-.latest-description {
-  margin: 0;
-  font-family: 'e-Ukraine-Light';
-  font-size: 24px;
-  line-height: 1.5em;
-
-  @media (max-width: 1024px) {
-    text-align: center;
-    line-height: 1.5em;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 16px;
-  }
-}
-
 .latest-buttons {
   display: flex;
-  align-items: end;
 }
 
 .latest-button {
