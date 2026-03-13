@@ -9,7 +9,7 @@ import { useEmblaCarouselWithProgress } from '../../../hooks/useEmblaCarouselWit
 import styles from './rating.module.css';
 import { useMemo } from 'react';
 
-const HOMEPAGE_DEPUTIES_LIMIT = 50;
+const HOMEPAGE_DEPUTIES_LIMIT = 15;
 
 const Rating = () => {
   const { data, isLoading: deputiesLoading } = useQuery({
@@ -22,14 +22,6 @@ const Rating = () => {
     loop: false,
     align: 'start',
   });
-
-  const topDeputies = useMemo(() => {
-    if (!deputies || deputies.length === 0) return [];
-
-    return [...deputies]
-      .sort((a, b) => (b.shames?.length || 0) - (a.shames?.length || 0))
-      .slice(0, 10);
-  }, [deputies]);
 
   return (
     <div className={styles.ratingBg}>
@@ -58,7 +50,7 @@ const Rating = () => {
                       <PersonCardSkeleton />
                     </div>
                   ))
-                : topDeputies.map((deputy, index) => (
+                : deputies.map((deputy, index) => (
                     <div className={styles.emblaSlide} key={deputy.documentId || index}>
                       <PersonCard {...deputy} />
                     </div>
