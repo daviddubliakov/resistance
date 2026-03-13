@@ -1,12 +1,12 @@
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 332px);
+  grid-template-columns: repeat(auto-fill, 332px);
   gap: 30px;
   justify-content: center;
   width: 100%;
 
   @media (max-width: 1046px) {
-    grid-template-columns: repeat(auto-fit, 344px);
+    grid-template-columns: repeat(auto-fill, 344px);
 
     column-gap: 60px;
   }
