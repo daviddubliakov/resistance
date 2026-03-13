@@ -137,6 +137,20 @@
   }
 }
 
+.answer a {
+  color: var(--selected-color);
+  text-decoration: none;
+}
+
+.answer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.answer a:visited {
+  color: var(--gray-text-color);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
